@@ -1252,9 +1252,48 @@ function stillLearning() {
    STARTUP
 ========================= */
 
-populateCourseDropdown();
+document.addEventListener("DOMContentLoaded", function () {
 
-renderStudySets();
+    populateCourseDropdown();
+    renderStudySets();
+
+    const setGrid = document.getElementById("setGrid");
+
+    setGrid.addEventListener("click", function (event) {
+
+        const button = event.target.closest("button");
+
+        if (!button) return;
+
+        const setCard = button.closest(".set-card");
+
+        if (!setCard) return;
+
+        const buttons = setCard.querySelectorAll("button");
+
+        const buttonIndex = Array.from(buttons).indexOf(button);
+
+        const set = studySets[
+            Array.from(setGrid.querySelectorAll(".set-card")).indexOf(setCard)
+        ];
+
+        if (!set) return;
+
+        if (buttonIndex === 0) {
+            startStudy(set.id);
+        }
+
+        if (buttonIndex === 1) {
+            openManageCards(set.id);
+        }
+
+        if (buttonIndex === 2) {
+            deleteStudySet(set.id);
+        }
+
+    });
+
+});
 
 </script>
 
