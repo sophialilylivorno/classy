@@ -93,6 +93,12 @@
       font-size: 15px;
     }
 
+    .page-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .profile {
       width: 45px;
       height: 45px;
@@ -105,15 +111,7 @@
       font-weight: bold;
     }
 
-    /* PAGE HEADER */
-
-    .page-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .create-button {
+    .primary-button {
       border: none;
       background: #c98787;
       color: white;
@@ -124,11 +122,11 @@
       cursor: pointer;
     }
 
-    .create-button:hover {
+    .primary-button:hover {
       background: #b97778;
     }
 
-    /* STUDY SETS */
+    /* SETS GRID */
 
     .sets-grid {
       display: grid;
@@ -142,8 +140,7 @@
       border-radius: 18px;
       padding: 22px;
       box-shadow: 0 4px 15px rgba(80, 60, 40, 0.04);
-      transition: transform 0.15s ease,
-                  box-shadow 0.15s ease;
+      transition: 0.15s ease;
     }
 
     .set-card:hover {
@@ -152,13 +149,13 @@
     }
 
     .set-color {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 17px;
+      margin-bottom: 16px;
       font-size: 20px;
     }
 
@@ -194,10 +191,11 @@
     }
 
     .study-button,
+    .manage-button,
     .delete-set-button {
       border: none;
       border-radius: 9px;
-      padding: 9px 11px;
+      padding: 9px 10px;
       cursor: pointer;
       font-size: 11px;
       font-weight: bold;
@@ -213,6 +211,16 @@
       background: #ead7d3;
     }
 
+    .manage-button {
+      flex: 1;
+      background: #edf0ea;
+      color: #65725f;
+    }
+
+    .manage-button:hover {
+      background: #e1e6dc;
+    }
+
     .delete-set-button {
       background: #f6f1ed;
       color: #9a8e87;
@@ -222,7 +230,7 @@
       background: #eee4df;
     }
 
-    /* EMPTY STATE */
+    /* EMPTY */
 
     .empty-state {
       background: white;
@@ -250,7 +258,7 @@
       margin-bottom: 20px;
     }
 
-    /* MODAL */
+    /* MODALS */
 
     .modal-overlay {
       display: none;
@@ -269,7 +277,9 @@
 
     .modal {
       width: 100%;
-      max-width: 470px;
+      max-width: 540px;
+      max-height: 90vh;
+      overflow-y: auto;
       background: white;
       border: 1px solid #eadfd7;
       border-radius: 20px;
@@ -289,6 +299,12 @@
       color: #3f3935;
     }
 
+    .modal-subtitle {
+      color: #9b908a;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
     .close-modal {
       border: none;
       background: #f5eeeb;
@@ -299,6 +315,8 @@
       cursor: pointer;
       font-size: 16px;
     }
+
+    /* FORMS */
 
     .form-group {
       margin-bottom: 15px;
@@ -314,7 +332,8 @@
     }
 
     .form-group input,
-    .form-group select {
+    .form-group select,
+    .form-group textarea {
       width: 100%;
       padding: 11px 12px;
       border: 1px solid #e5ddd7;
@@ -325,8 +344,14 @@
       outline: none;
     }
 
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
     .form-group input:focus,
-    .form-group select:focus {
+    .form-group select:focus,
+    .form-group textarea:focus {
       border-color: #c98787;
     }
 
@@ -354,6 +379,93 @@
     .cancel-button {
       background: #f1e8e5;
       color: #6f6762;
+    }
+
+    /* CARD MANAGER */
+
+    .card-list {
+      margin-top: 5px;
+    }
+
+    .card-row {
+      background: #faf8f5;
+      border: 1px solid #eee7e2;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .card-row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .card-number {
+      font-size: 10px;
+      color: #a4948d;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .card-question {
+      font-size: 14px;
+      color: #4d4642;
+      font-weight: bold;
+      line-height: 1.45;
+    }
+
+    .card-answer {
+      margin-top: 7px;
+      font-size: 12px;
+      color: #8b8079;
+      line-height: 1.5;
+    }
+
+    .card-row-buttons {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .small-button {
+      border: none;
+      background: white;
+      border: 1px solid #e5ddd7;
+      color: #756b66;
+      padding: 6px 8px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    .small-button:hover {
+      background: #f3e4e1;
+      color: #a66f70;
+    }
+
+    .no-cards {
+      text-align: center;
+      padding: 25px 10px;
+      color: #9b908a;
+      font-size: 12px;
+      background: #faf8f5;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .add-card-area {
+      border-top: 1px solid #eee7e2;
+      margin-top: 20px;
+      padding-top: 20px;
+    }
+
+    .add-card-title {
+      font-size: 15px;
+      color: #4d4642;
+      margin-bottom: 14px;
     }
 
     /* STUDY MODE */
@@ -528,6 +640,10 @@
         align-items: flex-start;
       }
 
+      .welcome h1 {
+        font-size: 26px;
+      }
+
       .flashcard {
         padding: 30px 20px;
         min-height: 330px;
@@ -592,14 +708,21 @@
     <div class="topbar">
 
       <div class="welcome">
-        <h1>Study Sets 🧠</h1>
-        <p>Turn your notes into simple flashcards.</p>
+
+        <h1>
+          Study Sets 🧠
+        </h1>
+
+        <p>
+          Turn your notes into simple flashcards.
+        </p>
+
       </div>
 
       <div class="page-actions">
 
         <button
-          class="create-button"
+          class="primary-button"
           id="createSetButton"
           type="button"
         >
@@ -634,7 +757,17 @@
 
       <div class="modal-header">
 
-        <h2>Create Study Set</h2>
+        <div>
+
+          <h2>
+            Create Study Set
+          </h2>
+
+          <div class="modal-subtitle">
+            Give your study set a name and course.
+          </div>
+
+        </div>
 
         <button
           class="close-modal"
@@ -734,6 +867,205 @@
   </div>
 
 
+  <!-- MANAGE CARDS MODAL -->
+
+  <div
+    class="modal-overlay"
+    id="manageModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2 id="manageTitle">
+            Manage Cards
+          </h2>
+
+          <div
+            class="modal-subtitle"
+            id="manageSubtitle"
+          ></div>
+
+        </div>
+
+        <button
+          class="close-modal"
+          id="closeManageModal"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div
+        class="card-list"
+        id="cardList"
+      ></div>
+
+
+      <div class="add-card-area">
+
+        <h3 class="add-card-title">
+          Add a Flashcard
+        </h3>
+
+
+        <form id="cardForm">
+
+          <div class="form-group">
+
+            <label for="questionInput">
+              Question
+            </label>
+
+            <textarea
+              id="questionInput"
+              placeholder="e.g. What is the power rule?"
+              required
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="answerInput">
+              Answer
+            </label>
+
+            <textarea
+              id="answerInput"
+              placeholder="e.g. d/dx(xⁿ) = n·xⁿ⁻¹"
+              required
+            ></textarea>
+
+          </div>
+
+
+          <div class="modal-actions">
+
+            <button
+              type="button"
+              class="cancel-button"
+              id="closeManageButton"
+            >
+              Done
+            </button>
+
+            <button
+              type="submit"
+              class="save-button"
+              id="saveCardButton"
+            >
+              + Add Card
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- EDIT CARD MODAL -->
+
+  <div
+    class="modal-overlay"
+    id="editCardModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2>
+            Edit Flashcard
+          </h2>
+
+          <div class="modal-subtitle">
+            Update your question or answer.
+          </div>
+
+        </div>
+
+        <button
+          class="close-modal"
+          id="closeEditModal"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="editCardForm">
+
+        <div class="form-group">
+
+          <label for="editQuestion">
+            Question
+          </label>
+
+          <textarea
+            id="editQuestion"
+            required
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="editAnswer">
+            Answer
+          </label>
+
+          <textarea
+            id="editAnswer"
+            required
+          ></textarea>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="cancel-button"
+            id="cancelEdit"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="save-button"
+          >
+            Save Changes
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
   <!-- STUDY MODE -->
 
   <div
@@ -773,6 +1105,7 @@
           </span>
 
         </div>
+
 
         <div class="progress-bar">
 
@@ -839,9 +1172,9 @@
 
   <script>
 
-    /*
-      DEFAULT COURSES
-    */
+    /* =========================
+       COURSE DATABASE
+    ========================= */
 
     const defaultCourses = {
 
@@ -872,9 +1205,9 @@
     };
 
 
-    /*
-      GET COURSES
-    */
+    /* =========================
+       COURSE FUNCTIONS
+    ========================= */
 
     function getCourses() {
 
@@ -882,43 +1215,42 @@
         ...defaultCourses
       };
 
+
       const savedCourses =
         JSON.parse(
           localStorage.getItem("classyCourses")
         ) || [];
 
 
-      savedCourses.forEach(
-        function(course) {
+      savedCourses.forEach(function(course) {
 
-          if (!course.code) {
-            return;
-          }
-
-
-          const code =
-            course.code
-              .replace(/\s+/g, "")
-              .toUpperCase();
-
-
-          courses[code] = {
-
-            name:
-              course.name ||
-              "Untitled Course",
-
-            shortName:
-              course.code,
-
-            color:
-              course.color ||
-              "#d8b7b0"
-
-          };
-
+        if (!course.code) {
+          return;
         }
-      );
+
+
+        const code =
+          course.code
+            .replace(/\s+/g, "")
+            .toUpperCase();
+
+
+        courses[code] = {
+
+          name:
+            course.name ||
+            "Untitled Course",
+
+          shortName:
+            course.code,
+
+          color:
+            course.color ||
+            "#d8b7b0"
+
+        };
+
+      });
 
 
       return courses;
@@ -926,9 +1258,9 @@
     }
 
 
-    /*
-      GET STUDY SETS
-    */
+    /* =========================
+       STUDY SET STORAGE
+    ========================= */
 
     function getStudySets() {
 
@@ -943,10 +1275,6 @@
     }
 
 
-    /*
-      SAVE STUDY SETS
-    */
-
     function saveStudySets(sets) {
 
       localStorage.setItem(
@@ -957,10 +1285,9 @@
     }
 
 
-    /*
-      CREATE DEFAULT EXAMPLE SETS
-      ONLY IF NONE EXIST.
-    */
+    /* =========================
+       EXAMPLE SETS
+    ========================= */
 
     function createExampleSets() {
 
@@ -980,67 +1307,117 @@
           name: "Calculus Basics",
           courseCode: "MATH1131",
           color: "#d8b7b0",
+
           cards: [
+
             {
+              id: Date.now() + 10,
               question: "What is a derivative?",
-              answer: "A derivative represents the rate at which a function changes."
+              answer:
+                "A derivative represents the rate at which a function changes."
             },
+
             {
+              id: Date.now() + 11,
               question: "What does the derivative measure?",
-              answer: "The instantaneous rate of change of a function."
+              answer:
+                "The instantaneous rate of change of a function."
             },
+
             {
+              id: Date.now() + 12,
               question: "What is the power rule?",
-              answer: "d/dx(xⁿ) = n·xⁿ⁻¹."
+              answer:
+                "d/dx(xⁿ) = n·xⁿ⁻¹."
             }
+
           ]
+
         },
+
 
         {
           id: Date.now() + 1,
           name: "Essay Vocabulary",
           courseCode: "ENGLISH2367",
           color: "#b8c5b0",
+
           cards: [
+
             {
+              id: Date.now() + 20,
               question: "What is a thesis?",
-              answer: "A central claim or argument that an essay develops and supports."
+              answer:
+                "A central claim or argument that an essay develops and supports."
             },
+
             {
+              id: Date.now() + 21,
               question: "What is evidence?",
-              answer: "Information used to support a claim or argument."
+              answer:
+                "Information used to support a claim or argument."
             }
+
           ]
+
         },
+
 
         {
           id: Date.now() + 2,
           name: "European History",
           courseCode: "HISTORY1112",
           color: "#c8c0d8",
+
           cards: [
+
             {
+              id: Date.now() + 30,
               question: "What is the Renaissance?",
-              answer: "A cultural movement in Europe associated with renewed interest in classical learning and the arts."
+              answer:
+                "A cultural movement in Europe associated with renewed interest in classical learning and the arts."
             },
+
             {
+              id: Date.now() + 31,
               question: "What is humanism?",
-              answer: "An intellectual movement emphasizing classical learning, human potential, and human-centered study."
+              answer:
+                "An intellectual movement emphasizing classical learning, human potential, and human-centered study."
             }
+
           ]
+
         }
 
       ];
 
 
-      saveStudySets(examples);
+      saveStudySets(
+        examples
+      );
 
     }
 
 
-    /*
-      RENDER SETS
-    */
+    /* =========================
+       ESCAPE HTML
+    ========================= */
+
+    function escapeHtml(value) {
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================
+       RENDER SETS
+    ========================= */
 
     function renderSets() {
 
@@ -1080,7 +1457,7 @@
             </p>
 
             <button
-              class="create-button"
+              class="primary-button"
               type="button"
               onclick="openCreateModal()"
             >
@@ -1096,224 +1473,160 @@
       }
 
 
-      sets.forEach(
-        function(set) {
+      sets.forEach(function(set) {
 
-          const course =
-            courses[
-              set.courseCode
-            ];
+        const course =
+          courses[set.courseCode];
 
 
-          const card =
-            document.createElement(
-              "div"
-            );
-
-          card.className =
-            "set-card";
-
-
-          const color =
-            set.color ||
-            (
-              course
-                ? course.color
-                : "#d8b7b0"
-            );
-
-
-          const courseName =
+        const color =
+          set.color ||
+          (
             course
-              ? course.shortName
-              : (
-                set.courseCode ||
-                "Course"
-              );
-
-
-          card.innerHTML = `
-
-            <div
-              class="set-color"
-              style="background:${color};"
-            >
-              🧠
-            </div>
-
-            <h2>
-              ${escapeHtml(set.name)}
-            </h2>
-
-            <div class="set-course">
-              ${escapeHtml(courseName)}
-            </div>
-
-            <div class="set-info">
-
-              <span>
-                Cards:
-                <strong>
-                  ${(set.cards || []).length}
-                </strong>
-              </span>
-
-              <span>
-                Flashcards
-              </span>
-
-            </div>
-
-            <div class="set-buttons">
-
-              <button
-                type="button"
-                class="study-button"
-              >
-                Study
-              </button>
-
-              <button
-                type="button"
-                class="delete-set-button"
-              >
-                Delete
-              </button>
-
-            </div>
-
-          `;
-
-
-          card
-            .querySelector(
-              ".study-button"
-            )
-            .addEventListener(
-              "click",
-              function() {
-
-                startStudy(
-                  set.id
-                );
-
-              }
-            );
-
-
-          card
-            .querySelector(
-              ".delete-set-button"
-            )
-            .addEventListener(
-              "click",
-              function() {
-
-                deleteSet(
-                  set.id
-                );
-
-              }
-            );
-
-
-          grid.appendChild(
-            card
+              ? course.color
+              : "#d8b7b0"
           );
 
-        }
-      );
 
-    }
+        const courseName =
+          course
+            ? course.shortName
+            : (
+              set.courseCode ||
+              "Course"
+            );
 
 
-    /*
-      ESCAPE TEXT
-    */
+        const card =
+          document.createElement(
+            "div"
+          );
 
-    function escapeHtml(value) {
 
-      return String(value)
-        .replace(
-          /&/g,
-          "&amp;"
-        )
-        .replace(
-          /</g,
-          "&lt;"
-        )
-        .replace(
-          />/g,
-          "&gt;"
-        )
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-        .replace(
-          /'/g,
-          "&#039;"
+        card.className =
+          "set-card";
+
+
+        card.innerHTML = `
+
+          <div
+            class="set-color"
+            style="background:${color};"
+          >
+            🧠
+          </div>
+
+          <h2>
+            ${escapeHtml(set.name)}
+          </h2>
+
+          <div class="set-course">
+            ${escapeHtml(courseName)}
+          </div>
+
+          <div class="set-info">
+
+            <span>
+              Cards:
+              <strong>
+                ${(set.cards || []).length}
+              </strong>
+            </span>
+
+            <span>
+              Flashcards
+            </span>
+
+          </div>
+
+          <div class="set-buttons">
+
+            <button
+              type="button"
+              class="study-button"
+            >
+              Study
+            </button>
+
+            <button
+              type="button"
+              class="manage-button"
+            >
+              Manage Cards
+            </button>
+
+            <button
+              type="button"
+              class="delete-set-button"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        `;
+
+
+        card
+          .querySelector(
+            ".study-button"
+          )
+          .addEventListener(
+            "click",
+            function() {
+
+              startStudy(
+                set.id
+              );
+
+            }
+          );
+
+
+        card
+          .querySelector(
+            ".manage-button"
+          )
+          .addEventListener(
+            "click",
+            function() {
+
+              openManageCards(
+                set.id
+              );
+
+            }
+          );
+
+
+        card
+          .querySelector(
+            ".delete-set-button"
+          )
+          .addEventListener(
+            "click",
+            function() {
+
+              deleteSet(
+                set.id
+              );
+
+            }
+          );
+
+
+        grid.appendChild(
+          card
         );
 
-    }
-
-
-    /*
-      OPEN CREATE MODAL
-    */
-
-    function openCreateModal() {
-
-      const modal =
-        document.getElementById(
-          "createModal"
-        );
-
-
-      populateCourseOptions();
-
-
-      document
-        .getElementById(
-          "studySetForm"
-        )
-        .reset();
-
-
-      modal.classList.add(
-        "show"
-      );
-
-
-      document
-        .getElementById(
-          "setName"
-        )
-        .focus();
+      });
 
     }
 
 
-    /*
-      CLOSE CREATE MODAL
-    */
-
-    function closeCreateModal() {
-
-      document
-        .getElementById(
-          "createModal"
-        )
-        .classList.remove(
-          "show"
-        );
-
-    }
-
-
-    /*
-      POPULATE COURSE SELECTOR
-    */
+    /* =========================
+       CREATE SET
+    ========================= */
 
     function populateCourseOptions() {
 
@@ -1330,37 +1643,75 @@
       select.innerHTML = "";
 
 
-      Object.keys(courses)
-        .forEach(
-          function(code) {
+      Object.keys(courses).forEach(
+        function(code) {
 
-            const option =
-              document.createElement(
-                "option"
-              );
-
-
-            option.value =
-              code;
-
-
-            option.textContent =
-              courses[code].shortName;
-
-
-            select.appendChild(
-              option
+          const option =
+            document.createElement(
+              "option"
             );
 
-          }
-        );
+
+          option.value =
+            code;
+
+
+          option.textContent =
+            courses[code].shortName;
+
+
+          select.appendChild(
+            option
+          );
+
+        }
+      );
 
     }
 
 
-    /*
-      CREATE STUDY SET
-    */
+    function openCreateModal() {
+
+      populateCourseOptions();
+
+
+      document
+        .getElementById(
+          "studySetForm"
+        )
+        .reset();
+
+
+      document
+        .getElementById(
+          "createModal"
+        )
+        .classList.add(
+          "show"
+        );
+
+
+      document
+        .getElementById(
+          "setName"
+        )
+        .focus();
+
+    }
+
+
+    function closeCreateModal() {
+
+      document
+        .getElementById(
+          "createModal"
+        )
+        .classList.remove(
+          "show"
+        );
+
+    }
+
 
     document
       .getElementById(
@@ -1421,7 +1772,8 @@
             color:
               color,
 
-            cards: []
+            cards:
+              []
 
           });
 
@@ -1439,9 +1791,9 @@
       );
 
 
-    /*
-      DELETE SET
-    */
+    /* =========================
+       DELETE SET
+    ========================= */
 
     function deleteSet(id) {
 
@@ -1450,13 +1802,11 @@
 
 
       const set =
-        sets.find(
-          function(item) {
+        sets.find(function(item) {
 
-            return item.id === id;
+          return item.id === id;
 
-          }
-        );
+        });
 
 
       if (!set) {
@@ -1468,7 +1818,7 @@
         confirm(
           'Delete "' +
           set.name +
-          '"?'
+          '"? This will delete all of its flashcards.'
         );
 
 
@@ -1478,13 +1828,11 @@
 
 
       const updated =
-        sets.filter(
-          function(item) {
+        sets.filter(function(item) {
 
-            return item.id !== id;
+          return item.id !== id;
 
-          }
-        );
+        });
 
 
       saveStudySets(
@@ -1497,20 +1845,592 @@
     }
 
 
-    /*
-      STUDY MODE VARIABLES
-    */
+    /* =========================
+       MANAGE CARDS
+    ========================= */
 
-    let activeSet = null;
+    let activeSetId = null;
+
+    let editingCardId = null;
+
+
+    function openManageCards(setId) {
+
+      activeSetId =
+        setId;
+
+
+      const sets =
+        getStudySets();
+
+
+      const set =
+        sets.find(function(item) {
+
+          return item.id === setId;
+
+        });
+
+
+      if (!set) {
+        return;
+      }
+
+
+      document
+        .getElementById(
+          "manageTitle"
+        )
+        .textContent =
+        set.name;
+
+
+      document
+        .getElementById(
+          "manageSubtitle"
+        )
+        .textContent =
+        "Add, edit, or delete your flashcards.";
+
+
+      document
+        .getElementById(
+          "manageModal"
+        )
+        .classList.add(
+          "show"
+        );
+
+
+      renderCardList();
+
+
+      document
+        .getElementById(
+          "questionInput"
+        )
+        .focus();
+
+    }
+
+
+    function closeManageCards() {
+
+      document
+        .getElementById(
+          "manageModal"
+        )
+        .classList.remove(
+          "show"
+        );
+
+
+      activeSetId =
+        null;
+
+
+      renderSets();
+
+    }
+
+
+    function renderCardList() {
+
+      const list =
+        document.getElementById(
+          "cardList"
+        );
+
+
+      list.innerHTML = "";
+
+
+      if (activeSetId === null) {
+        return;
+      }
+
+
+      const sets =
+        getStudySets();
+
+
+      const set =
+        sets.find(function(item) {
+
+          return item.id === activeSetId;
+
+        });
+
+
+      if (!set) {
+        return;
+      }
+
+
+      const cards =
+        set.cards || [];
+
+
+      if (cards.length === 0) {
+
+        list.innerHTML = `
+
+          <div class="no-cards">
+
+            You don't have any flashcards yet.<br>
+            Add your first question and answer below.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      cards.forEach(
+        function(card, index) {
+
+          const row =
+            document.createElement(
+              "div"
+            );
+
+
+          row.className =
+            "card-row";
+
+
+          row.innerHTML = `
+
+            <div class="card-row-top">
+
+              <div>
+
+                <div class="card-number">
+                  Card ${index + 1}
+                </div>
+
+                <div class="card-question">
+                  ${escapeHtml(card.question)}
+                </div>
+
+                <div class="card-answer">
+                  ${escapeHtml(card.answer)}
+                </div>
+
+              </div>
+
+              <div class="card-row-buttons">
+
+                <button
+                  type="button"
+                  class="small-button edit-card"
+                >
+                  Edit
+                </button>
+
+                <button
+                  type="button"
+                  class="small-button delete-card"
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+
+          row
+            .querySelector(
+              ".edit-card"
+            )
+            .addEventListener(
+              "click",
+              function() {
+
+                openEditCard(
+                  card.id
+                );
+
+              }
+            );
+
+
+          row
+            .querySelector(
+              ".delete-card"
+            )
+            .addEventListener(
+              "click",
+              function() {
+
+                deleteCard(
+                  card.id
+                );
+
+              }
+            );
+
+
+          list.appendChild(
+            row
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       ADD CARD
+    ========================= */
+
+    document
+      .getElementById(
+        "cardForm"
+      )
+      .addEventListener(
+        "submit",
+        function(event) {
+
+          event.preventDefault();
+
+
+          if (activeSetId === null) {
+            return;
+          }
+
+
+          const question =
+            document
+              .getElementById(
+                "questionInput"
+              )
+              .value
+              .trim();
+
+
+          const answer =
+            document
+              .getElementById(
+                "answerInput"
+              )
+              .value
+              .trim();
+
+
+          if (!question || !answer) {
+            return;
+          }
+
+
+          const sets =
+            getStudySets();
+
+
+          const set =
+            sets.find(function(item) {
+
+              return item.id === activeSetId;
+
+            });
+
+
+          if (!set) {
+            return;
+          }
+
+
+          if (!set.cards) {
+            set.cards = [];
+          }
+
+
+          set.cards.push({
+
+            id:
+              Date.now(),
+
+            question:
+              question,
+
+            answer:
+              answer
+
+          });
+
+
+          saveStudySets(
+            sets
+          );
+
+
+          document
+            .getElementById(
+              "cardForm"
+            )
+            .reset();
+
+
+          renderCardList();
+
+        }
+      );
+
+
+    /* =========================
+       DELETE CARD
+    ========================= */
+
+    function deleteCard(cardId) {
+
+      if (activeSetId === null) {
+        return;
+      }
+
+
+      const confirmed =
+        confirm(
+          "Delete this flashcard?"
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      const sets =
+        getStudySets();
+
+
+      const set =
+        sets.find(function(item) {
+
+          return item.id === activeSetId;
+
+        });
+
+
+      if (!set) {
+        return;
+      }
+
+
+      set.cards =
+        (set.cards || [])
+          .filter(function(card) {
+
+            return card.id !== cardId;
+
+          });
+
+
+      saveStudySets(
+        sets
+      );
+
+
+      renderCardList();
+
+    }
+
+
+    /* =========================
+       EDIT CARD
+    ========================= */
+
+    function openEditCard(cardId) {
+
+      editingCardId =
+        cardId;
+
+
+      const sets =
+        getStudySets();
+
+
+      const set =
+        sets.find(function(item) {
+
+          return item.id === activeSetId;
+
+        });
+
+
+      if (!set) {
+        return;
+      }
+
+
+      const card =
+        (set.cards || [])
+          .find(function(item) {
+
+            return item.id === cardId;
+
+          });
+
+
+      if (!card) {
+        return;
+      }
+
+
+      document
+        .getElementById(
+          "editQuestion"
+        )
+        .value =
+        card.question;
+
+
+      document
+        .getElementById(
+          "editAnswer"
+        )
+        .value =
+        card.answer;
+
+
+      document
+        .getElementById(
+          "editCardModal"
+        )
+        .classList.add(
+          "show"
+        );
+
+    }
+
+
+    function closeEditCard() {
+
+      document
+        .getElementById(
+          "editCardModal"
+        )
+        .classList.remove(
+          "show"
+        );
+
+
+      editingCardId =
+        null;
+
+    }
+
+
+    document
+      .getElementById(
+        "editCardForm"
+      )
+      .addEventListener(
+        "submit",
+        function(event) {
+
+          event.preventDefault();
+
+
+          if (
+            activeSetId === null ||
+            editingCardId === null
+          ) {
+            return;
+          }
+
+
+          const question =
+            document
+              .getElementById(
+                "editQuestion"
+              )
+              .value
+              .trim();
+
+
+          const answer =
+            document
+              .getElementById(
+                "editAnswer"
+              )
+              .value
+              .trim();
+
+
+          if (!question || !answer) {
+            return;
+          }
+
+
+          const sets =
+            getStudySets();
+
+
+          const set =
+            sets.find(function(item) {
+
+              return item.id === activeSetId;
+
+            });
+
+
+          if (!set) {
+            return;
+          }
+
+
+          const card =
+            (set.cards || [])
+              .find(function(item) {
+
+                return item.id === editingCardId;
+
+              });
+
+
+          if (!card) {
+            return;
+          }
+
+
+          card.question =
+            question;
+
+
+          card.answer =
+            answer;
+
+
+          saveStudySets(
+            sets
+          );
+
+
+          closeEditCard();
+
+          renderCardList();
+
+        }
+      );
+
+
+    /* =========================
+       STUDY MODE
+    ========================= */
+
+    let activeStudySet = null;
 
     let currentCardIndex = 0;
 
     let correctCount = 0;
 
-
-    /*
-      START STUDY MODE
-    */
 
     function startStudy(id) {
 
@@ -1518,28 +2438,26 @@
         getStudySets();
 
 
-      activeSet =
-        sets.find(
-          function(set) {
+      activeStudySet =
+        sets.find(function(set) {
 
-            return set.id === id;
+          return set.id === id;
 
-          }
-        );
+        });
 
 
-      if (!activeSet) {
+      if (!activeStudySet) {
         return;
       }
 
 
       if (
-        !activeSet.cards ||
-        activeSet.cards.length === 0
+        !activeStudySet.cards ||
+        activeStudySet.cards.length === 0
       ) {
 
         alert(
-          "This study set doesn't have any flashcards yet."
+          "This study set doesn't have any flashcards yet. Click Manage Cards to add some first."
         );
 
         return;
@@ -1547,9 +2465,12 @@
       }
 
 
-      currentCardIndex = 0;
+      currentCardIndex =
+        0;
 
-      correctCount = 0;
+
+      correctCount =
+        0;
 
 
       document
@@ -1566,7 +2487,7 @@
           "studyTitle"
         )
         .textContent =
-        activeSet.name;
+        activeStudySet.name;
 
 
       renderFlashcard();
@@ -1574,19 +2495,15 @@
     }
 
 
-    /*
-      RENDER FLASHCARD
-    */
-
     function renderFlashcard() {
 
-      if (!activeSet) {
+      if (!activeStudySet) {
         return;
       }
 
 
       const cards =
-        activeSet.cards;
+        activeStudySet.cards;
 
 
       const card =
@@ -1660,40 +2577,16 @@
     }
 
 
-    /*
-      REVEAL ANSWER
-    */
-
-    document
-      .getElementById(
-        "flashcard"
-      )
-      .addEventListener(
-        "click",
-        function() {
-
-          this.classList.toggle(
-            "show-answer"
-          );
-
-        }
-      );
-
-
-    /*
-      NEXT CARD
-    */
-
     function nextCard() {
 
-      if (!activeSet) {
+      if (!activeStudySet) {
         return;
       }
 
 
       if (
         currentCardIndex >=
-        activeSet.cards.length - 1
+        activeStudySet.cards.length - 1
       ) {
 
         document
@@ -1711,6 +2604,7 @@
               "Great job! You finished the study set. 🌸"
             );
 
+
             exitStudy();
 
           },
@@ -1725,14 +2619,27 @@
 
       currentCardIndex++;
 
+
       renderFlashcard();
 
     }
 
 
-    /*
-      CORRECT
-    */
+    document
+      .getElementById(
+        "flashcard"
+      )
+      .addEventListener(
+        "click",
+        function() {
+
+          this.classList.toggle(
+            "show-answer"
+          );
+
+        }
+      );
+
 
     document
       .getElementById(
@@ -1750,10 +2657,6 @@
       );
 
 
-    /*
-      STILL LEARNING
-    */
-
     document
       .getElementById(
         "wrongButton"
@@ -1768,10 +2671,6 @@
       );
 
 
-    /*
-      EXIT STUDY MODE
-    */
-
     function exitStudy() {
 
       document
@@ -1783,24 +2682,15 @@
         );
 
 
-      activeSet = null;
+      activeStudySet =
+        null;
 
     }
 
 
-    document
-      .getElementById(
-        "exitStudy"
-      )
-      .addEventListener(
-        "click",
-        exitStudy
-      );
-
-
-    /*
-      MODAL BUTTONS
-    */
+    /* =========================
+       BUTTONS
+    ========================= */
 
     document
       .getElementById(
@@ -1834,6 +2724,61 @@
 
     document
       .getElementById(
+        "closeManageModal"
+      )
+      .addEventListener(
+        "click",
+        closeManageCards
+      );
+
+
+    document
+      .getElementById(
+        "closeManageButton"
+      )
+      .addEventListener(
+        "click",
+        closeManageCards
+      );
+
+
+    document
+      .getElementById(
+        "closeEditModal"
+      )
+      .addEventListener(
+        "click",
+        closeEditCard
+      );
+
+
+    document
+      .getElementById(
+        "cancelEdit"
+      )
+      .addEventListener(
+        "click",
+        closeEditCard
+      );
+
+
+    document
+      .getElementById(
+        "exitStudy"
+      )
+      .addEventListener(
+        "click",
+        exitStudy
+      );
+
+
+    /* =========================
+       CLOSE MODALS BY CLICKING
+       OUTSIDE THEM
+    ========================= */
+
+    document
+      .getElementById(
         "createModal"
       )
       .addEventListener(
@@ -1852,10 +2797,49 @@
       );
 
 
-    /*
-      REFRESH IF ANOTHER CLASSY PAGE
-      CHANGES LOCAL STORAGE.
-    */
+    document
+      .getElementById(
+        "manageModal"
+      )
+      .addEventListener(
+        "click",
+        function(event) {
+
+          if (
+            event.target === this
+          ) {
+
+            closeManageCards();
+
+          }
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "editCardModal"
+      )
+      .addEventListener(
+        "click",
+        function(event) {
+
+          if (
+            event.target === this
+          ) {
+
+            closeEditCard();
+
+          }
+
+        }
+      );
+
+
+    /* =========================
+       STORAGE SYNC
+    ========================= */
 
     window.addEventListener(
       "storage",
@@ -1867,9 +2851,9 @@
     );
 
 
-    /*
-      INITIALIZE
-    */
+    /* =========================
+       INITIALIZE
+    ========================= */
 
     createExampleSets();
 
