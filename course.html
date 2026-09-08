@@ -218,168 +218,170 @@
         .add-button:hover {
             background: #cda49d;
         }
-.assignment-form {
-    display: none;
-    margin-top: 18px;
-    padding: 18px;
-    background: #fdf8f6;
-    border-radius: 14px;
-}
 
-.assignment-form.show {
-    display: block;
-}
+        .assignment-form {
+            display: none;
+            margin-top: 18px;
+            padding: 18px;
+            background: #fdf8f6;
+            border-radius: 14px;
+        }
 
-.form-group {
-    margin-bottom: 14px;
-}
+        .assignment-form.show {
+            display: block;
+        }
 
-.form-group label {
-    display: block;
-    font-size: 12px;
-    font-weight: bold;
-    color: #6f6762;
-    margin-bottom: 6px;
-}
+        .form-group {
+            margin-bottom: 14px;
+        }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 10px 11px;
-    border: 1px solid #e5d7d2;
-    border-radius: 9px;
-    background: white;
-    font-family: Arial, sans-serif;
-    font-size: 13px;
-}
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #6f6762;
+            margin-bottom: 6px;
+        }
 
-.form-group textarea {
-    min-height: 70px;
-    resize: vertical;
-}
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 11px;
+            border: 1px solid #e5d7d2;
+            border-radius: 9px;
+            background: white;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+        }
 
-.assignment-actions {
-    display: flex;
-    gap: 9px;
-    margin-top: 15px;
-}
+        .form-group textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
 
-.save-assignment,
-.cancel-assignment {
-    border: none;
-    border-radius: 9px;
-    padding: 10px 15px;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        .assignment-actions {
+            display: flex;
+            gap: 9px;
+            margin-top: 15px;
+        }
 
-.save-assignment {
-    background: #d8b7b0;
-    color: white;
-}
+        .save-assignment,
+        .cancel-assignment {
+            border: none;
+            border-radius: 9px;
+            padding: 10px 15px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.cancel-assignment {
-    background: #eee4e0;
-    color: #6f6762;
-}
+        .save-assignment {
+            background: #d8b7b0;
+            color: white;
+        }
 
-.assignment-list {
-    margin-top: 18px;
-}
+        .cancel-assignment {
+            background: #eee4e0;
+            color: #6f6762;
+        }
 
-.assignment-item {
-    background: #fdf8f6;
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 10px;
-}
+        .assignment-list {
+            margin-top: 18px;
+        }
 
-.assignment-item h3 {
-    font-size: 14px;
-    color: #4d4642;
-    margin-bottom: 7px;
-}
+        .assignment-item {
+            background: #fdf8f6;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+        }
 
-.assignment-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    font-size: 11px;
-    color: #8d8380;
-}
+        .assignment-item h3 {
+            font-size: 14px;
+            color: #4d4642;
+            margin-bottom: 7px;
+        }
 
-.assignment-tag {
-    background: #eadfdc;
-    padding: 4px 7px;
-    border-radius: 6px;
-}
+        .assignment-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            font-size: 11px;
+            color: #8d8380;
+        }
 
-.assignment-priority {
-    font-weight: bold;
-}
+        .assignment-tag {
+            background: #eadfdc;
+            padding: 4px 7px;
+            border-radius: 6px;
+        }
 
-.high {
-    color: #b87878;
-}
+        .assignment-priority {
+            font-weight: bold;
+        }
 
-.medium {
-    color: #b18c62;
-}
+        .high {
+            color: #b87878;
+        }
 
-.low {
-    color: #769477;
-}
+        .medium {
+            color: #b18c62;
+        }
 
-.assignment-description {
-    margin-top: 8px;
-    font-size: 12px;
-    color: #948884;
-    line-height: 1.5;
-}
+        .low {
+            color: #769477;
+        }
 
-.assignment-item.completed {
-    opacity: 0.65;
-}
+        .assignment-description {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #948884;
+            line-height: 1.5;
+        }
 
-.assignment-item.completed h3 {
-    text-decoration: line-through;
-}
+        .assignment-item.completed {
+            opacity: 0.65;
+        }
 
-.assignment-controls {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-}
+        .assignment-item.completed h3 {
+            text-decoration: line-through;
+        }
 
-.complete-button,
-.delete-button {
-    border: none;
-    border-radius: 8px;
-    padding: 7px 10px;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        .assignment-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
 
-.complete-button {
-    background: #dce8d9;
-    color: #668061;
-}
+        .complete-button,
+        .delete-button {
+            border: none;
+            border-radius: 8px;
+            padding: 7px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.delete-button {
-    background: #f1dddd;
-    color: #a56f6f;
-}
+        .complete-button {
+            background: #dce8d9;
+            color: #668061;
+        }
 
-.complete-button:hover {
-    background: #cfdcca;
-}
+        .delete-button {
+            background: #f1dddd;
+            color: #a56f6f;
+        }
 
-.delete-button:hover {
-    background: #ead0d0;
-}
+        .complete-button:hover {
+            background: #cfdcca;
+        }
+
+        .delete-button:hover {
+            background: #ead0d0;
+        }
+
         @media (max-width: 800px) {
 
             .sidebar {
@@ -486,8 +488,8 @@
             </div>
 
             <div class="stat-value" id="courseProgress">
-    0%
-</div>
+                0%
+            </div>
 
         </div>
 
@@ -526,141 +528,141 @@
 
         <section class="section">
 
-    <h2>📋 Assignments</h2>
+            <h2>📋 Assignments</h2>
 
-    <p>
-        Keep track of homework, projects, exams, and other
-        course deadlines.
-    </p>
+            <p>
+                Keep track of homework, projects, exams, and other
+                course deadlines.
+            </p>
 
-    <div class="assignment-list" id="assignmentList">
-        <div class="empty" id="noAssignments">
-            No assignments added yet.
-        </div>
-    </div>
+            <div class="assignment-list" id="assignmentList">
+                <div class="empty" id="noAssignments">
+                    No assignments added yet.
+                </div>
+            </div>
 
-    <button class="add-button" id="addAssignmentButton">
-        + Add Assignment
-    </button>
-
-    <div class="assignment-form" id="assignmentForm">
-
-        <div class="form-group">
-            <label for="assignmentName">
-                Assignment Name
-            </label>
-
-            <input
-                type="text"
-                id="assignmentName"
-                placeholder="e.g. Chapter 3 Homework"
-            >
-        </div>
-
-
-        <div class="form-group">
-            <label for="assignmentDate">
-                Due Date
-            </label>
-
-            <input
-                type="date"
-                id="assignmentDate"
-            >
-        </div>
-
-
-        <div class="form-group">
-            <label for="assignmentType">
-                Type
-            </label>
-
-            <select id="assignmentType">
-
-                <option value="Homework">
-                    Homework
-                </option>
-
-                <option value="Quiz">
-                    Quiz
-                </option>
-
-                <option value="Exam">
-                    Exam
-                </option>
-
-                <option value="Project">
-                    Project
-                </option>
-
-                <option value="Paper">
-                    Paper
-                </option>
-
-                <option value="Other">
-                    Other
-                </option>
-
-            </select>
-        </div>
-
-
-        <div class="form-group">
-            <label for="assignmentPriority">
-                Priority
-            </label>
-
-            <select id="assignmentPriority">
-
-                <option value="Low">
-                    Low
-                </option>
-
-                <option value="Medium" selected>
-                    Medium
-                </option>
-
-                <option value="High">
-                    High
-                </option>
-
-            </select>
-        </div>
-
-
-        <div class="form-group">
-            <label for="assignmentDescription">
-                Description
-            </label>
-
-            <textarea
-                id="assignmentDescription"
-                placeholder="Add any notes about this assignment..."
-            ></textarea>
-        </div>
-
-
-        <div class="assignment-actions">
-
-            <button
-                class="save-assignment"
-                id="saveAssignment"
-            >
-                Add Assignment
+            <button class="add-button" id="addAssignmentButton">
+                + Add Assignment
             </button>
 
-            <button
-                class="cancel-assignment"
-                id="cancelAssignment"
-            >
-                Cancel
-            </button>
+            <div class="assignment-form" id="assignmentForm">
 
-        </div>
+                <div class="form-group">
+                    <label for="assignmentName">
+                        Assignment Name
+                    </label>
 
-    </div>
+                    <input
+                        type="text"
+                        id="assignmentName"
+                        placeholder="e.g. Chapter 3 Homework"
+                    >
+                </div>
 
-</section>
+
+                <div class="form-group">
+                    <label for="assignmentDate">
+                        Due Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="assignmentDate"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="assignmentType">
+                        Type
+                    </label>
+
+                    <select id="assignmentType">
+
+                        <option value="Homework">
+                            Homework
+                        </option>
+
+                        <option value="Quiz">
+                            Quiz
+                        </option>
+
+                        <option value="Exam">
+                            Exam
+                        </option>
+
+                        <option value="Project">
+                            Project
+                        </option>
+
+                        <option value="Paper">
+                            Paper
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="assignmentPriority">
+                        Priority
+                    </label>
+
+                    <select id="assignmentPriority">
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                        <option value="Medium" selected>
+                            Medium
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="assignmentDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="assignmentDescription"
+                        placeholder="Add any notes about this assignment..."
+                    ></textarea>
+                </div>
+
+
+                <div class="assignment-actions">
+
+                    <button
+                        class="save-assignment"
+                        id="saveAssignment"
+                    >
+                        Add Assignment
+                    </button>
+
+                    <button
+                        class="cancel-assignment"
+                        id="cancelAssignment"
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
 
 
         <section class="section">
@@ -848,7 +850,8 @@
             "We couldn't find this course.";
 
     }
-    
+
+
 /* =========================
    ASSIGNMENTS
 ========================= */
@@ -950,8 +953,8 @@ saveAssignment.addEventListener("click", function() {
 
         priority: priority,
 
-        description: description
-            
+        description: description,
+
         completed: false
 
     };
@@ -1225,7 +1228,9 @@ function displayAssignments() {
     updateCourseProgress();
 
 }
-    function updateCourseProgress() {
+
+
+function updateCourseProgress() {
 
     const progressElement =
         document.getElementById("courseProgress");
@@ -1266,9 +1271,11 @@ function displayAssignments() {
 
 }
 
+
 /* Load assignments when page opens */
 
 displayAssignments();
+
 </script>
 
 </body>
