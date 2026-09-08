@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planner | Classy</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f8f5f0;
+      color: #4d4642;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 230px;
+      background: #ffffff;
+      border-right: 1px solid #e7e1da;
+      padding: 28px 18px;
+      min-height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #c98787;
+      margin-bottom: 8px;
+      padding-left: 12px;
+    }
+
+    .tagline {
+      font-size: 12px;
+      color: #999999;
+      padding-left: 12px;
+      margin-bottom: 35px;
+    }
+
+    .nav-item {
+      display: block;
+      padding: 13px 14px;
+      margin-bottom: 7px;
+      border-radius: 12px;
+      color: #555555;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: #f3e4e1;
+      color: #b56f70;
+    }
+
+    .settings {
+      margin-top: 35px;
+    }
+
+    /* MAIN */
+    .main {
+      margin-left: 230px;
+      width: calc(100% - 230px);
+      padding: 40px;
+      max-width: 1450px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .welcome h1 {
+      font-size: 32px;
+      margin-bottom: 7px;
+    }
+
+    .welcome p {
+      color: #888888;
+      font-size: 15px;
+    }
+
+    .profile {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #dfb5ad;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* PLANNER */
+    .planner-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.75fr);
+      gap: 25px;
+      align-items: start;
+    }
+
+    .calendar-section,
+    .upcoming-section {
+      background: white;
+      border: 1px solid #ebe4dd;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(80, 60, 40, 0.04);
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 22px;
+    }
+
+    .month-title {
+      font-size: 22px;
+      color: #333333;
+    }
+
+    .calendar-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .calendar-button {
+      border: 1px solid #eadfd7;
+      background: #faf8f5;
+      color: #756b66;
+      border-radius: 10px;
+      padding: 9px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .calendar-button:hover {
+      background: #f3e4e1;
+      color: #b56f70;
+    }
+
+    .today-button {
+      background: #f0ddd7;
+      color: #9f696a;
+      border-color: #f0ddd7;
+    }
+
+    .calendar-weekdays,
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+
+    .weekday {
+      text-align: center;
+      font-size: 11px;
+      font-weight: bold;
+      color: #9a8d86;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .day {
+      min-height: 112px;
+      border-top: 1px solid #f0ebe6;
+      border-right: 1px solid #f0ebe6;
+      padding: 8px;
+      position: relative;
+    }
+
+    .day:nth-child(7n) {
+      border-right: none;
+    }
+
+    .day.other-month {
+      background: #fcfaf8;
+    }
+
+    .day-number {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 12px;
+      color: #756b66;
+      margin-bottom: 4px;
+    }
+
+    .day.other-month .day-number {
+      color: #c5bcb7;
+    }
+
+    .day.today .day-number {
+      background: #c98787;
+      color: white;
+      font-weight: bold;
+    }
+
+    .assignment-chip {
+      display: block;
+      width: 100%;
+      border: none;
+      border-left: 4px solid #c98787;
+      background: #f8f1ee;
+      border-radius: 7px;
+      padding: 5px 6px;
+      margin-top: 4px;
+      text-align: left;
+      font-size: 10px;
+      line-height: 1.25;
+      color: #5e5550;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .assignment-chip:hover {
+      transform: translateY(-1px);
+      filter: brightness(0.97);
+    }
+
+    .assignment-chip.completed {
+      opacity: 0.55;
+      text-decoration: line-through;
+    }
+
+    .assignment-chip.overdue {
+      font-weight: bold;
+    }
+
+    .more-label {
+      margin-top: 5px;
+      color: #a0958f;
+      font-size: 10px;
+    }
+
+    /* LEGEND */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px 15px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid #f0ebe6;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #888888;
+    }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    /* UPCOMING */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      font-size: 20px;
+      color: #333333;
+    }
+
+    .upcoming-count {
+      font-size: 12px;
+      color: #a8958d;
+      background: #f7eee9;
+      padding: 6px 9px;
+      border-radius: 20px;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 5px;
+      flex-wrap: wrap;
+    }
+
+    .filter-button {
+      border: 1px solid #eadfd7;
+      background: #faf8f5;
+      color: #8b807a;
+      padding: 7px 9px;
+      border-radius: 9px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .filter-button.active {
+      background: #f3e4e1;
+      color: #a66f70;
+      border-color: #f3e4e1;
+      font-weight: bold;
+    }
+
+    .assignment-list {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .upcoming-item {
+      padding: 14px 0;
+      border-bottom: 1px solid #f0ebe6;
+      cursor: pointer;
+    }
+
+    .upcoming-item:last-child {
+      border-bottom: none;
+    }
+
+    .upcoming-item:hover {
+      background: #fdfaf8;
+    }
+
+    .upcoming-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+    }
+
+    .course-dot {
+      width: 10px;
+      height: 10px;
+      min-width: 10px;
+      border-radius: 50%;
+      margin-top: 4px;
+    }
+
+    .upcoming-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .upcoming-info h3 {
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #4d4642;
+    }
+
+    .upcoming-info p {
+      font-size: 12px;
+      color: #999999;
+    }
+
+    .upcoming-date {
+      font-size: 11px;
+      font-weight: bold;
+      color: #b56f70;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .upcoming-item.completed {
+      opacity: 0.62;
+    }
+
+    .upcoming-item.completed h3 {
+      text-decoration: line-through;
+      color: #aaa3a0;
+    }
+
+    .upcoming-item.overdue:not(.completed) .upcoming-date {
+      color: #a85f60;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 35px 15px;
+      color: #999999;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(60, 50, 45, 0.35);
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 470px;
+      background: white;
+      border: 1px solid #eadfd7;
+      border-radius: 20px;
+      padding: 27px;
+      box-shadow: 0 12px 40px rgba(70, 55, 45, 0.16);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+      font-size: 21px;
+      color: #3f3935;
+    }
+
+    .close-modal {
+      border: none;
+      background: #f5eeeb;
+      color: #786e68;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .detail-row {
+      margin-bottom: 14px;
+    }
+
+    .detail-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #a0958f;
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      color: #514945;
+      line-height: 1.5;
+    }
+
+    .priority-badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 15px;
+      background: #f3e4e1;
+      color: #a66f70;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 9px;
+      margin-top: 22px;
+    }
+
+    .modal-actions button {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 15px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .complete-button {
+      background: #d8b7b0;
+      color: white;
+    }
+
+    .close-button {
+      background: #f1e8e5;
+      color: #6f6762;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1050px) {
+      .planner-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .assignment-list {
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 180px;
+      }
+
+      .main {
+        margin-left: 180px;
+        width: calc(100% - 180px);
+        padding: 25px;
+      }
+
+      .day {
+        min-height: 95px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .sidebar {
+        display: none;
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .calendar-section,
+      .upcoming-section {
+        padding: 17px;
+      }
+
+      .calendar-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .calendar-controls {
+        width: 100%;
+      }
+
+      .calendar-button {
+        flex: 1;
+      }
+
+      .day {
+        min-height: 80px;
+        padding: 5px;
+      }
+
+      .day-number {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+      }
+
+      .assignment-chip {
+        font-size: 8px;
+        padding: 4px;
+      }
+
+      .welcome h1 {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="logo">Classy</div>
+
+    <div class="tagline">
+      Your college life, organized.
+    </div>
+
+    <a href="index.html" class="nav-item">
+      🏠 Dashboard
+    </a>
+
+    <a href="courses.html" class="nav-item">
+      📚 Courses
+    </a>
+
+    <a href="planner.html" class="nav-item active">
+      🗓️ Planner
+    </a>
+
+    <a href="study-sets.html" class="nav-item">
+      🧠 Study Sets
+    </a>
+
+    <a href="notes.html" class="nav-item">
+      📝 Notes
+    </a>
+
+    <a href="ai-assistant.html" class="nav-item">
+      ✨ AI Assistant
+    </a>
+
+    <a href="settings.html" class="nav-item settings">
+      ⚙️ Settings
+    </a>
+
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="topbar">
+
+      <div class="welcome">
+        <h1>Planner 🗓️</h1>
+        <p>Keep track of everything coming up.</p>
+      </div>
+
+      <div class="profile">
+        SF
+      </div>
+
+    </div>
+
+
+    <div class="planner-grid">
+
+      <!-- CALENDAR -->
+      <section class="calendar-section">
+
+        <div class="calendar-header">
+
+          <h2 class="month-title" id="monthTitle">
+            Month
+          </h2>
+
+          <div class="calendar-controls">
+
+            <button
+              class="calendar-button"
+              id="prevMonth"
+              type="button"
+            >
+              ←
+            </button>
+
+            <button
+              class="calendar-button today-button"
+              id="todayButton"
+              type="button"
+            >
+              Today
+            </button>
+
+            <button
+              class="calendar-button"
+              id="nextMonth"
+              type="button"
+            >
+              →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="calendar-weekdays">
+
+          <div class="weekday">Sun</div>
+          <div class="weekday">Mon</div>
+          <div class="weekday">Tue</div>
+          <div class="weekday">Wed</div>
+          <div class="weekday">Thu</div>
+          <div class="weekday">Fri</div>
+          <div class="weekday">Sat</div>
+
+        </div>
+
+
+        <div class="calendar" id="calendar"></div>
+
+
+        <div class="legend" id="legend"></div>
+
+      </section>
+
+
+      <!-- UPCOMING -->
+      <section class="upcoming-section">
+
+        <div class="section-header">
+
+          <h2>Assignments</h2>
+
+          <span
+            class="upcoming-count"
+            id="upcomingCount"
+          >
+            0
+          </span>
+
+        </div>
+
+
+        <div class="filter-row">
+
+          <button
+            type="button"
+            class="filter-button active"
+            data-filter="all"
+          >
+            All
+          </button>
+
+          <button
+            type="button"
+            class="filter-button"
+            data-filter="incomplete"
+          >
+            To Do
+          </button>
+
+          <button
+            type="button"
+            class="filter-button"
+            data-filter="completed"
+          >
+            Completed
+          </button>
+
+        </div>
+
+
+        <div
+          class="assignment-list"
+          id="upcomingList"
+        ></div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- ASSIGNMENT MODAL -->
+  <div
+    class="modal-overlay"
+    id="modalOverlay"
+  >
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+      <div class="modal-header">
+
+        <h2 id="modalTitle">
+          Assignment
+        </h2>
+
+        <button
+          class="close-modal"
+          id="closeModal"
+          type="button"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Course
+        </div>
+
+        <div
+          class="detail-value"
+          id="modalCourse"
+        ></div>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Due Date
+        </div>
+
+        <div
+          class="detail-value"
+          id="modalDate"
+        ></div>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Type
+        </div>
+
+        <div
+          class="detail-value"
+          id="modalType"
+        ></div>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Priority
+        </div>
+
+        <div
+          class="detail-value"
+        >
+          <span
+            class="priority-badge"
+            id="modalPriority"
+          ></span>
+        </div>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Description
+        </div>
+
+        <div
+          class="detail-value"
+          id="modalDescription"
+        ></div>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="complete-button"
+          id="modalComplete"
+        >
+          ✓ Mark Complete
+        </button>
+
+        <button
+          type="button"
+          class="close-button"
+          id="modalCloseButton"
+        >
+          Close
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* DEFAULT COURSES
+       These match the Classy course database.
+    */
+
+    const defaultCourses = {
+
+      MATH1131: {
+        name: "Calculus for Business",
+        shortName: "Math 1131",
+        color: "#d8b7b0"
+      },
+
+      ENGLISH2367: {
+        name: "Composition II",
+        shortName: "English 2367",
+        color: "#b8c5b0"
+      },
+
+      HISTORY1112: {
+        name: "European History",
+        shortName: "History 1112",
+        color: "#c8c0d8"
+      },
+
+      GELAUNCH: {
+        name: "GE Launch Seminar",
+        shortName: "GE Launch",
+        color: "#d8d0c4"
+      }
+
+    };
+
+
+    let currentDate = new Date();
+
+    let currentFilter = "all";
+
+    let selectedAssignment = null;
+
+
+    /*
+      Get all courses, including courses
+      created by the user.
+    */
+
+    function getCourses() {
+
+      const courses = {
+        ...defaultCourses
+      };
+
+      const savedCourses =
+        JSON.parse(
+          localStorage.getItem("classyCourses")
+        ) || [];
+
+      savedCourses.forEach(function(course) {
+
+        if (!course.code) {
+          return;
+        }
+
+        const code =
+          course.code
+            .replace(/\s+/g, "")
+            .toUpperCase();
+
+        courses[code] = {
+
+          name:
+            course.name ||
+            "Untitled Course",
+
+          shortName:
+            course.code,
+
+          color:
+            course.color ||
+            "#d8b7b0"
+
+        };
+
+      });
+
+      return courses;
+    }
+
+
+    /*
+      Get assignments from every course.
+      The Planner uses the SAME assignment
+      storage that the course pages use.
+    */
+
+    function getAllAssignments() {
+
+      const courses = getCourses();
+
+      let allAssignments = [];
+
+
+      Object.keys(courses).forEach(function(code) {
+
+        const storageKey =
+          "classyAssignments_" + code;
+
+        const assignments =
+          JSON.parse(
+            localStorage.getItem(storageKey)
+          ) || [];
+
+
+        assignments.forEach(function(assignment) {
+
+          allAssignments.push({
+
+            ...assignment,
+
+            courseCode: code,
+
+            courseName:
+              courses[code].name,
+
+            courseShortName:
+              courses[code].shortName,
+
+            courseColor:
+              courses[code].color
+
+          });
+
+        });
+
+      });
+
+
+      return allAssignments;
+
+    }
+
+
+    /*
+      Convert YYYY-MM-DD into a local Date.
+      This avoids the timezone issue caused
+      by new Date("YYYY-MM-DD").
+    */
+
+    function parseLocalDate(dateString) {
+
+      if (!dateString) {
+        return null;
+      }
+
+      const parts =
+        dateString.split("-").map(Number);
+
+      if (parts.length !== 3) {
+        return null;
+      }
+
+      return new Date(
+        parts[0],
+        parts[1] - 1,
+        parts[2]
+      );
+
+    }
+
+
+    function formatDate(dateString) {
+
+      const date =
+        parseLocalDate(dateString);
+
+      if (!date) {
+        return "No due date";
+      }
+
+      return date.toLocaleDateString(
+        undefined,
+        {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    function dateKey(date) {
+
+      const year =
+        date.getFullYear();
+
+      const month =
+        String(
+          date.getMonth() + 1
+        ).padStart(2, "0");
+
+      const day =
+        String(
+          date.getDate()
+        ).padStart(2, "0");
+
+      return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+      );
+
+    }
+
+
+    function isToday(date) {
+
+      const today = new Date();
+
+      return (
+        date.getFullYear() ===
+          today.getFullYear() &&
+
+        date.getMonth() ===
+          today.getMonth() &&
+
+        date.getDate() ===
+          today.getDate()
+      );
+
+    }
+
+
+    function isPastDue(assignment) {
+
+      if (
+        assignment.completed ||
+        !assignment.date
+      ) {
+        return false;
+      }
+
+      const dueDate =
+        parseLocalDate(assignment.date);
+
+      if (!dueDate) {
+        return false;
+      }
+
+      const today = new Date();
+
+      today.setHours(
+        0,
+        0,
+        0,
+        0
+      );
+
+      return dueDate < today;
+
+    }
+
+
+    function getAssignmentsForDate(date) {
+
+      const key = dateKey(date);
+
+      return getAllAssignments()
+        .filter(function(assignment) {
+
+          return assignment.date === key;
+
+        })
+        .sort(function(a, b) {
+
+          if (
+            a.completed ===
+            b.completed
+          ) {
+            return (
+              (a.priority || "")
+                .localeCompare(
+                  b.priority || ""
+                )
+            );
+          }
+
+          return a.completed ? 1 : -1;
+
+        });
+
+    }
+
+
+    /*
+      Render the monthly calendar.
+    */
+
+    function renderCalendar() {
+
+      const calendar =
+        document.getElementById(
+          "calendar"
+        );
+
+      const monthTitle =
+        document.getElementById(
+          "monthTitle"
+        );
+
+
+      calendar.innerHTML = "";
+
+
+      const year =
+        currentDate.getFullYear();
+
+      const month =
+        currentDate.getMonth();
+
+
+      monthTitle.textContent =
+        currentDate.toLocaleDateString(
+          undefined,
+          {
+            month: "long",
+            year: "numeric"
+          }
+        );
+
+
+      const firstDay =
+        new Date(
+          year,
+          month,
+          1
+        ).getDay();
+
+
+      const daysInMonth =
+        new Date(
+          year,
+          month + 1,
+          0
+        ).getDate();
+
+
+      const previousMonthDays =
+        new Date(
+          year,
+          month,
+          0
+        ).getDate();
+
+
+      const totalCells = 42;
+
+
+      for (
+        let i = 0;
+        i < totalCells;
+        i++
+      ) {
+
+        let cellDate;
+
+        let isOtherMonth = false;
+
+
+        if (i < firstDay) {
+
+          const day =
+            previousMonthDays -
+            firstDay +
+            i +
+            1;
+
+
+          cellDate =
+            new Date(
+              year,
+              month - 1,
+              day
+            );
+
+          isOtherMonth = true;
+
+        }
+
+        else if (
+          i >=
+          firstDay +
+          daysInMonth
+        ) {
+
+          const day =
+            i -
+            (
+              firstDay +
+              daysInMonth
+            ) +
+            1;
+
+
+          cellDate =
+            new Date(
+              year,
+              month + 1,
+              day
+            );
+
+          isOtherMonth = true;
+
+        }
+
+        else {
+
+          const day =
+            i -
+            firstDay +
+            1;
+
+
+          cellDate =
+            new Date(
+              year,
+              month,
+              day
+            );
+
+        }
+
+
+        const dayElement =
+          document.createElement(
+            "div"
+          );
+
+
+        dayElement.className =
+          "day";
+
+
+        if (isOtherMonth) {
+
+          dayElement.classList.add(
+            "other-month"
+          );
+
+        }
+
+
+        if (isToday(cellDate)) {
+
+          dayElement.classList.add(
+            "today"
+          );
+
+        }
+
+
+        const number =
+          document.createElement(
+            "div"
+          );
+
+        number.className =
+          "day-number";
+
+        number.textContent =
+          cellDate.getDate();
+
+
+        dayElement.appendChild(
+          number
+        );
+
+
+        const dayAssignments =
+          getAssignmentsForDate(
+            cellDate
+          );
+
+
+        const visibleAssignments =
+          dayAssignments.slice(
+            0,
+            3
+          );
+
+
+        visibleAssignments.forEach(
+          function(assignment) {
+
+            const chip =
+              document.createElement(
+                "button"
+              );
+
+
+            chip.type = "button";
+
+            chip.className =
+              "assignment-chip";
+
+
+            if (
+              assignment.completed
+            ) {
+
+              chip.classList.add(
+                "completed"
+              );
+
+            }
+
+
+            if (
+              isPastDue(assignment)
+            ) {
+
+              chip.classList.add(
+                "overdue"
+              );
+
+            }
+
+
+            chip.style.borderLeftColor =
+              assignment.courseColor;
+
+
+            chip.textContent =
+              assignment.name;
+
+
+            chip.title =
+              assignment.name +
+              " — " +
+              assignment.courseShortName;
+
+
+            chip.addEventListener(
+              "click",
+              function() {
+
+                openAssignment(
+                  assignment
+                );
+
+              }
+            );
+
+
+            dayElement.appendChild(
+              chip
+            );
+
+          }
+        );
+
+
+        if (
+          dayAssignments.length > 3
+        ) {
+
+          const more =
+            document.createElement(
+              "div"
+            );
+
+
+          more.className =
+            "more-label";
+
+
+          more.textContent =
+            "+" +
+            (
+              dayAssignments.length -
+              3
+            ) +
+            " more";
+
+
+          dayElement.appendChild(
+            more
+          );
+
+        }
+
+
+        calendar.appendChild(
+          dayElement
+        );
+
+      }
+
+
+      renderLegend();
+
+    }
+
+
+    /*
+      Render course-color legend.
+    */
+
+    function renderLegend() {
+
+      const legend =
+        document.getElementById(
+          "legend"
+        );
+
+
+      const courses =
+        getCourses();
+
+
+      legend.innerHTML = "";
+
+
+      Object.keys(courses).forEach(
+        function(code) {
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+          item.className =
+            "legend-item";
+
+
+          const dot =
+            document.createElement(
+              "span"
+            );
+
+          dot.className =
+            "legend-dot";
+
+
+          dot.style.background =
+            courses[code].color;
+
+
+          const text =
+            document.createElement(
+              "span"
+            );
+
+          text.textContent =
+            courses[code].shortName;
+
+
+          item.appendChild(dot);
+
+          item.appendChild(text);
+
+
+          legend.appendChild(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /*
+      Render assignment list.
+    */
+
+    function renderUpcoming() {
+
+      const list =
+        document.getElementById(
+          "upcomingList"
+        );
+
+
+      const count =
+        document.getElementById(
+          "upcomingCount"
+        );
+
+
+      list.innerHTML = "";
+
+
+      let assignments =
+        getAllAssignments();
+
+
+      if (
+        currentFilter ===
+        "incomplete"
+      ) {
+
+        assignments =
+          assignments.filter(
+            function(assignment) {
+
+              return !assignment.completed;
+
+            }
+          );
+
+      }
+
+
+      if (
+        currentFilter ===
+        "completed"
+      ) {
+
+        assignments =
+          assignments.filter(
+            function(assignment) {
+
+              return assignment.completed;
+
+            }
+          );
+
+      }
+
+
+      assignments.sort(
+        function(a, b) {
+
+          if (
+            !a.date &&
+            !b.date
+          ) {
+            return 0;
+          }
+
+
+          if (!a.date) {
+            return 1;
+          }
+
+
+          if (!b.date) {
+            return -1;
+          }
+
+
+          return a.date.localeCompare(
+            b.date
+          );
+
+        }
+      );
+
+
+      count.textContent =
+        assignments.length;
+
+
+      if (
+        assignments.length === 0
+      ) {
+
+        const empty =
+          document.createElement(
+            "div"
+          );
+
+
+        empty.className =
+          "empty-state";
+
+
+        if (
+          currentFilter ===
+          "completed"
+        ) {
+
+          empty.innerHTML =
+            "No completed assignments yet.<br>" +
+            "You've got this! 🌸";
+
+        }
+
+        else {
+
+          empty.innerHTML =
+            "No assignments here yet.<br>" +
+            "Add assignments from your course pages.";
+
+        }
+
+
+        list.appendChild(
+          empty
+        );
+
+        return;
+
+      }
+
+
+      assignments.forEach(
+        function(assignment) {
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "upcoming-item";
+
+
+          if (
+            assignment.completed
+          ) {
+
+            item.classList.add(
+              "completed"
+            );
+
+          }
+
+
+          if (
+            isPastDue(assignment)
+          ) {
+
+            item.classList.add(
+              "overdue"
+            );
+
+          }
+
+
+          const top =
+            document.createElement(
+              "div"
+            );
+
+          top.className =
+            "upcoming-top";
+
+
+          const dot =
+            document.createElement(
+              "span"
+            );
+
+          dot.className =
+            "course-dot";
+
+
+          dot.style.background =
+            assignment.courseColor;
+
+
+          const info =
+            document.createElement(
+              "div"
+            );
+
+          info.className =
+            "upcoming-info";
+
+
+          const title =
+            document.createElement(
+              "h3"
+            );
+
+          title.textContent =
+            assignment.name;
+
+
+          const course =
+            document.createElement(
+              "p"
+            );
+
+          course.textContent =
+            assignment.courseShortName;
+
+
+          info.appendChild(
+            title
+          );
+
+          info.appendChild(
+            course
+          );
+
+
+          const date =
+            document.createElement(
+              "div"
+            );
+
+          date.className =
+            "upcoming-date";
+
+
+          if (
+            assignment.completed
+          ) {
+
+            date.textContent =
+              "Completed";
+
+          }
+
+          else if (
+            isPastDue(assignment)
+          ) {
+
+            date.textContent =
+              "Overdue";
+
+          }
+
+          else {
+
+            const due =
+              parseLocalDate(
+                assignment.date
+              );
+
+
+            if (due) {
+
+              date.textContent =
+                due.toLocaleDateString(
+                  undefined,
+                  {
+                    month: "short",
+                    day: "numeric"
+                  }
+                );
+
+            }
+
+            else {
+
+              date.textContent =
+                "No date";
+
+            }
+
+          }
+
+
+          top.appendChild(
+            dot
+          );
+
+          top.appendChild(
+            info
+          );
+
+          top.appendChild(
+            date
+          );
+
+
+          item.appendChild(
+            top
+          );
+
+
+          item.addEventListener(
+            "click",
+            function() {
+
+              openAssignment(
+                assignment
+              );
+
+            }
+          );
+
+
+          list.appendChild(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /*
+      Open assignment details.
+    */
+
+    function openAssignment(
+      assignment
+    ) {
+
+      selectedAssignment =
+        assignment;
+
+
+      document.getElementById(
+        "modalTitle"
+      ).textContent =
+        assignment.name;
+
+
+      document.getElementById(
+        "modalCourse"
+      ).textContent =
+        assignment.courseShortName;
+
+
+      document.getElementById(
+        "modalDate"
+      ).textContent =
+        formatDate(
+          assignment.date
+        );
+
+
+      document.getElementById(
+        "modalType"
+      ).textContent =
+        assignment.type ||
+        "Assignment";
+
+
+      document.getElementById(
+        "modalPriority"
+      ).textContent =
+        assignment.priority ||
+        "Normal";
+
+
+      document.getElementById(
+        "modalDescription"
+      ).textContent =
+        assignment.description ||
+        "No description added.";
+
+
+      const completeButton =
+        document.getElementById(
+          "modalComplete"
+        );
+
+
+      if (
+        assignment.completed
+      ) {
+
+        completeButton.textContent =
+          "✓ Completed";
+
+      }
+
+      else {
+
+        completeButton.textContent =
+          "✓ Mark Complete";
+
+      }
+
+
+      document.getElementById(
+        "modalOverlay"
+      ).classList.add(
+        "show"
+      );
+
+    }
+
+
+    /*
+      Close modal.
+    */
+
+    function closeModal() {
+
+      document.getElementById(
+        "modalOverlay"
+      ).classList.remove(
+        "show"
+      );
+
+
+      selectedAssignment =
+        null;
+
+    }
+
+
+    /*
+      Mark assignment complete/incomplete.
+      This updates the SAME localStorage
+      record used by course.html.
+    */
+
+    function markSelectedComplete() {
+
+      if (!selectedAssignment) {
+        return;
+      }
+
+
+      const storageKey =
+        "classyAssignments_" +
+        selectedAssignment.courseCode;
+
+
+      const assignments =
+        JSON.parse(
+          localStorage.getItem(
+            storageKey
+          )
+        ) || [];
+
+
+      const index =
+        assignments.findIndex(
+          function(assignment) {
+
+            return (
+              assignment.id ===
+              selectedAssignment.id
+            );
+
+          }
+        );
+
+
+      if (index === -1) {
+        return;
+      }
+
+
+      assignments[index].completed =
+        !assignments[index].completed;
+
+
+      localStorage.setItem(
+        storageKey,
+        JSON.stringify(
+          assignments
+        )
+      );
+
+
+      selectedAssignment.completed =
+        assignments[index].completed;
+
+
+      openAssignment(
+        selectedAssignment
+      );
+
+
+      renderCalendar();
+
+      renderUpcoming();
+
+    }
+
+
+    /*
+      Change month.
+    */
+
+    function changeMonth(
+      amount
+    ) {
+
+      currentDate =
+        new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() +
+            amount,
+          1
+        );
+
+
+      renderCalendar();
+
+    }
+
+
+    /*
+      Calendar controls.
+    */
+
+    document
+      .getElementById(
+        "prevMonth"
+      )
+      .addEventListener(
+        "click",
+        function() {
+
+          changeMonth(-1);
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "nextMonth"
+      )
+      .addEventListener(
+        "click",
+        function() {
+
+          changeMonth(1);
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "todayButton"
+      )
+      .addEventListener(
+        "click",
+        function() {
+
+          currentDate =
+            new Date();
+
+          renderCalendar();
+
+        }
+      );
+
+
+    /*
+      Modal controls.
+    */
+
+    document
+      .getElementById(
+        "closeModal"
+      )
+      .addEventListener(
+        "click",
+        closeModal
+      );
+
+
+    document
+      .getElementById(
+        "modalCloseButton"
+      )
+      .addEventListener(
+        "click",
+        closeModal
+      );
+
+
+    document
+      .getElementById(
+        "modalComplete"
+      )
+      .addEventListener(
+        "click",
+        markSelectedComplete
+      );
+
+
+    document
+      .getElementById(
+        "modalOverlay"
+      )
+      .addEventListener(
+        "click",
+        function(event) {
+
+          if (
+            event.target === this
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+
+    /*
+      Assignment filters.
+    */
+
+    document
+      .querySelectorAll(
+        ".filter-button"
+      )
+      .forEach(
+        function(button) {
+
+          button.addEventListener(
+            "click",
+            function() {
+
+              document
+                .querySelectorAll(
+                  ".filter-button"
+                )
+                .forEach(
+                  function(
+                    otherButton
+                  ) {
+
+                    otherButton
+                      .classList
+                      .remove(
+                        "active"
+                      );
+
+                  }
+                );
+
+
+              button.classList.add(
+                "active"
+              );
+
+
+              currentFilter =
+                button.dataset.filter;
+
+
+              renderUpcoming();
+
+            }
+          );
+
+        }
+      );
+
+
+    /*
+      Refresh Planner if another
+      Classy page changes localStorage.
+    */
+
+    window.addEventListener(
+      "storage",
+      function() {
+
+        renderCalendar();
+
+        renderUpcoming();
+
+      }
+    );
+
+
+    /*
+      Initial render.
+    */
+
+    renderCalendar();
+
+    renderUpcoming();
+
+  </script>
+
+</body>
+</html>
