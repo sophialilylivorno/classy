@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course | Classy</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fdf9f7;
+            color: #4d4642;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 220px;
+            background: #fffafa;
+            border-right: 1px solid #eadfda;
+            padding: 45px 15px;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #b77d7d;
+            padding-left: 10px;
+        }
+
+        .tagline {
+            font-size: 11px;
+            color: #a9a0a0;
+            padding-left: 10px;
+            margin-top: -28px;
+            margin-bottom: 30px;
+        }
+
+        .nav a {
+            display: block;
+            text-decoration: none;
+            color: #756b68;
+            padding: 13px 12px;
+            border-radius: 12px;
+            margin-bottom: 7px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .nav a:hover {
+            background: #f3e5df;
+        }
+
+        .nav a.active {
+            background: #f0ddd7;
+            color: #6f6762;
+            font-weight: bold;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 220px;
+            padding: 45px;
+        }
+
+        .back {
+            display: inline-block;
+            text-decoration: none;
+            color: #a47c78;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        .course-header {
+            background: white;
+            border: 1px solid #ead7d7;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(100, 80, 70, 0.05);
+        }
+
+        .course-header-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .course-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .course-code {
+            font-size: 13px;
+            color: #a08f89;
+            margin-bottom: 5px;
+        }
+
+        .course-header h1 {
+            font-size: 29px;
+            color: #4d4642;
+        }
+
+        .description {
+            color: #8d8380;
+            margin-top: 18px;
+            line-height: 1.6;
+        }
+
+        .professor {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #756b68;
+        }
+
+        /* QUICK STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            background: white;
+            border: 1px solid #ead7d7;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #a08f89;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 25px;
+            font-weight: bold;
+            color: #6f6762;
+        }
+
+        /* CONTENT GRID */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .section {
+            background: white;
+            border: 1px solid #ead7d7;
+            border-radius: 18px;
+            padding: 24px;
+            min-height: 190px;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #4d4642;
+        }
+
+        .section p {
+            color: #9a8d88;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .empty {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fdf8f6;
+            border-radius: 12px;
+            text-align: center;
+            color: #aaa09c;
+            font-size: 13px;
+        }
+
+        .add-button {
+            margin-top: 15px;
+            border: none;
+            background: #d8b7b0;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background: #cda49d;
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 180px;
+            }
+
+            .main {
+                margin-left: 180px;
+                padding: 25px;
+            }
+
+            .stats,
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">classy</div>
+
+    <div class="tagline">
+        Your college life, organized.
+    </div>
+
+    <nav class="nav">
+
+        <a href="index.html">Dashboard</a>
+
+        <a href="courses.html" class="active">Courses</a>
+
+        <a href="planner.html">Planner</a>
+
+        <a href="study-sets.html">Study Sets</a>
+
+        <a href="notes.html">Notes</a>
+
+        <a href="ai-assistant.html">AI Assistant</a>
+
+        <a href="settings.html">Settings</a>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <a href="courses.html" class="back">
+        ← Back to Courses
+    </a>
+
+
+    <div class="course-header">
+
+        <div class="course-header-top">
+
+            <div class="course-icon" id="courseIcon">
+                --
+            </div>
+
+            <div>
+
+                <div class="course-code" id="courseCode">
+                    Course
+                </div>
+
+                <h1 id="courseName">
+                    Loading course...
+                </h1>
+
+            </div>
+
+        </div>
+
+        <p class="description" id="courseDescription">
+            Loading course information...
+        </p>
+
+        <div class="professor" id="professor">
+        </div>
+
+    </div>
+
+
+    <!-- QUICK STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Course Progress
+            </div>
+
+            <div class="stat-value">
+                0%
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Upcoming Assignments
+            </div>
+
+            <div class="stat-value">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Study Sets
+            </div>
+
+            <div class="stat-value">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- COURSE CONTENT -->
+
+    <div class="content-grid">
+
+        <section class="section">
+
+            <h2>📋 Assignments</h2>
+
+            <p>
+                Keep track of homework, projects, exams, and other
+                course deadlines.
+            </p>
+
+            <div class="empty">
+                No assignments added yet.
+            </div>
+
+            <button class="add-button">
+                + Add Assignment
+            </button>
+
+        </section>
+
+
+        <section class="section">
+
+            <h2>📓 Notes</h2>
+
+            <p>
+                Keep your class notes organized in one place.
+            </p>
+
+            <div class="empty">
+                No notes added yet.
+            </div>
+
+            <button class="add-button">
+                + Add Note
+            </button>
+
+        </section>
+
+
+        <section class="section">
+
+            <h2>🧠 Study Sets</h2>
+
+            <p>
+                Create flashcards, quizzes, and study materials
+                for this course.
+            </p>
+
+            <div class="empty">
+                No study sets yet.
+            </div>
+
+            <button class="add-button">
+                + Create Study Set
+            </button>
+
+        </section>
+
+
+        <section class="section">
+
+            <h2>📊 Progress</h2>
+
+            <p>
+                See how you're progressing through this course.
+            </p>
+
+            <div class="empty">
+                Your course progress will appear here.
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+    const params = new URLSearchParams(window.location.search);
+
+    const code = params.get("code");
+
+
+    /*
+       Built-in courses
+       These are the four courses already
+       displayed on your Courses page.
+    */
+
+    const defaultCourses = {
+
+        "MATH1131": {
+            name: "Calculus for Business",
+            code: "Math 1131",
+            description: "Business calculus and applications.",
+            professor: "",
+            color: "#d8b7b0"
+        },
+
+        "ENGLISH2367": {
+            name: "Composition II",
+            code: "English 2367",
+            description: "Writing, research, and communication.",
+            professor: "",
+            color: "#b8c5b0"
+        },
+
+        "HISTORY1112": {
+            name: "European History",
+            code: "History 1112",
+            description: "European History Since 1648.",
+            professor: "",
+            color: "#c8c0d8"
+        },
+
+        "GELAUNCH": {
+            name: "GE Launch Seminar",
+            code: "GE Launch",
+            description: "College success and student development.",
+            professor: "",
+            color: "#d8d0c4"
+        }
+
+    };
+
+
+    /*
+       Look for courses the user created
+       using Add Course.
+    */
+
+    const savedCourses =
+        JSON.parse(localStorage.getItem("classyCourses")) || [];
+
+
+    let course = defaultCourses[code];
+
+
+    /*
+       Check saved courses too.
+    */
+
+    savedCourses.forEach(function(savedCourse) {
+
+        const savedCode =
+            savedCourse.code
+                .replace(/\s+/g, "")
+                .toUpperCase();
+
+        if (savedCode === code) {
+            course = savedCourse;
+        }
+
+    });
+
+
+    /*
+       Display the course.
+    */
+
+    if (course) {
+
+        document.getElementById("courseName").textContent =
+            course.name;
+
+        document.getElementById("courseCode").textContent =
+            course.code;
+
+        document.getElementById("courseDescription").textContent =
+            course.description ||
+            "No description added yet.";
+
+        document.getElementById("courseIcon").textContent =
+            course.code
+                .replace(/\s+/g, "")
+                .substring(0, 2)
+                .toUpperCase();
+
+        document.getElementById("courseIcon").style.background =
+            course.color || "#d8b7b0";
+
+        if (course.professor) {
+
+            document.getElementById("professor").textContent =
+                "Professor: " + course.professor;
+
+        }
+
+        document.title =
+            course.name + " | Classy";
+
+    } else {
+
+        document.getElementById("courseName").textContent =
+            "Course not found";
+
+        document.getElementById("courseCode").textContent =
+            "";
+
+        document.getElementById("courseDescription").textContent =
+            "We couldn't find this course.";
+
+    }
+
+</script>
+
+</body>
+</html>
