@@ -1,2865 +1,1262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study Sets | Classy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Sets — Classy</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-    body {
-      background: #f8f5f0;
-      color: #4d4642;
-      min-height: 100vh;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f8f5f0;
+    color: #4d4642;
+}
 
-    /* SIDEBAR */
+/* SIDEBAR */
+.sidebar {
+    width: 230px;
+    background: white;
+    border-right: 1px solid #e7e1da;
+    min-height: 100vh;
+    padding: 28px 18px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
 
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #c98787;
+    margin-bottom: 3px;
+}
+
+.tagline {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 35px;
+}
+
+.nav a {
+    display: block;
+    text-decoration: none;
+    color: #665e59;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.nav a:hover,
+.nav a.active {
+    background: #f3e4e1;
+    color: #b56f70;
+}
+
+/* MAIN */
+.main {
+    margin-left: 230px;
+    padding: 40px;
+    max-width: 1400px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.header p {
+    margin: 8px 0 0;
+    color: #8f8580;
+}
+
+.primary-button {
+    border: none;
+    background: #c98787;
+    color: white;
+    padding: 13px 19px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.primary-button:hover {
+    opacity: 0.9;
+}
+
+/* STUDY SET GRID */
+.set-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+}
+
+.set-card {
+    background: #fff;
+    border: 1px solid #ebe4dd;
+    border-radius: 18px;
+    padding: 23px;
+    box-shadow: 0 4px 15px rgba(90, 75, 65, 0.06);
+    position: relative;
+}
+
+.color-bar {
+    height: 7px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
+
+.set-card h2 {
+    margin: 0 0 7px;
+    font-size: 21px;
+}
+
+.course-label {
+    font-size: 13px;
+    color: #918680;
+    margin-bottom: 16px;
+}
+
+.card-count {
+    font-size: 13px;
+    color: #7f746e;
+    margin-bottom: 20px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    border: none;
+    padding: 9px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.study-button {
+    background: #f3e4e1;
+    color: #a66f70;
+}
+
+.manage-button {
+    background: #eee9f2;
+    color: #766b82;
+}
+
+.delete-button {
+    background: #f2eeee;
+    color: #a77777;
+}
+
+.action-button:hover {
+    opacity: 0.8;
+}
+
+/* EMPTY STATE */
+.empty-state {
+    background: white;
+    border: 1px solid #ebe4dd;
+    border-radius: 18px;
+    padding: 60px 30px;
+    text-align: center;
+}
+
+.empty-state h2 {
+    margin-top: 0;
+}
+
+.empty-state p {
+    color: #918680;
+}
+
+/* MODAL */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(55, 48, 44, 0.35);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal {
+    background: white;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 15px 45px rgba(50, 40, 35, 0.18);
+}
+
+.modal h2 {
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #ddd3cc;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    background: #fffdfb;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.secondary-button {
+    border: none;
+    background: #eee9e5;
+    color: #655d58;
+    padding: 11px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* CARD MANAGEMENT */
+.card-editor {
+    border: 1px solid #e9e0da;
+    border-radius: 14px;
+    padding: 15px;
+    margin-bottom: 12px;
+    background: #fffaf7;
+}
+
+.card-editor-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.card-editor strong {
+    font-size: 13px;
+}
+
+.small-delete {
+    border: none;
+    background: transparent;
+    color: #a77777;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.card-editor textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd3cc;
+    border-radius: 9px;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: 8px;
+}
+
+.add-card-button {
+    width: 100%;
+    border: 1px dashed #cdbfb7;
+    background: #fffdfb;
+    color: #9a7770;
+    padding: 11px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* STUDY MODE */
+.study-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #f8f5f0;
+    z-index: 2000;
+    padding: 35px;
+}
+
+.study-container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.study-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.study-top h2 {
+    margin: 0;
+}
+
+.close-study {
+    border: none;
+    background: white;
+    border: 1px solid #e4dcd5;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+.progress-text {
+    text-align: center;
+    color: #8d817b;
+    margin-bottom: 15px;
+}
+
+.flashcard {
+    background: white;
+    border: 1px solid #e8dfd8;
+    border-radius: 24px;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 45px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(80, 65, 55, 0.08);
+}
+
+.flashcard-content {
+    max-width: 700px;
+}
+
+.flashcard-label {
+    font-size: 12px;
+    color: #b18a83;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+}
+
+.flashcard-text {
+    font-size: 28px;
+    line-height: 1.4;
+}
+
+.study-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.study-buttons button {
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.correct-button {
+    background: #dce8d8;
+    color: #587052;
+}
+
+.learning-button {
+    background: #eee3d7;
+    color: #826d5a;
+}
+
+@media (max-width: 800px) {
     .sidebar {
-      width: 230px;
-      background: #ffffff;
-      border-right: 1px solid #e7e1da;
-      padding: 28px 18px;
-      min-height: 100vh;
-      position: fixed;
-      left: 0;
-      top: 0;
+        width: 190px;
     }
-
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: #c98787;
-      margin-bottom: 8px;
-      padding-left: 12px;
-    }
-
-    .tagline {
-      font-size: 12px;
-      color: #999999;
-      padding-left: 12px;
-      margin-bottom: 35px;
-    }
-
-    .nav-item {
-      display: block;
-      padding: 13px 14px;
-      margin-bottom: 7px;
-      border-radius: 12px;
-      color: #555555;
-      text-decoration: none;
-      font-size: 15px;
-    }
-
-    .nav-item:hover,
-    .nav-item.active {
-      background: #f3e4e1;
-      color: #b56f70;
-    }
-
-    .settings {
-      margin-top: 35px;
-    }
-
-    /* MAIN */
 
     .main {
-      margin-left: 230px;
-      width: calc(100% - 230px);
-      padding: 40px;
-      max-width: 1450px;
+        margin-left: 190px;
+        padding: 25px;
     }
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
+    .header {
+        align-items: flex-start;
+        gap: 20px;
+        flex-direction: column;
     }
-
-    .welcome h1 {
-      font-size: 32px;
-      margin-bottom: 7px;
-    }
-
-    .welcome p {
-      color: #888888;
-      font-size: 15px;
-    }
-
-    .page-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .profile {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: #dfb5ad;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-    }
-
-    .primary-button {
-      border: none;
-      background: #c98787;
-      color: white;
-      padding: 11px 17px;
-      border-radius: 11px;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .primary-button:hover {
-      background: #b97778;
-    }
-
-    /* SETS GRID */
-
-    .sets-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .set-card {
-      background: #ffffff;
-      border: 1px solid #ebe4dd;
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 4px 15px rgba(80, 60, 40, 0.04);
-      transition: 0.15s ease;
-    }
-
-    .set-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 7px 20px rgba(80, 60, 40, 0.07);
-    }
-
-    .set-color {
-      width: 44px;
-      height: 44px;
-      border-radius: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-      font-size: 20px;
-    }
-
-    .set-card h2 {
-      font-size: 18px;
-      color: #403a37;
-      margin-bottom: 7px;
-    }
-
-    .set-course {
-      font-size: 12px;
-      color: #9b908a;
-      margin-bottom: 15px;
-    }
-
-    .set-info {
-      display: flex;
-      justify-content: space-between;
-      padding-top: 13px;
-      border-top: 1px solid #f0ebe6;
-      font-size: 11px;
-      color: #9b908a;
-    }
-
-    .set-info strong {
-      color: #706761;
-    }
-
-    .set-buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .study-button,
-    .manage-button,
-    .delete-set-button {
-      border: none;
-      border-radius: 9px;
-      padding: 9px 10px;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    .study-button {
-      flex: 1;
-      background: #f3e4e1;
-      color: #a66f70;
-    }
-
-    .study-button:hover {
-      background: #ead7d3;
-    }
-
-    .manage-button {
-      flex: 1;
-      background: #edf0ea;
-      color: #65725f;
-    }
-
-    .manage-button:hover {
-      background: #e1e6dc;
-    }
-
-    .delete-set-button {
-      background: #f6f1ed;
-      color: #9a8e87;
-    }
-
-    .delete-set-button:hover {
-      background: #eee4df;
-    }
-
-    /* EMPTY */
-
-    .empty-state {
-      background: white;
-      border: 1px solid #ebe4dd;
-      border-radius: 18px;
-      padding: 60px 25px;
-      text-align: center;
-      color: #999999;
-      grid-column: 1 / -1;
-    }
-
-    .empty-icon {
-      font-size: 38px;
-      margin-bottom: 15px;
-    }
-
-    .empty-state h2 {
-      color: #5a514c;
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    .empty-state p {
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
-
-    /* MODALS */
-
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(60, 50, 45, 0.35);
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 20px;
-    }
-
-    .modal-overlay.show {
-      display: flex;
-    }
-
-    .modal {
-      width: 100%;
-      max-width: 540px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: white;
-      border: 1px solid #eadfd7;
-      border-radius: 20px;
-      padding: 27px;
-      box-shadow: 0 12px 40px rgba(70, 55, 45, 0.16);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 22px;
-    }
-
-    .modal-header h2 {
-      font-size: 21px;
-      color: #3f3935;
-    }
-
-    .modal-subtitle {
-      color: #9b908a;
-      font-size: 12px;
-      margin-top: 5px;
-    }
-
-    .close-modal {
-      border: none;
-      background: #f5eeeb;
-      color: #786e68;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    /* FORMS */
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      color: #9b908a;
-      margin-bottom: 6px;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 11px 12px;
-      border: 1px solid #e5ddd7;
-      border-radius: 10px;
-      background: #fcfaf8;
-      color: #514945;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .form-group textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: #c98787;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 9px;
-      margin-top: 22px;
-    }
-
-    .modal-actions button {
-      flex: 1;
-      border: none;
-      border-radius: 10px;
-      padding: 11px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .save-button {
-      background: #c98787;
-      color: white;
-    }
-
-    .cancel-button {
-      background: #f1e8e5;
-      color: #6f6762;
-    }
-
-    /* CARD MANAGER */
-
-    .card-list {
-      margin-top: 5px;
-    }
-
-    .card-row {
-      background: #faf8f5;
-      border: 1px solid #eee7e2;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 10px;
-    }
-
-    .card-row-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .card-number {
-      font-size: 10px;
-      color: #a4948d;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-
-    .card-question {
-      font-size: 14px;
-      color: #4d4642;
-      font-weight: bold;
-      line-height: 1.45;
-    }
-
-    .card-answer {
-      margin-top: 7px;
-      font-size: 12px;
-      color: #8b8079;
-      line-height: 1.5;
-    }
-
-    .card-row-buttons {
-      display: flex;
-      gap: 5px;
-      flex-shrink: 0;
-    }
-
-    .small-button {
-      border: none;
-      background: white;
-      border: 1px solid #e5ddd7;
-      color: #756b66;
-      padding: 6px 8px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-size: 10px;
-    }
-
-    .small-button:hover {
-      background: #f3e4e1;
-      color: #a66f70;
-    }
-
-    .no-cards {
-      text-align: center;
-      padding: 25px 10px;
-      color: #9b908a;
-      font-size: 12px;
-      background: #faf8f5;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
-
-    .add-card-area {
-      border-top: 1px solid #eee7e2;
-      margin-top: 20px;
-      padding-top: 20px;
-    }
-
-    .add-card-title {
-      font-size: 15px;
-      color: #4d4642;
-      margin-bottom: 14px;
-    }
-
-    /* STUDY MODE */
 
     .study-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #f8f5f0;
-      z-index: 200;
-      padding: 35px;
-      overflow-y: auto;
+        padding: 20px;
     }
+}
 
-    .study-overlay.show {
-      display: block;
-    }
-
-    .study-container {
-      max-width: 850px;
-      margin: 0 auto;
-    }
-
-    .study-topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-    }
-
-    .study-topbar h1 {
-      font-size: 24px;
-    }
-
-    .exit-study {
-      border: none;
-      background: white;
-      border: 1px solid #e7e1da;
-      color: #716863;
-      padding: 9px 13px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .progress-area {
-      margin-bottom: 25px;
-    }
-
-    .progress-text {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #8d827c;
-      margin-bottom: 7px;
-    }
-
-    .progress-bar {
-      height: 7px;
-      background: #e9e1dc;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: #c98787;
-      border-radius: 20px;
-      transition: width 0.2s ease;
-    }
-
-    .flashcard {
-      background: white;
-      border: 1px solid #ebe4dd;
-      border-radius: 22px;
-      min-height: 380px;
-      padding: 45px;
-      box-shadow: 0 5px 20px rgba(80, 60, 40, 0.05);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .card-label {
-      font-size: 11px;
-      color: #aa9d96;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 25px;
-    }
-
-    .flashcard-question {
-      font-size: 28px;
-      color: #423c38;
-      line-height: 1.4;
-      margin-bottom: 22px;
-    }
-
-    .flashcard-answer {
-      display: none;
-      font-size: 20px;
-      color: #8b7b74;
-      line-height: 1.5;
-      padding-top: 20px;
-      border-top: 1px solid #eee7e2;
-      width: 80%;
-    }
-
-    .flashcard.show-answer .flashcard-answer {
-      display: block;
-    }
-
-    .flashcard-hint {
-      font-size: 11px;
-      color: #aaa19c;
-      margin-top: 25px;
-    }
-
-    .study-controls {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .study-controls button {
-      border: none;
-      border-radius: 11px;
-      padding: 12px 20px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .wrong-button {
-      background: #eee5e1;
-      color: #806e67;
-    }
-
-    .correct-button {
-      background: #c8d3c3;
-      color: #5e7158;
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 1050px) {
-      .sets-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 750px) {
-      .sidebar {
-        display: none;
-      }
-
-      .main {
-        margin-left: 0;
+@media (max-width: 600px) {
+    .sidebar {
+        position: static;
         width: 100%;
-        padding: 25px 20px;
-      }
-
-      .sets-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        align-items: flex-start;
-      }
-
-      .welcome h1 {
-        font-size: 26px;
-      }
-
-      .flashcard {
-        padding: 30px 20px;
-        min-height: 330px;
-      }
-
-      .flashcard-question {
-        font-size: 23px;
-      }
+        min-height: auto;
     }
-  </style>
+
+    .main {
+        margin-left: 0;
+    }
+
+    .nav {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="logo">Classy</div>
+    <div class="tagline">Your college life, organized.</div>
 
-  <aside class="sidebar">
+    <nav class="nav">
+        <a href="index.html">Dashboard</a>
+        <a href="courses.html">Courses</a>
+        <a href="planner.html">Planner</a>
+        <a href="study-sets.html" class="active">Study Sets</a>
+        <a href="notes.html">Notes</a>
+        <a href="ai.html">AI Assistant</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+</aside>
 
-    <div class="logo">
-      Classy
-    </div>
+<main class="main">
 
-    <div class="tagline">
-      Your college life, organized.
-    </div>
-
-    <a href="index.html" class="nav-item">
-      🏠 Dashboard
-    </a>
-
-    <a href="courses.html" class="nav-item">
-      📚 Courses
-    </a>
-
-    <a href="planner.html" class="nav-item">
-      🗓️ Planner
-    </a>
-
-    <a href="study-sets.html" class="nav-item active">
-      🧠 Study Sets
-    </a>
-
-    <a href="notes.html" class="nav-item">
-      📝 Notes
-    </a>
-
-    <a href="ai-assistant.html" class="nav-item">
-      ✨ AI Assistant
-    </a>
-
-    <a href="settings.html" class="nav-item settings">
-      ⚙️ Settings
-    </a>
-
-  </aside>
-
-
-  <!-- MAIN -->
-
-  <main class="main">
-
-    <div class="topbar">
-
-      <div class="welcome">
-
-        <h1>
-          Study Sets 🧠
-        </h1>
-
-        <p>
-          Turn your notes into simple flashcards.
-        </p>
-
-      </div>
-
-      <div class="page-actions">
-
-        <button
-          class="primary-button"
-          id="createSetButton"
-          type="button"
-        >
-          + New Study Set
-        </button>
-
-        <div class="profile">
-          SF
+    <div class="header">
+        <div>
+            <h1>Study Sets</h1>
+            <p>Review your material with flashcards.</p>
         </div>
 
-      </div>
-
+        <button class="primary-button" onclick="openNewSetModal()">
+            + New Study Set
+        </button>
     </div>
 
+    <div id="setGrid" class="set-grid"></div>
 
-    <div
-      class="sets-grid"
-      id="setsGrid"
-    ></div>
-
-  </main>
+</main>
 
 
-  <!-- CREATE SET MODAL -->
-
-  <div
-    class="modal-overlay"
-    id="createModal"
-  >
-
+<!-- NEW SET MODAL -->
+<div class="modal-overlay" id="setModal">
     <div class="modal">
 
-      <div class="modal-header">
-
-        <div>
-
-          <h2>
-            Create Study Set
-          </h2>
-
-          <div class="modal-subtitle">
-            Give your study set a name and course.
-          </div>
-
-        </div>
-
-        <button
-          class="close-modal"
-          id="closeCreateModal"
-          type="button"
-        >
-          ×
-        </button>
-
-      </div>
-
-
-      <form id="studySetForm">
+        <h2 id="setModalTitle">Create Study Set</h2>
 
         <div class="form-group">
-
-          <label for="setName">
-            Study Set Name
-          </label>
-
-          <input
-            id="setName"
-            type="text"
-            placeholder="e.g. Chapter 4 Vocabulary"
-            required
-          >
-
+            <label for="setName">Study Set Name</label>
+            <input id="setName" type="text" placeholder="e.g. Calculus Chapter 1">
         </div>
-
 
         <div class="form-group">
-
-          <label for="setCourse">
-            Course
-          </label>
-
-          <select
-            id="setCourse"
-            required
-          ></select>
-
+            <label for="setCourse">Course</label>
+            <select id="setCourse"></select>
         </div>
-
 
         <div class="form-group">
-
-          <label for="setColor">
-            Color
-          </label>
-
-          <select id="setColor">
-
-            <option value="#d8b7b0">
-              Dusty Rose
-            </option>
-
-            <option value="#b8c5b0">
-              Sage Green
-            </option>
-
-            <option value="#c8c0d8">
-              Soft Lavender
-            </option>
-
-            <option value="#d8d0c4">
-              Warm Beige
-            </option>
-
-          </select>
-
+            <label for="setColor">Color</label>
+            <select id="setColor">
+                <option value="#d8b7b0">Dusty Rose</option>
+                <option value="#b8c5b0">Sage Green</option>
+                <option value="#d8d0c4">Warm Beige</option>
+                <option value="#c8c0d8">Soft Lavender</option>
+            </select>
         </div>
-
 
         <div class="modal-actions">
-
-          <button
-            type="button"
-            class="cancel-button"
-            id="cancelCreate"
-          >
-            Cancel
-          </button>
-
-          <button
-            type="submit"
-            class="save-button"
-          >
-            Create Set
-          </button>
-
-        </div>
-
-      </form>
-
-    </div>
-
-  </div>
-
-
-  <!-- MANAGE CARDS MODAL -->
-
-  <div
-    class="modal-overlay"
-    id="manageModal"
-  >
-
-    <div class="modal">
-
-      <div class="modal-header">
-
-        <div>
-
-          <h2 id="manageTitle">
-            Manage Cards
-          </h2>
-
-          <div
-            class="modal-subtitle"
-            id="manageSubtitle"
-          ></div>
-
-        </div>
-
-        <button
-          class="close-modal"
-          id="closeManageModal"
-          type="button"
-        >
-          ×
-        </button>
-
-      </div>
-
-
-      <div
-        class="card-list"
-        id="cardList"
-      ></div>
-
-
-      <div class="add-card-area">
-
-        <h3 class="add-card-title">
-          Add a Flashcard
-        </h3>
-
-
-        <form id="cardForm">
-
-          <div class="form-group">
-
-            <label for="questionInput">
-              Question
-            </label>
-
-            <textarea
-              id="questionInput"
-              placeholder="e.g. What is the power rule?"
-              required
-            ></textarea>
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="answerInput">
-              Answer
-            </label>
-
-            <textarea
-              id="answerInput"
-              placeholder="e.g. d/dx(xⁿ) = n·xⁿ⁻¹"
-              required
-            ></textarea>
-
-          </div>
-
-
-          <div class="modal-actions">
-
-            <button
-              type="button"
-              class="cancel-button"
-              id="closeManageButton"
-            >
-              Done
+            <button class="secondary-button" onclick="closeSetModal()">
+                Cancel
             </button>
 
-            <button
-              type="submit"
-              class="save-button"
-              id="saveCardButton"
-            >
-              + Add Card
+            <button class="primary-button" onclick="saveStudySet()">
+                Save Study Set
             </button>
-
-          </div>
-
-        </form>
-
-      </div>
+        </div>
 
     </div>
+</div>
 
-  </div>
 
-
-  <!-- EDIT CARD MODAL -->
-
-  <div
-    class="modal-overlay"
-    id="editCardModal"
-  >
-
+<!-- MANAGE CARDS MODAL -->
+<div class="modal-overlay" id="manageModal">
     <div class="modal">
 
-      <div class="modal-header">
+        <h2 id="manageTitle">Manage Cards</h2>
 
-        <div>
+        <div id="cardEditors"></div>
 
-          <h2>
-            Edit Flashcard
-          </h2>
-
-          <div class="modal-subtitle">
-            Update your question or answer.
-          </div>
-
-        </div>
-
-        <button
-          class="close-modal"
-          id="closeEditModal"
-          type="button"
-        >
-          ×
+        <button class="add-card-button" onclick="addCardEditor()">
+            + Add Card
         </button>
-
-      </div>
-
-
-      <form id="editCardForm">
-
-        <div class="form-group">
-
-          <label for="editQuestion">
-            Question
-          </label>
-
-          <textarea
-            id="editQuestion"
-            required
-          ></textarea>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="editAnswer">
-            Answer
-          </label>
-
-          <textarea
-            id="editAnswer"
-            required
-          ></textarea>
-
-        </div>
-
 
         <div class="modal-actions">
+            <button class="secondary-button" onclick="closeManageModal()">
+                Cancel
+            </button>
 
-          <button
-            type="button"
-            class="cancel-button"
-            id="cancelEdit"
-          >
-            Cancel
-          </button>
-
-          <button
-            type="submit"
-            class="save-button"
-          >
-            Save Changes
-          </button>
-
+            <button class="primary-button" onclick="saveCards()">
+                Save Cards
+            </button>
         </div>
 
-      </form>
-
     </div>
+</div>
 
-  </div>
 
-
-  <!-- STUDY MODE -->
-
-  <div
-    class="study-overlay"
-    id="studyOverlay"
-  >
+<!-- STUDY MODE -->
+<div class="study-overlay" id="studyOverlay">
 
     <div class="study-container">
 
-      <div class="study-topbar">
+        <div class="study-top">
+            <h2 id="studyTitle">Study Mode</h2>
 
-        <h1 id="studyTitle">
-          Study Set
-        </h1>
+            <button class="close-study" onclick="closeStudyMode()">
+                ✕ Exit
+            </button>
+        </div>
 
-        <button
-          class="exit-study"
-          id="exitStudy"
-          type="button"
-        >
-          ← Exit Study Mode
-        </button>
-
-      </div>
-
-
-      <div class="progress-area">
-
-        <div class="progress-text">
-
-          <span id="progressText">
+        <div class="progress-text" id="studyProgress">
             Card 1 of 1
-          </span>
+        </div>
 
-          <span id="scoreText">
-            0 correct
-          </span>
+        <div class="flashcard" onclick="flipCard()">
+
+            <div class="flashcard-content">
+
+                <div class="flashcard-label" id="flashcardLabel">
+                    Question
+                </div>
+
+                <div class="flashcard-text" id="flashcardText">
+                    Click to begin
+                </div>
+
+            </div>
 
         </div>
 
+        <div class="study-buttons">
+            <button class="learning-button" onclick="stillLearning()">
+                Still Learning
+            </button>
 
-        <div class="progress-bar">
-
-          <div
-            class="progress-fill"
-            id="progressFill"
-          ></div>
-
+            <button class="correct-button" onclick="markCorrect()">
+                ✓ Got It
+            </button>
         </div>
-
-      </div>
-
-
-      <div
-        class="flashcard"
-        id="flashcard"
-      >
-
-        <div class="card-label">
-          Question
-        </div>
-
-        <div
-          class="flashcard-question"
-          id="flashcardQuestion"
-        ></div>
-
-        <div
-          class="flashcard-answer"
-          id="flashcardAnswer"
-        ></div>
-
-        <div class="flashcard-hint">
-          Click the card to reveal the answer
-        </div>
-
-      </div>
-
-
-      <div class="study-controls">
-
-        <button
-          type="button"
-          class="wrong-button"
-          id="wrongButton"
-        >
-          Still Learning
-        </button>
-
-        <button
-          type="button"
-          class="correct-button"
-          id="correctButton"
-        >
-          ✓ Got It
-        </button>
-
-      </div>
 
     </div>
 
-  </div>
+</div>
 
 
-  <script>
+<script>
 
-    /* =========================
-       COURSE DATABASE
-    ========================= */
+/* =========================
+   COURSE DATABASE
+========================= */
 
-    const defaultCourses = {
-
-      MATH1131: {
+const defaultCourses = {
+    MATH1131: {
         name: "Calculus for Business",
-        shortName: "Math 1131",
+        code: "Math 1131",
         color: "#d8b7b0"
-      },
+    },
 
-      ENGLISH2367: {
+    ENGLISH2367: {
         name: "Composition II",
-        shortName: "English 2367",
+        code: "English 2367",
         color: "#b8c5b0"
-      },
+    },
 
-      HISTORY1112: {
+    HISTORY1112: {
         name: "European History",
-        shortName: "History 1112",
+        code: "History 1112",
         color: "#c8c0d8"
-      },
+    },
 
-      GELAUNCH: {
+    GELAUNCH: {
         name: "GE Launch Seminar",
-        shortName: "GE Launch",
+        code: "GE Launch",
         color: "#d8d0c4"
-      }
-
-    };
-
-
-    /* =========================
-       COURSE FUNCTIONS
-    ========================= */
-
-    function getCourses() {
-
-      const courses = {
-        ...defaultCourses
-      };
+    }
+};
 
 
-      const savedCourses =
-        JSON.parse(
-          localStorage.getItem("classyCourses")
-        ) || [];
+/* =========================
+   STORAGE
+========================= */
+
+const STORAGE_KEY = "classyStudySets";
+
+let studySets = JSON.parse(
+    localStorage.getItem(STORAGE_KEY) || "[]"
+);
+
+let editingSetId = null;
+let managingSetId = null;
+
+let currentStudySet = null;
+let currentCardIndex = 0;
+let cardFlipped = false;
 
 
-      savedCourses.forEach(function(course) {
+/* =========================
+   HELPERS
+========================= */
 
-        if (!course.code) {
-          return;
-        }
+function saveSets() {
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(studySets)
+    );
+}
 
 
-        const code =
-          course.code
+function getCourses() {
+
+    const courses = { ...defaultCourses };
+
+    const savedCourses = JSON.parse(
+        localStorage.getItem("classyCourses") || "[]"
+    );
+
+    savedCourses.forEach(course => {
+
+        if (!course.code) return;
+
+        const normalizedCode = course.code
             .replace(/\s+/g, "")
             .toUpperCase();
 
-
-        courses[code] = {
-
-          name:
-            course.name ||
-            "Untitled Course",
-
-          shortName:
-            course.code,
-
-          color:
-            course.color ||
-            "#d8b7b0"
-
+        courses[normalizedCode] = {
+            name: course.name,
+            code: course.code,
+            color: course.color || "#d8b7b0"
         };
 
-      });
+    });
+
+    return courses;
+}
 
 
-      return courses;
+function getCourseName(code) {
 
-    }
+    const courses = getCourses();
 
-
-    /* =========================
-       STUDY SET STORAGE
-    ========================= */
-
-    function getStudySets() {
-
-      return (
-        JSON.parse(
-          localStorage.getItem(
-            "classyStudySets"
-          )
-        ) || []
-      );
-
-    }
+    return courses[code]?.code || code || "No Course";
+}
 
 
-    function saveStudySets(sets) {
+function escapeHtml(value) {
 
-      localStorage.setItem(
-        "classyStudySets",
-        JSON.stringify(sets)
-      );
-
-    }
-
-
-    /* =========================
-       EXAMPLE SETS
-    ========================= */
-
-    function createExampleSets() {
-
-      const existing =
-        getStudySets();
-
-
-      if (existing.length > 0) {
-        return;
-      }
-
-
-      const examples = [
-
-        {
-          id: Date.now(),
-          name: "Calculus Basics",
-          courseCode: "MATH1131",
-          color: "#d8b7b0",
-
-          cards: [
-
-            {
-              id: Date.now() + 10,
-              question: "What is a derivative?",
-              answer:
-                "A derivative represents the rate at which a function changes."
-            },
-
-            {
-              id: Date.now() + 11,
-              question: "What does the derivative measure?",
-              answer:
-                "The instantaneous rate of change of a function."
-            },
-
-            {
-              id: Date.now() + 12,
-              question: "What is the power rule?",
-              answer:
-                "d/dx(xⁿ) = n·xⁿ⁻¹."
-            }
-
-          ]
-
-        },
-
-
-        {
-          id: Date.now() + 1,
-          name: "Essay Vocabulary",
-          courseCode: "ENGLISH2367",
-          color: "#b8c5b0",
-
-          cards: [
-
-            {
-              id: Date.now() + 20,
-              question: "What is a thesis?",
-              answer:
-                "A central claim or argument that an essay develops and supports."
-            },
-
-            {
-              id: Date.now() + 21,
-              question: "What is evidence?",
-              answer:
-                "Information used to support a claim or argument."
-            }
-
-          ]
-
-        },
-
-
-        {
-          id: Date.now() + 2,
-          name: "European History",
-          courseCode: "HISTORY1112",
-          color: "#c8c0d8",
-
-          cards: [
-
-            {
-              id: Date.now() + 30,
-              question: "What is the Renaissance?",
-              answer:
-                "A cultural movement in Europe associated with renewed interest in classical learning and the arts."
-            },
-
-            {
-              id: Date.now() + 31,
-              question: "What is humanism?",
-              answer:
-                "An intellectual movement emphasizing classical learning, human potential, and human-centered study."
-            }
-
-          ]
-
-        }
-
-      ];
-
-
-      saveStudySets(
-        examples
-      );
-
-    }
-
-
-    /* =========================
-       ESCAPE HTML
-    ========================= */
-
-    function escapeHtml(value) {
-
-      return String(value)
+    return String(value || "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-
-    }
-
-
-    /* =========================
-       RENDER SETS
-    ========================= */
-
-    function renderSets() {
-
-      const grid =
-        document.getElementById(
-          "setsGrid"
-        );
+}
 
 
-      grid.innerHTML = "";
+/* =========================
+   COURSE DROPDOWN
+========================= */
+
+function populateCourseDropdown() {
+
+    const select = document.getElementById("setCourse");
+
+    select.innerHTML = "";
+
+    const courses = getCourses();
+
+    Object.entries(courses).forEach(([code, course]) => {
+
+        const option = document.createElement("option");
+
+        option.value = code;
+        option.textContent = course.code + " — " + course.name;
+
+        select.appendChild(option);
+
+    });
+}
 
 
-      const courses =
-        getCourses();
+/* =========================
+   RENDER SETS
+========================= */
 
+function renderStudySets() {
 
-      const sets =
-        getStudySets();
+    const grid = document.getElementById("setGrid");
 
-
-      if (sets.length === 0) {
+    if (studySets.length === 0) {
 
         grid.innerHTML = `
-
-          <div class="empty-state">
-
-            <div class="empty-icon">
-              🧠
+            <div class="empty-state">
+                <h2>No study sets yet 📚</h2>
+                <p>Create your first study set to start studying.</p>
+                <button class="primary-button" onclick="openNewSetModal()">
+                    + Create Study Set
+                </button>
             </div>
+        `;
 
-            <h2>
-              No study sets yet
-            </h2>
+        return;
+    }
 
-            <p>
-              Create your first set and start studying.
+    grid.innerHTML = studySets.map(set => {
+
+        const courses = getCourses();
+
+        const course = courses[set.courseCode];
+
+        const courseColor =
+            set.color ||
+            course?.color ||
+            "#d8b7b0";
+
+        return `
+            <div class="set-card">
+
+                <div
+                    class="color-bar"
+                    style="background:${courseColor};"
+                ></div>
+
+                <h2>
+                    ${escapeHtml(set.name)}
+                </h2>
+
+                <div class="course-label">
+                    ${escapeHtml(
+                        course?.code ||
+                        set.courseCode ||
+                        "No Course"
+                    )}
+                </div>
+
+                <div class="card-count">
+                    ${set.cards.length}
+                    ${set.cards.length === 1 ? "card" : "cards"}
+                </div>
+
+                <div class="actions">
+
+                    <button
+                        class="action-button study-button"
+                        onclick="startStudy('${set.id}')"
+                    >
+                        Study
+                    </button>
+
+                    <button
+                        class="action-button manage-button"
+                        onclick="openManageCards('${set.id}')"
+                    >
+                        Manage Cards
+                    </button>
+
+                    <button
+                        class="action-button delete-button"
+                        onclick="deleteStudySet('${set.id}')"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+    }).join("");
+}
+
+
+/* =========================
+   NEW STUDY SET
+========================= */
+
+function openNewSetModal() {
+
+    editingSetId = null;
+
+    document.getElementById("setModalTitle").textContent =
+        "Create Study Set";
+
+    document.getElementById("setName").value = "";
+
+    populateCourseDropdown();
+
+    document.getElementById("setColor").value =
+        "#d8b7b0";
+
+    document.getElementById("setModal").style.display =
+        "flex";
+}
+
+
+function closeSetModal() {
+
+    document.getElementById("setModal").style.display =
+        "none";
+
+    editingSetId = null;
+}
+
+
+function saveStudySet() {
+
+    const name =
+        document.getElementById("setName").value.trim();
+
+    const courseCode =
+        document.getElementById("setCourse").value;
+
+    const color =
+        document.getElementById("setColor").value;
+
+    if (!name) {
+
+        alert("Please enter a study set name.");
+
+        return;
+    }
+
+
+    if (editingSetId) {
+
+        const set = studySets.find(
+            item => item.id === editingSetId
+        );
+
+        if (set) {
+
+            set.name = name;
+            set.courseCode = courseCode;
+            set.color = color;
+
+        }
+
+    } else {
+
+        studySets.push({
+
+            id:
+                Date.now().toString() +
+                Math.random().toString(36).slice(2),
+
+            name: name,
+
+            courseCode: courseCode,
+
+            color: color,
+
+            cards: []
+
+        });
+
+    }
+
+    saveSets();
+
+    renderStudySets();
+
+    closeSetModal();
+}
+
+
+/* =========================
+   DELETE SET
+========================= */
+
+function deleteStudySet(id) {
+
+    const set = studySets.find(
+        item => item.id === id
+    );
+
+    if (!set) return;
+
+    const confirmed = confirm(
+        `Delete "${set.name}"? This cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    studySets = studySets.filter(
+        item => item.id !== id
+    );
+
+    saveSets();
+
+    renderStudySets();
+}
+
+
+/* =========================
+   MANAGE CARDS
+========================= */
+
+function openManageCards(id) {
+
+    const set = studySets.find(
+        item => item.id === id
+    );
+
+    if (!set) return;
+
+    managingSetId = id;
+
+    document.getElementById("manageTitle").textContent =
+        `Manage Cards — ${set.name}`;
+
+    renderCardEditors();
+
+    document.getElementById("manageModal").style.display =
+        "flex";
+}
+
+
+function closeManageModal() {
+
+    document.getElementById("manageModal").style.display =
+        "none";
+
+    managingSetId = null;
+}
+
+
+function renderCardEditors() {
+
+    const set = studySets.find(
+        item => item.id === managingSetId
+    );
+
+    if (!set) return;
+
+    const container =
+        document.getElementById("cardEditors");
+
+    if (set.cards.length === 0) {
+
+        container.innerHTML = `
+            <p style="color:#918680;">
+                No cards yet. Add your first flashcard below.
             </p>
-
-            <button
-              class="primary-button"
-              type="button"
-              onclick="openCreateModal()"
-            >
-              + Create Study Set
-            </button>
-
-          </div>
-
         `;
 
         return;
-
-      }
-
-
-      sets.forEach(function(set) {
-
-        const course =
-          courses[set.courseCode];
-
-
-        const color =
-          set.color ||
-          (
-            course
-              ? course.color
-              : "#d8b7b0"
-          );
-
-
-        const courseName =
-          course
-            ? course.shortName
-            : (
-              set.courseCode ||
-              "Course"
-            );
-
-
-        const card =
-          document.createElement(
-            "div"
-          );
-
-
-        card.className =
-          "set-card";
-
-
-        card.innerHTML = `
-
-          <div
-            class="set-color"
-            style="background:${color};"
-          >
-            🧠
-          </div>
-
-          <h2>
-            ${escapeHtml(set.name)}
-          </h2>
-
-          <div class="set-course">
-            ${escapeHtml(courseName)}
-          </div>
-
-          <div class="set-info">
-
-            <span>
-              Cards:
-              <strong>
-                ${(set.cards || []).length}
-              </strong>
-            </span>
-
-            <span>
-              Flashcards
-            </span>
-
-          </div>
-
-          <div class="set-buttons">
-
-            <button
-              type="button"
-              class="study-button"
-            >
-              Study
-            </button>
-
-            <button
-              type="button"
-              class="manage-button"
-            >
-              Manage Cards
-            </button>
-
-            <button
-              type="button"
-              class="delete-set-button"
-            >
-              Delete
-            </button>
-
-          </div>
-
-        `;
-
-
-        card
-          .querySelector(
-            ".study-button"
-          )
-          .addEventListener(
-            "click",
-            function() {
-
-              startStudy(
-                set.id
-              );
-
-            }
-          );
-
-
-        card
-          .querySelector(
-            ".manage-button"
-          )
-          .addEventListener(
-            "click",
-            function() {
-
-              openManageCards(
-                set.id
-              );
-
-            }
-          );
-
-
-        card
-          .querySelector(
-            ".delete-set-button"
-          )
-          .addEventListener(
-            "click",
-            function() {
-
-              deleteSet(
-                set.id
-              );
-
-            }
-          );
-
-
-        grid.appendChild(
-          card
-        );
-
-      });
-
     }
 
 
-    /* =========================
-       CREATE SET
-    ========================= */
+    container.innerHTML =
+        set.cards.map((card, index) => {
+
+            return `
+                <div class="card-editor">
+
+                    <div class="card-editor-top">
+
+                        <strong>
+                            Card ${index + 1}
+                        </strong>
+
+                        <button
+                            class="small-delete"
+                            onclick="removeCardEditor(${index})"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                    <textarea
+                        class="question-input"
+                        data-index="${index}"
+                        placeholder="Question"
+                        rows="3"
+                    >${escapeHtml(card.question)}</textarea>
+
+                    <textarea
+                        class="answer-input"
+                        data-index="${index}"
+                        placeholder="Answer"
+                        rows="3"
+                    >${escapeHtml(card.answer)}</textarea>
 
-    function populateCourseOptions() {
-
-      const select =
-        document.getElementById(
-          "setCourse"
-        );
-
-
-      const courses =
-        getCourses();
-
-
-      select.innerHTML = "";
-
-
-      Object.keys(courses).forEach(
-        function(code) {
-
-          const option =
-            document.createElement(
-              "option"
-            );
-
-
-          option.value =
-            code;
-
-
-          option.textContent =
-            courses[code].shortName;
-
-
-          select.appendChild(
-            option
-          );
-
-        }
-      );
-
-    }
-
-
-    function openCreateModal() {
-
-      populateCourseOptions();
-
-
-      document
-        .getElementById(
-          "studySetForm"
-        )
-        .reset();
-
-
-      document
-        .getElementById(
-          "createModal"
-        )
-        .classList.add(
-          "show"
-        );
-
-
-      document
-        .getElementById(
-          "setName"
-        )
-        .focus();
-
-    }
-
-
-    function closeCreateModal() {
-
-      document
-        .getElementById(
-          "createModal"
-        )
-        .classList.remove(
-          "show"
-        );
-
-    }
-
-
-    document
-      .getElementById(
-        "studySetForm"
-      )
-      .addEventListener(
-        "submit",
-        function(event) {
-
-          event.preventDefault();
-
-
-          const name =
-            document
-              .getElementById(
-                "setName"
-              )
-              .value
-              .trim();
-
-
-          const courseCode =
-            document
-              .getElementById(
-                "setCourse"
-              )
-              .value;
-
-
-          const color =
-            document
-              .getElementById(
-                "setColor"
-              )
-              .value;
-
-
-          if (!name) {
-            return;
-          }
-
-
-          const sets =
-            getStudySets();
-
-
-          sets.push({
-
-            id:
-              Date.now(),
-
-            name:
-              name,
-
-            courseCode:
-              courseCode,
-
-            color:
-              color,
-
-            cards:
-              []
-
-          });
-
-
-          saveStudySets(
-            sets
-          );
-
-
-          closeCreateModal();
-
-          renderSets();
-
-        }
-      );
-
-
-    /* =========================
-       DELETE SET
-    ========================= */
-
-    function deleteSet(id) {
-
-      const sets =
-        getStudySets();
-
-
-      const set =
-        sets.find(function(item) {
-
-          return item.id === id;
-
-        });
-
-
-      if (!set) {
-        return;
-      }
-
-
-      const confirmed =
-        confirm(
-          'Delete "' +
-          set.name +
-          '"? This will delete all of its flashcards.'
-        );
-
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      const updated =
-        sets.filter(function(item) {
-
-          return item.id !== id;
-
-        });
-
-
-      saveStudySets(
-        updated
-      );
-
-
-      renderSets();
-
-    }
-
-
-    /* =========================
-       MANAGE CARDS
-    ========================= */
-
-    let activeSetId = null;
-
-    let editingCardId = null;
-
-
-    function openManageCards(setId) {
-
-      activeSetId =
-        setId;
-
-
-      const sets =
-        getStudySets();
-
-
-      const set =
-        sets.find(function(item) {
-
-          return item.id === setId;
-
-        });
-
-
-      if (!set) {
-        return;
-      }
-
-
-      document
-        .getElementById(
-          "manageTitle"
-        )
-        .textContent =
-        set.name;
-
-
-      document
-        .getElementById(
-          "manageSubtitle"
-        )
-        .textContent =
-        "Add, edit, or delete your flashcards.";
-
-
-      document
-        .getElementById(
-          "manageModal"
-        )
-        .classList.add(
-          "show"
-        );
-
-
-      renderCardList();
-
-
-      document
-        .getElementById(
-          "questionInput"
-        )
-        .focus();
-
-    }
-
-
-    function closeManageCards() {
-
-      document
-        .getElementById(
-          "manageModal"
-        )
-        .classList.remove(
-          "show"
-        );
-
-
-      activeSetId =
-        null;
-
-
-      renderSets();
-
-    }
-
-
-    function renderCardList() {
-
-      const list =
-        document.getElementById(
-          "cardList"
-        );
-
-
-      list.innerHTML = "";
-
-
-      if (activeSetId === null) {
-        return;
-      }
-
-
-      const sets =
-        getStudySets();
-
-
-      const set =
-        sets.find(function(item) {
-
-          return item.id === activeSetId;
-
-        });
-
-
-      if (!set) {
-        return;
-      }
-
-
-      const cards =
-        set.cards || [];
-
-
-      if (cards.length === 0) {
-
-        list.innerHTML = `
-
-          <div class="no-cards">
-
-            You don't have any flashcards yet.<br>
-            Add your first question and answer below.
-
-          </div>
-
-        `;
-
-        return;
-
-      }
-
-
-      cards.forEach(
-        function(card, index) {
-
-          const row =
-            document.createElement(
-              "div"
-            );
-
-
-          row.className =
-            "card-row";
-
-
-          row.innerHTML = `
-
-            <div class="card-row-top">
-
-              <div>
-
-                <div class="card-number">
-                  Card ${index + 1}
                 </div>
+            `;
 
-                <div class="card-question">
-                  ${escapeHtml(card.question)}
-                </div>
-
-                <div class="card-answer">
-                  ${escapeHtml(card.answer)}
-                </div>
-
-              </div>
-
-              <div class="card-row-buttons">
-
-                <button
-                  type="button"
-                  class="small-button edit-card"
-                >
-                  Edit
-                </button>
-
-                <button
-                  type="button"
-                  class="small-button delete-card"
-                >
-                  Delete
-                </button>
-
-              </div>
-
-            </div>
-
-          `;
+        }).join("");
+}
 
 
-          row
-            .querySelector(
-              ".edit-card"
-            )
-            .addEventListener(
-              "click",
-              function() {
+function addCardEditor() {
 
-                openEditCard(
-                  card.id
-                );
+    const set = studySets.find(
+        item => item.id === managingSetId
+    );
 
-              }
-            );
+    if (!set) return;
 
+    set.cards.push({
 
-          row
-            .querySelector(
-              ".delete-card"
-            )
-            .addEventListener(
-              "click",
-              function() {
+        id:
+            Date.now().toString() +
+            Math.random().toString(36).slice(2),
 
-                deleteCard(
-                  card.id
-                );
+        question: "",
 
-              }
-            );
+        answer: ""
+
+    });
+
+    renderCardEditors();
+}
 
 
-          list.appendChild(
-            row
-          );
+function removeCardEditor(index) {
+
+    const set = studySets.find(
+        item => item.id === managingSetId
+    );
+
+    if (!set) return;
+
+    set.cards.splice(index, 1);
+
+    renderCardEditors();
+}
+
+
+function saveCards() {
+
+    const set = studySets.find(
+        item => item.id === managingSetId
+    );
+
+    if (!set) return;
+
+    const questions =
+        document.querySelectorAll(".question-input");
+
+    const answers =
+        document.querySelectorAll(".answer-input");
+
+
+    questions.forEach((input, index) => {
+
+        if (set.cards[index]) {
+
+            set.cards[index].question =
+                input.value.trim();
 
         }
-      );
 
-    }
-
-
-    /* =========================
-       ADD CARD
-    ========================= */
-
-    document
-      .getElementById(
-        "cardForm"
-      )
-      .addEventListener(
-        "submit",
-        function(event) {
-
-          event.preventDefault();
+    });
 
 
-          if (activeSetId === null) {
-            return;
-          }
+    answers.forEach((input, index) => {
 
+        if (set.cards[index]) {
 
-          const question =
-            document
-              .getElementById(
-                "questionInput"
-              )
-              .value
-              .trim();
-
-
-          const answer =
-            document
-              .getElementById(
-                "answerInput"
-              )
-              .value
-              .trim();
-
-
-          if (!question || !answer) {
-            return;
-          }
-
-
-          const sets =
-            getStudySets();
-
-
-          const set =
-            sets.find(function(item) {
-
-              return item.id === activeSetId;
-
-            });
-
-
-          if (!set) {
-            return;
-          }
-
-
-          if (!set.cards) {
-            set.cards = [];
-          }
-
-
-          set.cards.push({
-
-            id:
-              Date.now(),
-
-            question:
-              question,
-
-            answer:
-              answer
-
-          });
-
-
-          saveStudySets(
-            sets
-          );
-
-
-          document
-            .getElementById(
-              "cardForm"
-            )
-            .reset();
-
-
-          renderCardList();
+            set.cards[index].answer =
+                input.value.trim();
 
         }
-      );
 
+    });
 
-    /* =========================
-       DELETE CARD
-    ========================= */
 
-    function deleteCard(cardId) {
-
-      if (activeSetId === null) {
-        return;
-      }
-
-
-      const confirmed =
-        confirm(
-          "Delete this flashcard?"
-        );
-
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      const sets =
-        getStudySets();
-
-
-      const set =
-        sets.find(function(item) {
-
-          return item.id === activeSetId;
-
-        });
-
-
-      if (!set) {
-        return;
-      }
-
-
-      set.cards =
-        (set.cards || [])
-          .filter(function(card) {
-
-            return card.id !== cardId;
-
-          });
-
-
-      saveStudySets(
-        sets
-      );
-
-
-      renderCardList();
-
-    }
-
-
-    /* =========================
-       EDIT CARD
-    ========================= */
-
-    function openEditCard(cardId) {
-
-      editingCardId =
-        cardId;
-
-
-      const sets =
-        getStudySets();
-
-
-      const set =
-        sets.find(function(item) {
-
-          return item.id === activeSetId;
-
-        });
-
-
-      if (!set) {
-        return;
-      }
-
-
-      const card =
-        (set.cards || [])
-          .find(function(item) {
-
-            return item.id === cardId;
-
-          });
-
-
-      if (!card) {
-        return;
-      }
-
-
-      document
-        .getElementById(
-          "editQuestion"
-        )
-        .value =
-        card.question;
-
-
-      document
-        .getElementById(
-          "editAnswer"
-        )
-        .value =
-        card.answer;
-
-
-      document
-        .getElementById(
-          "editCardModal"
-        )
-        .classList.add(
-          "show"
-        );
-
-    }
-
-
-    function closeEditCard() {
-
-      document
-        .getElementById(
-          "editCardModal"
-        )
-        .classList.remove(
-          "show"
-        );
-
-
-      editingCardId =
-        null;
-
-    }
-
-
-    document
-      .getElementById(
-        "editCardForm"
-      )
-      .addEventListener(
-        "submit",
-        function(event) {
-
-          event.preventDefault();
-
-
-          if (
-            activeSetId === null ||
-            editingCardId === null
-          ) {
-            return;
-          }
-
-
-          const question =
-            document
-              .getElementById(
-                "editQuestion"
-              )
-              .value
-              .trim();
-
-
-          const answer =
-            document
-              .getElementById(
-                "editAnswer"
-              )
-              .value
-              .trim();
-
-
-          if (!question || !answer) {
-            return;
-          }
-
-
-          const sets =
-            getStudySets();
-
-
-          const set =
-            sets.find(function(item) {
-
-              return item.id === activeSetId;
-
-            });
-
-
-          if (!set) {
-            return;
-          }
-
-
-          const card =
-            (set.cards || [])
-              .find(function(item) {
-
-                return item.id === editingCardId;
-
-              });
-
-
-          if (!card) {
-            return;
-          }
-
-
-          card.question =
-            question;
-
-
-          card.answer =
-            answer;
-
-
-          saveStudySets(
-            sets
-          );
-
-
-          closeEditCard();
-
-          renderCardList();
-
-        }
-      );
-
-
-    /* =========================
-       STUDY MODE
-    ========================= */
-
-    let activeStudySet = null;
-
-    let currentCardIndex = 0;
-
-    let correctCount = 0;
-
-
-    function startStudy(id) {
-
-      const sets =
-        getStudySets();
-
-
-      activeStudySet =
-        sets.find(function(set) {
-
-          return set.id === id;
-
-        });
-
-
-      if (!activeStudySet) {
-        return;
-      }
-
-
-      if (
-        !activeStudySet.cards ||
-        activeStudySet.cards.length === 0
-      ) {
-
-        alert(
-          "This study set doesn't have any flashcards yet. Click Manage Cards to add some first."
-        );
-
-        return;
-
-      }
-
-
-      currentCardIndex =
-        0;
-
-
-      correctCount =
-        0;
-
-
-      document
-        .getElementById(
-          "studyOverlay"
-        )
-        .classList.add(
-          "show"
-        );
-
-
-      document
-        .getElementById(
-          "studyTitle"
-        )
-        .textContent =
-        activeStudySet.name;
-
-
-      renderFlashcard();
-
-    }
-
-
-    function renderFlashcard() {
-
-      if (!activeStudySet) {
-        return;
-      }
-
-
-      const cards =
-        activeStudySet.cards;
-
-
-      const card =
-        cards[
-          currentCardIndex
-        ];
-
-
-      const flashcard =
-        document.getElementById(
-          "flashcard"
-        );
-
-
-      flashcard.classList.remove(
-        "show-answer"
-      );
-
-
-      document
-        .getElementById(
-          "flashcardQuestion"
-        )
-        .textContent =
-        card.question;
-
-
-      document
-        .getElementById(
-          "flashcardAnswer"
-        )
-        .textContent =
-        card.answer;
-
-
-      document
-        .getElementById(
-          "progressText"
-        )
-        .textContent =
-        "Card " +
-        (currentCardIndex + 1) +
-        " of " +
-        cards.length;
-
-
-      document
-        .getElementById(
-          "scoreText"
-        )
-        .textContent =
-        correctCount +
-        " correct";
-
-
-      const percent =
-        (
-          currentCardIndex /
-          cards.length
-        ) *
-        100;
-
-
-      document
-        .getElementById(
-          "progressFill"
-        )
-        .style.width =
-        percent + "%";
-
-    }
-
-
-    function nextCard() {
-
-      if (!activeStudySet) {
-        return;
-      }
-
-
-      if (
-        currentCardIndex >=
-        activeStudySet.cards.length - 1
-      ) {
-
-        document
-          .getElementById(
-            "progressFill"
-          )
-          .style.width =
-          "100%";
-
-
-        setTimeout(
-          function() {
-
-            alert(
-              "Great job! You finished the study set. 🌸"
-            );
-
-
-            exitStudy();
-
-          },
-          100
-        );
-
-
-        return;
-
-      }
-
-
-      currentCardIndex++;
-
-
-      renderFlashcard();
-
-    }
-
-
-    document
-      .getElementById(
-        "flashcard"
-      )
-      .addEventListener(
-        "click",
-        function() {
-
-          this.classList.toggle(
-            "show-answer"
-          );
-
-        }
-      );
-
-
-    document
-      .getElementById(
-        "correctButton"
-      )
-      .addEventListener(
-        "click",
-        function() {
-
-          correctCount++;
-
-          nextCard();
-
-        }
-      );
-
-
-    document
-      .getElementById(
-        "wrongButton"
-      )
-      .addEventListener(
-        "click",
-        function() {
-
-          nextCard();
-
-        }
-      );
-
-
-    function exitStudy() {
-
-      document
-        .getElementById(
-          "studyOverlay"
-        )
-        .classList.remove(
-          "show"
-        );
-
-
-      activeStudySet =
-        null;
-
-    }
-
-
-    /* =========================
-       BUTTONS
-    ========================= */
-
-    document
-      .getElementById(
-        "createSetButton"
-      )
-      .addEventListener(
-        "click",
-        openCreateModal
-      );
-
-
-    document
-      .getElementById(
-        "closeCreateModal"
-      )
-      .addEventListener(
-        "click",
-        closeCreateModal
-      );
-
-
-    document
-      .getElementById(
-        "cancelCreate"
-      )
-      .addEventListener(
-        "click",
-        closeCreateModal
-      );
-
-
-    document
-      .getElementById(
-        "closeManageModal"
-      )
-      .addEventListener(
-        "click",
-        closeManageCards
-      );
-
-
-    document
-      .getElementById(
-        "closeManageButton"
-      )
-      .addEventListener(
-        "click",
-        closeManageCards
-      );
-
-
-    document
-      .getElementById(
-        "closeEditModal"
-      )
-      .addEventListener(
-        "click",
-        closeEditCard
-      );
-
-
-    document
-      .getElementById(
-        "cancelEdit"
-      )
-      .addEventListener(
-        "click",
-        closeEditCard
-      );
-
-
-    document
-      .getElementById(
-        "exitStudy"
-      )
-      .addEventListener(
-        "click",
-        exitStudy
-      );
-
-
-    /* =========================
-       CLOSE MODALS BY CLICKING
-       OUTSIDE THEM
-    ========================= */
-
-    document
-      .getElementById(
-        "createModal"
-      )
-      .addEventListener(
-        "click",
-        function(event) {
-
-          if (
-            event.target === this
-          ) {
-
-            closeCreateModal();
-
-          }
-
-        }
-      );
-
-
-    document
-      .getElementById(
-        "manageModal"
-      )
-      .addEventListener(
-        "click",
-        function(event) {
-
-          if (
-            event.target === this
-          ) {
-
-            closeManageCards();
-
-          }
-
-        }
-      );
-
-
-    document
-      .getElementById(
-        "editCardModal"
-      )
-      .addEventListener(
-        "click",
-        function(event) {
-
-          if (
-            event.target === this
-          ) {
-
-            closeEditCard();
-
-          }
-
-        }
-      );
-
-
-    /* =========================
-       STORAGE SYNC
-    ========================= */
-
-    window.addEventListener(
-      "storage",
-      function() {
-
-        renderSets();
-
-      }
+    set.cards = set.cards.filter(card =>
+        card.question || card.answer
     );
 
 
-    /* =========================
-       INITIALIZE
-    ========================= */
+    saveSets();
 
-    createExampleSets();
+    renderStudySets();
 
-    renderSets();
+    closeManageModal();
+}
 
-  </script>
+
+/* =========================
+   STUDY MODE
+========================= */
+
+function startStudy(id) {
+
+    const set = studySets.find(
+        item => item.id === id
+    );
+
+    if (!set) return;
+
+    if (set.cards.length === 0) {
+
+        alert(
+            "This study set has no cards yet. Click Manage Cards to add some."
+        );
+
+        return;
+    }
+
+    currentStudySet = set;
+
+    currentCardIndex = 0;
+
+    cardFlipped = false;
+
+    document.getElementById("studyTitle").textContent =
+        set.name;
+
+    document.getElementById("studyOverlay").style.display =
+        "block";
+
+    renderStudyCard();
+}
+
+
+function closeStudyMode() {
+
+    document.getElementById("studyOverlay").style.display =
+        "none";
+
+    currentStudySet = null;
+}
+
+
+function renderStudyCard() {
+
+    if (!currentStudySet) return;
+
+    const card =
+        currentStudySet.cards[currentCardIndex];
+
+    if (!card) {
+
+        closeStudyMode();
+
+        return;
+    }
+
+    document.getElementById("studyProgress").textContent =
+        `Card ${currentCardIndex + 1} of ${currentStudySet.cards.length}`;
+
+    document.getElementById("flashcardLabel").textContent =
+        cardFlipped ? "Answer" : "Question";
+
+    document.getElementById("flashcardText").textContent =
+        cardFlipped
+            ? card.answer
+            : card.question;
+}
+
+
+function flipCard() {
+
+    if (!currentStudySet) return;
+
+    cardFlipped = !cardFlipped;
+
+    renderStudyCard();
+}
+
+
+function nextStudyCard() {
+
+    if (!currentStudySet) return;
+
+    if (
+        currentCardIndex >=
+        currentStudySet.cards.length - 1
+    ) {
+
+        alert("You finished this study set! 🎉");
+
+        closeStudyMode();
+
+        return;
+    }
+
+    currentCardIndex++;
+
+    cardFlipped = false;
+
+    renderStudyCard();
+}
+
+
+function markCorrect() {
+
+    nextStudyCard();
+}
+
+
+function stillLearning() {
+
+    nextStudyCard();
+}
+
+
+/* =========================
+   STARTUP
+========================= */
+
+populateCourseDropdown();
+
+renderStudySets();
+
+</script>
 
 </body>
 </html>
