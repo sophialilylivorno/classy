@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant — Classy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f3ee;
+            color: #4d4642;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 220px;
+            height: 100vh;
+            background: #fffaf6;
+            border-right: 1px solid #eadfd7;
+            padding: 28px 18px;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 700;
+            color: #b77d7d;
+            margin-bottom: 4px;
+        }
+
+        .tagline {
+            font-size: 11px;
+            color: #a69a94;
+            margin-bottom: 35px;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #756d68;
+            font-size: 14px;
+            padding: 11px 13px;
+            border-radius: 11px;
+            transition: 0.2s;
+        }
+
+        .nav a:hover {
+            background: #f5e9e5;
+            color: #a66f70;
+        }
+
+        .nav a.active {
+            background: #f0ddd7;
+            color: #a66f70;
+            font-weight: 600;
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: 220px;
+            min-height: 100vh;
+            padding: 38px 45px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-section {
+            margin-bottom: 25px;
+        }
+
+        .page-title {
+            font-size: 30px;
+            margin: 0 0 7px;
+            color: #4d4642;
+        }
+
+        .page-subtitle {
+            margin: 0;
+            font-size: 14px;
+            color: #968b85;
+        }
+
+        /* AI LAYOUT */
+        .ai-layout {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 25px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .chat-container {
+            background: #fffdfb;
+            border: 1px solid #eadfd7;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(110, 91, 78, 0.06);
+            display: flex;
+            flex-direction: column;
+            min-height: 650px;
+            overflow: hidden;
+        }
+
+        /* CHAT HEADER */
+        .chat-header {
+            padding: 19px 22px;
+            border-bottom: 1px solid #eee5df;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fffdfb;
+        }
+
+        .assistant-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ai-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background: #f1e4e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .assistant-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #4d4642;
+        }
+
+        .assistant-status {
+            font-size: 11px;
+            color: #9b908a;
+            margin-top: 3px;
+        }
+
+        .clear-button {
+            border: none;
+            background: #f7f0ec;
+            color: #857974;
+            padding: 8px 12px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .clear-button:hover {
+            background: #eee3dd;
+        }
+
+        /* MESSAGES */
+        .messages {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .message {
+            display: flex;
+            gap: 11px;
+            max-width: 82%;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .assistant-avatar {
+            background: #f1e4e0;
+        }
+
+        .user-avatar {
+            background: #dfb5ad;
+        }
+
+        .message-content {
+            padding: 12px 15px;
+            border-radius: 14px;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .assistant-message {
+            background: #f8f3ef;
+            color: #5d5550;
+            border-top-left-radius: 4px;
+        }
+
+        .user-message {
+            background: #e8d1cb;
+            color: #5a4845;
+            border-top-right-radius: 4px;
+        }
+
+        .message-content strong {
+            color: #4d4642;
+        }
+
+        .message-content ul {
+            margin: 8px 0 4px 18px;
+            padding: 0;
+        }
+
+        .message-content li {
+            margin-bottom: 4px;
+        }
+
+        /* QUICK PROMPTS */
+        .quick-prompts {
+            padding: 0 22px 15px;
+        }
+
+        .quick-label {
+            font-size: 11px;
+            color: #a19791;
+            margin-bottom: 9px;
+        }
+
+        .prompt-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .prompt-button {
+            border: 1px solid #e7dad3;
+            background: #fffaf7;
+            color: #786d68;
+            border-radius: 20px;
+            padding: 8px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .prompt-button:hover {
+            background: #f4e7e2;
+            border-color: #dec8c0;
+            color: #9d6c6d;
+        }
+
+        /* INPUT */
+        .input-area {
+            padding: 16px 20px 20px;
+            border-top: 1px solid #eee5df;
+            background: #fffdfb;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            background: #faf6f3;
+            border: 1px solid #e8ddd7;
+            border-radius: 15px;
+            padding: 8px 8px 8px 14px;
+        }
+
+        .message-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            outline: none;
+            resize: none;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            color: #4d4642;
+            min-height: 22px;
+            max-height: 110px;
+            padding: 7px 0;
+        }
+
+        .message-input::placeholder {
+            color: #aaa09a;
+        }
+
+        .send-button {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 11px;
+            background: #c98787;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .send-button:hover {
+            background: #b97878;
+        }
+
+        /* RIGHT PANEL */
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+        }
+
+        .info-card {
+            background: #fffdfb;
+            border: 1px solid #eadfd7;
+            border-radius: 17px;
+            padding: 19px;
+            box-shadow: 0 4px 16px rgba(110, 91, 78, 0.05);
+        }
+
+        .info-card h3 {
+            font-size: 14px;
+            margin: 0 0 14px;
+            color: #4d4642;
+        }
+
+        .context-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 9px 0;
+            border-bottom: 1px solid #f0e8e3;
+            font-size: 12px;
+        }
+
+        .context-item:last-child {
+            border-bottom: none;
+        }
+
+        .context-label {
+            color: #827771;
+        }
+
+        .context-number {
+            font-weight: 700;
+            color: #b77d7d;
+        }
+
+        .capability {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 12px;
+            color: #776d68;
+            margin-bottom: 10px;
+        }
+
+        .capability:last-child {
+            margin-bottom: 0;
+        }
+
+        .capability-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: #f4e9e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tip-card {
+            background: #f1e5e1;
+            border: 1px solid #e5d3cd;
+        }
+
+        .tip-card h3 {
+            color: #805f5e;
+        }
+
+        .tip-card p {
+            font-size: 12px;
+            line-height: 1.55;
+            color: #806f69;
+            margin: 0;
+        }
+
+        /* TYPING */
+        .typing {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            padding: 3px 0;
+        }
+
+        .typing span {
+            width: 5px;
+            height: 5px;
+            background: #b8aaa4;
+            border-radius: 50%;
+            animation: bounce 1s infinite;
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes bounce {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-4px);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .ai-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .side-panel {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .chat-container {
+                min-height: 600px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #eadfd7;
+            }
+
+            .nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 25px 18px;
+            }
+
+            .side-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .message {
+                max-width: 94%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">Classy</div>
+        <div class="tagline">Your college life, organized.</div>
+
+        <nav class="nav">
+            <a href="index.html">Dashboard</a>
+            <a href="courses.html">Courses</a>
+            <a href="planner.html">Planner</a>
+            <a href="study-sets.html">Study Sets</a>
+            <a href="notes.html">Notes</a>
+            <a href="ai.html" class="active">AI Assistant</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <div class="top-section">
+            <h1 class="page-title">AI Assistant ✨</h1>
+            <p class="page-subtitle">
+                Your personal study companion, right inside Classy.
+            </p>
+        </div>
+
+
+        <div class="ai-layout">
+
+            <!-- CHAT -->
+            <section class="chat-container">
+
+                <div class="chat-header">
+
+                    <div class="assistant-title">
+                        <div class="ai-icon">✨</div>
+
+                        <div>
+                            <div class="assistant-name">Classy Assistant</div>
+                            <div class="assistant-status">
+                                Connected to your Classy workspace
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="clear-button" onclick="clearChat()">
+                        Clear chat
+                    </button>
+
+                </div>
+
+
+                <div class="messages" id="messages">
+
+                    <div class="message">
+
+                        <div class="message-avatar assistant-avatar">
+                            ✨
+                        </div>
+
+                        <div class="message-content assistant-message">
+                            Hi! I'm your Classy Assistant. 💕
+
+                            <br><br>
+
+                            I can help you make sense of your courses,
+                            assignments, notes, and study sets.
+
+                            <br><br>
+
+                            <strong>What would you like to work on?</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK PROMPTS -->
+                <div class="quick-prompts">
+
+                    <div class="quick-label">
+                        Try asking me:
+                    </div>
+
+                    <div class="prompt-list">
+
+                        <button class="prompt-button"
+                            onclick="usePrompt('What assignments do I have coming up?')">
+                            📚 Upcoming assignments
+                        </button>
+
+                        <button class="prompt-button"
+                            onclick="usePrompt('What courses am I taking?')">
+                            🎓 My courses
+                        </button>
+
+                        <button class="prompt-button"
+                            onclick="usePrompt('What should I study today?')">
+                            🧠 What should I study?
+                        </button>
+
+                        <button class="prompt-button"
+                            onclick="usePrompt('Show me my notes.')">
+                            📝 My notes
+                        </button>
+
+                        <button class="prompt-button"
+                            onclick="usePrompt('What study sets do I have?')">
+                            🗂️ My study sets
+                        </button>
+
+                        <button class="prompt-button"
+                            onclick="usePrompt('Help me plan my week.')">
+                            🗓️ Plan my week
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INPUT -->
+                <div class="input-area">
+
+                    <div class="input-box">
+
+                        <textarea
+                            id="messageInput"
+                            class="message-input"
+                            placeholder="Ask Classy anything..."
+                            rows="1"
+                        ></textarea>
+
+                        <button
+                            class="send-button"
+                            onclick="sendMessage()"
+                            title="Send"
+                        >
+                            ↑
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RIGHT PANEL -->
+            <aside class="side-panel">
+
+                <div class="info-card">
+
+                    <h3>Your Classy Data</h3>
+
+                    <div class="context-item">
+                        <span class="context-label">Courses</span>
+                        <span class="context-number" id="courseCount">0</span>
+                    </div>
+
+                    <div class="context-item">
+                        <span class="context-label">Assignments</span>
+                        <span class="context-number" id="assignmentCount">0</span>
+                    </div>
+
+                    <div class="context-item">
+                        <span class="context-label">Notes</span>
+                        <span class="context-number" id="noteCount">0</span>
+                    </div>
+
+                    <div class="context-item">
+                        <span class="context-label">Study Sets</span>
+                        <span class="context-number" id="studySetCount">0</span>
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <h3>I can help with</h3>
+
+                    <div class="capability">
+                        <div class="capability-icon">📚</div>
+                        Assignments
+                    </div>
+
+                    <div class="capability">
+                        <div class="capability-icon">🧠</div>
+                        Studying
+                    </div>
+
+                    <div class="capability">
+                        <div class="capability-icon">📝</div>
+                        Notes
+                    </div>
+
+                    <div class="capability">
+                        <div class="capability-icon">🗓️</div>
+                        Planning
+                    </div>
+
+                    <div class="capability">
+                        <div class="capability-icon">🎓</div>
+                        Courses
+                    </div>
+
+                </div>
+
+
+                <div class="info-card tip-card">
+
+                    <h3>💡 Classy tip</h3>
+
+                    <p>
+                        The more organized your Classy workspace is,
+                        the more useful your assistant can be.
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /* ----------------------------------
+           DEFAULT COURSES
+        ---------------------------------- */
+
+        const defaultCourses = {
+            MATH1131: {
+                name: "Calculus for Business",
+                code: "Math 1131"
+            },
+
+            ENGLISH2367: {
+                name: "Composition II",
+                code: "English 2367"
+            },
+
+            HISTORY1112: {
+                name: "European History",
+                code: "History 1112"
+            },
+
+            GELAUNCH: {
+                name: "GE Launch Seminar",
+                code: "GE Launch"
+            }
+        };
+
+
+        /* ----------------------------------
+           GET COURSES
+        ---------------------------------- */
+
+        function getCourses() {
+
+            let courses = Object.entries(defaultCourses).map(([key, course]) => ({
+                key: key,
+                name: course.name,
+                code: course.code
+            }));
+
+            try {
+
+                const savedCourses =
+                    JSON.parse(localStorage.getItem("classyCourses") || "[]");
+
+                savedCourses.forEach(course => {
+
+                    const key = (course.code || "")
+                        .replace(/\s+/g, "")
+                        .toUpperCase();
+
+                    if (
+                        key &&
+                        !courses.some(existing => existing.key === key)
+                    ) {
+
+                        courses.push({
+                            key: key,
+                            name: course.name,
+                            code: course.code
+                        });
+
+                    }
+
+                });
+
+            } catch (error) {
+                console.log("Could not load saved courses.");
+            }
+
+            return courses;
+        }
+
+
+        /* ----------------------------------
+           GET ASSIGNMENTS
+        ---------------------------------- */
+
+        function getAssignments() {
+
+            const assignments = [];
+
+            const courses = getCourses();
+
+            courses.forEach(course => {
+
+                const storageKey =
+                    "classyAssignments_" + course.key;
+
+                try {
+
+                    const saved =
+                        JSON.parse(localStorage.getItem(storageKey) || "[]");
+
+                    saved.forEach(assignment => {
+
+                        assignments.push({
+                            ...assignment,
+                            courseName: course.name,
+                            courseCode: course.code
+                        });
+
+                    });
+
+                } catch (error) {
+                    console.log("Could not load assignments.");
+                }
+
+            });
+
+            return assignments;
+        }
+
+
+        /* ----------------------------------
+           GET NOTES
+        ---------------------------------- */
+
+        function getNotes() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem("classyNotes") || "[]"
+                );
+
+            } catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+        /* ----------------------------------
+           GET STUDY SETS
+        ---------------------------------- */
+
+        function getStudySets() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem("classyStudySets") || "[]"
+                );
+
+            } catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+        /* ----------------------------------
+           UPDATE DATA COUNTS
+        ---------------------------------- */
+
+        function updateDataCounts() {
+
+            const courses = getCourses();
+            const assignments = getAssignments();
+            const notes = getNotes();
+            const studySets = getStudySets();
+
+            document.getElementById("courseCount").textContent =
+                courses.length;
+
+            document.getElementById("assignmentCount").textContent =
+                assignments.length;
+
+            document.getElementById("noteCount").textContent =
+                notes.length;
+
+            document.getElementById("studySetCount").textContent =
+                studySets.length;
+        }
+
+
+        /* ----------------------------------
+           ADD MESSAGE
+        ---------------------------------- */
+
+        function addMessage(text, type) {
+
+            const messages =
+                document.getElementById("messages");
+
+            const message =
+                document.createElement("div");
+
+            message.className =
+                "message " + type;
+
+            const avatar =
+                document.createElement("div");
+
+            avatar.className =
+                "message-avatar " +
+                (type === "user"
+                    ? "user-avatar"
+                    : "assistant-avatar");
+
+            avatar.textContent =
+                type === "user" ? "♡" : "✨";
+
+
+            const content =
+                document.createElement("div");
+
+            content.className =
+                "message-content " +
+                (type === "user"
+                    ? "user-message"
+                    : "assistant-message");
+
+            content.innerHTML = text;
+
+
+            message.appendChild(avatar);
+            message.appendChild(content);
+
+            messages.appendChild(message);
+
+            messages.scrollTop =
+                messages.scrollHeight;
+        }
+
+
+        /* ----------------------------------
+           TYPING INDICATOR
+        ---------------------------------- */
+
+        function showTyping() {
+
+            const messages =
+                document.getElementById("messages");
+
+            const message =
+                document.createElement("div");
+
+            message.className =
+                "message";
+            message.id =
+                "typingMessage";
+
+            message.innerHTML = `
+                <div class="message-avatar assistant-avatar">
+                    ✨
+                </div>
+
+                <div class="message-content assistant-message">
+                    <div class="typing">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+
+            messages.appendChild(message);
+
+            messages.scrollTop =
+                messages.scrollHeight;
+        }
+
+
+        function removeTyping() {
+
+            const typing =
+                document.getElementById("typingMessage");
+
+            if (typing) {
+                typing.remove();
+            }
+
+        }
+
+
+        /* ----------------------------------
+           FORMAT DATE
+        ---------------------------------- */
+
+        function formatDate(dateString) {
+
+            if (!dateString) {
+                return "No date";
+            }
+
+            const date =
+                new Date(dateString + "T00:00:00");
+
+            if (isNaN(date)) {
+                return dateString;
+            }
+
+            return date.toLocaleDateString(
+                undefined,
+                {
+                    month: "short",
+                    day: "numeric"
+                }
+            );
+        }
+
+
+        /* ----------------------------------
+           UPCOMING ASSIGNMENTS
+        ---------------------------------- */
+
+        function assignmentResponse() {
+
+            const assignments =
+                getAssignments();
+
+            if (assignments.length === 0) {
+
+                return `
+                    You don't have any assignments saved yet. 💕
+                    <br><br>
+                    Once you add assignments through your course pages,
+                    I'll be able to help you keep track of them.
+                `;
+
+            }
+
+
+            const incomplete =
+                assignments
+                    .filter(a => !a.completed)
+                    .sort((a, b) =>
+                        String(a.date || "")
+                            .localeCompare(String(b.date || ""))
+                    )
+                    .slice(0, 6);
+
+
+            if (incomplete.length === 0) {
+
+                return `
+                    You're all caught up! 🎉
+                    <br><br>
+                    There are no incomplete assignments in Classy right now.
+                `;
+
+            }
+
+
+            let html =
+                `<strong>Here are your upcoming assignments:</strong><ul>`;
+
+
+            incomplete.forEach(assignment => {
+
+                html += `
+                    <li>
+                        <strong>${escapeHtml(assignment.name)}</strong>
+                        — ${escapeHtml(assignment.courseCode || assignment.courseName)}
+                        ${assignment.date
+                            ? ` · ${formatDate(assignment.date)}`
+                            : ""}
+                    </li>
+                `;
+
+            });
+
+
+            html += `</ul>`;
+
+            return html;
+        }
+
+
+        /* ----------------------------------
+           COURSE RESPONSE
+        ---------------------------------- */
+
+        function courseResponse() {
+
+            const courses =
+                getCourses();
+
+            if (!courses.length) {
+                return "You don't have any courses saved yet.";
+            }
+
+            let html =
+                `<strong>You're currently tracking ${courses.length} course${courses.length === 1 ? "" : "s"}:</strong><ul>`;
+
+            courses.forEach(course => {
+
+                html += `
+                    <li>
+                        ${escapeHtml(course.name)}
+                        <span style="color:#9a8d87;">
+                            (${escapeHtml(course.code)})
+                        </span>
+                    </li>
+                `;
+
+            });
+
+            html += `</ul>`;
+
+            return html;
+        }
+
+
+        /* ----------------------------------
+           NOTES RESPONSE
+        ---------------------------------- */
+
+        function notesResponse() {
+
+            const notes =
+                getNotes();
+
+            if (!notes.length) {
+
+                return `
+                    You don't have any notes saved yet. 📝
+                    <br><br>
+                    Once you create some notes, I can help you
+                    organize and review what's in your workspace.
+                `;
+
+            }
+
+
+            let html =
+                `<strong>You have ${notes.length} saved note${notes.length === 1 ? "" : "s"}.</strong><ul>`;
+
+
+            notes.slice(0, 8).forEach(note => {
+
+                html += `
+                    <li>
+                        ${escapeHtml(note.title || "Untitled note")}
+                    </li>
+                `;
+
+            });
+
+
+            html += `</ul>`;
+
+            return html;
+        }
+
+
+        /* ----------------------------------
+           STUDY SET RESPONSE
+        ---------------------------------- */
+
+        function studySetResponse() {
+
+            const sets =
+                getStudySets();
+
+            if (!sets.length) {
+
+                return `
+                    You don't have any study sets yet. 🧠
+                    <br><br>
+                    Create one in Study Sets and I'll be able
+                    to see it here.
+                `;
+
+            }
+
+
+            let html =
+                `<strong>You have ${sets.length} study set${sets.length === 1 ? "" : "s"}:</strong><ul>`;
+
+
+            sets.forEach(set => {
+
+                const cardCount =
+                    Array.isArray(set.cards)
+                        ? set.cards.length
+                        : 0;
+
+                html += `
+                    <li>
+                        ${escapeHtml(set.name || "Untitled set")}
+                        — ${cardCount} card${cardCount === 1 ? "" : "s"}
+                    </li>
+                `;
+
+            });
+
+
+            html += `</ul>`;
+
+            return html;
+        }
+
+
+        /* ----------------------------------
+           STUDY TODAY RESPONSE
+        ---------------------------------- */
+
+        function studyTodayResponse() {
+
+            const assignments =
+                getAssignments()
+                    .filter(a => !a.completed)
+                    .sort((a, b) =>
+                        String(a.date || "")
+                            .localeCompare(String(b.date || ""))
+                    );
+
+            const sets =
+                getStudySets();
+
+            if (!assignments.length && !sets.length) {
+
+                return `
+                    I'd start by adding your assignments and study sets
+                    to Classy. Then I can help you decide what deserves
+                    your attention first. 💕
+                `;
+
+            }
+
+            let html =
+                `<strong>Here's what I'd prioritize:</strong><br><br>`;
+
+            if (assignments.length) {
+
+                html += `
+                    📚 <strong>First:</strong>
+                    Check your next ${assignments.length === 1 ? "assignment" : "few assignments"}.
+                    <br><br>
+                `;
+
+            }
+
+            if (sets.length) {
+
+                html += `
+                    🧠 <strong>Then:</strong>
+                    Spend some focused time reviewing a study set.
+                    <br><br>
+                `;
+
+            }
+
+            html += `
+                ✨ <strong>Finally:</strong>
+                Give yourself a short break before your next study block.
+            `;
+
+            return html;
+        }
+
+
+        /* ----------------------------------
+           WEEK RESPONSE
+        ---------------------------------- */
+
+        function weekResponse() {
+
+            const assignments =
+                getAssignments()
+                    .filter(a => !a.completed)
+                    .sort((a, b) =>
+                        String(a.date || "")
+                            .localeCompare(String(b.date || ""))
+                    );
+
+            if (!assignments.length) {
+
+                return `
+                    Your Classy planner is looking pretty clear. ✨
+                    <br><br>
+                    Once you add some assignments, I can help you
+                    organize your week around their due dates.
+                `;
+
+            }
+
+            let html =
+                `<strong>Here's a simple way to approach your week:</strong><ul>`;
+
+            assignments.slice(0, 5).forEach(assignment => {
+
+                html += `
+                    <li>
+                        Work on <strong>${escapeHtml(assignment.name)}</strong>
+                        ${assignment.date
+                            ? ` by ${formatDate(assignment.date)}`
+                            : ""}
+                    </li>
+                `;
+
+            });
+
+            html += `</ul>`;
+
+            html += `
+                I'd recommend breaking larger assignments into
+                smaller study blocks instead of leaving everything
+                until the night before. 💕
+            `;
+
+            return html;
+        }
+
+
+        /* ----------------------------------
+           GENERAL RESPONSE
+        ---------------------------------- */
+
+        function generateResponse(input) {
+
+            const text =
+                input.toLowerCase().trim();
+
+
+            if (
+                text.includes("assignment") ||
+                text.includes("due") ||
+                text.includes("homework")
+            ) {
+                return assignmentResponse();
+            }
+
+
+            if (
+                text.includes("course") ||
+                text.includes("class") ||
+                text.includes("classes")
+            ) {
+                return courseResponse();
+            }
+
+
+            if (
+                text.includes("note") ||
+                text.includes("notes")
+            ) {
+                return notesResponse();
+            }
+
+
+            if (
+                text.includes("study set") ||
+                text.includes("flashcard") ||
+                text.includes("flash card")
+            ) {
+                return studySetResponse();
+            }
+
+
+            if (
+                text.includes("study today") ||
+                text.includes("what should i study") ||
+                text.includes("what do i study")
+            ) {
+                return studyTodayResponse();
+            }
+
+
+            if (
+                text.includes("plan my week") ||
+                text.includes("plan my") ||
+                text.includes("my week")
+            ) {
+                return weekResponse();
+            }
+
+
+            if (
+                text.includes("hello") ||
+                text.includes("hi") ||
+                text.includes("hey")
+            ) {
+
+                return `
+                    Hi! 💕 I'm here to help you stay organized.
+                    <br><br>
+                    Try asking me about your assignments, courses,
+                    notes, study sets, or what you should work on today.
+                `;
+
+            }
+
+
+            if (
+                text.includes("thank")
+            ) {
+
+                return `
+                    Of course! ✨ That's what I'm here for.
+                `;
+
+            }
+
+
+            return `
+                I can help you with your Classy workspace! ✨
+                <br><br>
+
+                Try asking me something like:
+                <ul>
+                    <li>What assignments do I have coming up?</li>
+                    <li>What courses am I taking?</li>
+                    <li>Show me my notes.</li>
+                    <li>What study sets do I have?</li>
+                    <li>What should I study today?</li>
+                    <li>Help me plan my week.</li>
+                </ul>
+
+                Once we connect Classy to a real AI model,
+                you'll also be able to ask much more open-ended
+                study questions.
+            `;
+        }
+
+
+        /* ----------------------------------
+           SEND MESSAGE
+        ---------------------------------- */
+
+        function sendMessage() {
+
+            const input =
+                document.getElementById("messageInput");
+
+            const text =
+                input.value.trim();
+
+            if (!text) {
+                return;
+            }
+
+            addMessage(
+                escapeHtml(text),
+                "user"
+            );
+
+            input.value = "";
+
+            autoResize(input);
+
+            showTyping();
+
+            setTimeout(() => {
+
+                removeTyping();
+
+                const response =
+                    generateResponse(text);
+
+                addMessage(
+                    response,
+                    "assistant"
+                );
+
+            }, 600);
+
+        }
+
+
+        /* ----------------------------------
+           QUICK PROMPT
+        ---------------------------------- */
+
+        function usePrompt(prompt) {
+
+            const input =
+                document.getElementById("messageInput");
+
+            input.value =
+                prompt;
+
+            sendMessage();
+
+        }
+
+
+        /* ----------------------------------
+           CLEAR CHAT
+        ---------------------------------- */
+
+        function clearChat() {
+
+            const messages =
+                document.getElementById("messages");
+
+            messages.innerHTML = `
+
+                <div class="message">
+
+                    <div class="message-avatar assistant-avatar">
+                        ✨
+                    </div>
+
+                    <div class="message-content assistant-message">
+                        Chat cleared. 💕
+
+                        <br><br>
+
+                        What would you like to work on?
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* ----------------------------------
+           ESCAPE HTML
+        ---------------------------------- */
+
+        function escapeHtml(value) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                value == null ? "" : String(value);
+
+            return div.innerHTML;
+        }
+
+
+        /* ----------------------------------
+           AUTO RESIZE TEXTAREA
+        ---------------------------------- */
+
+        function autoResize(textarea) {
+
+            textarea.style.height =
+                "auto";
+
+            textarea.style.height =
+                Math.min(
+                    textarea.scrollHeight,
+                    110
+                ) + "px";
+
+        }
+
+
+        /* ----------------------------------
+           KEYBOARD SHORTCUT
+        ---------------------------------- */
+
+        document
+            .getElementById("messageInput")
+            .addEventListener("keydown", function(event) {
+
+                if (
+                    event.key === "Enter" &&
+                    !event.shiftKey
+                ) {
+
+                    event.preventDefault();
+
+                    sendMessage();
+
+                }
+
+            });
+
+
+        document
+            .getElementById("messageInput")
+            .addEventListener("input", function() {
+
+                autoResize(this);
+
+            });
+
+
+        /* ----------------------------------
+           STARTUP
+        ---------------------------------- */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                updateDataCounts();
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
