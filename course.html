@@ -218,7 +218,126 @@
         .add-button:hover {
             background: #cda49d;
         }
+.assignment-form {
+    display: none;
+    margin-top: 18px;
+    padding: 18px;
+    background: #fdf8f6;
+    border-radius: 14px;
+}
 
+.assignment-form.show {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: #6f6762;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px 11px;
+    border: 1px solid #e5d7d2;
+    border-radius: 9px;
+    background: white;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+.form-group textarea {
+    min-height: 70px;
+    resize: vertical;
+}
+
+.assignment-actions {
+    display: flex;
+    gap: 9px;
+    margin-top: 15px;
+}
+
+.save-assignment,
+.cancel-assignment {
+    border: none;
+    border-radius: 9px;
+    padding: 10px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.save-assignment {
+    background: #d8b7b0;
+    color: white;
+}
+
+.cancel-assignment {
+    background: #eee4e0;
+    color: #6f6762;
+}
+
+.assignment-list {
+    margin-top: 18px;
+}
+
+.assignment-item {
+    background: #fdf8f6;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+}
+
+.assignment-item h3 {
+    font-size: 14px;
+    color: #4d4642;
+    margin-bottom: 7px;
+}
+
+.assignment-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    font-size: 11px;
+    color: #8d8380;
+}
+
+.assignment-tag {
+    background: #eadfdc;
+    padding: 4px 7px;
+    border-radius: 6px;
+}
+
+.assignment-priority {
+    font-weight: bold;
+}
+
+.high {
+    color: #b87878;
+}
+
+.medium {
+    color: #b18c62;
+}
+
+.low {
+    color: #769477;
+}
+
+.assignment-description {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #948884;
+    line-height: 1.5;
+}
         @media (max-width: 800px) {
 
             .sidebar {
@@ -365,22 +484,141 @@
 
         <section class="section">
 
-            <h2>📋 Assignments</h2>
+    <h2>📋 Assignments</h2>
 
-            <p>
-                Keep track of homework, projects, exams, and other
-                course deadlines.
-            </p>
+    <p>
+        Keep track of homework, projects, exams, and other
+        course deadlines.
+    </p>
 
-            <div class="empty">
-                No assignments added yet.
-            </div>
+    <div class="assignment-list" id="assignmentList">
+        <div class="empty" id="noAssignments">
+            No assignments added yet.
+        </div>
+    </div>
 
-            <button class="add-button">
-                + Add Assignment
+    <button class="add-button" id="addAssignmentButton">
+        + Add Assignment
+    </button>
+
+    <div class="assignment-form" id="assignmentForm">
+
+        <div class="form-group">
+            <label for="assignmentName">
+                Assignment Name
+            </label>
+
+            <input
+                type="text"
+                id="assignmentName"
+                placeholder="e.g. Chapter 3 Homework"
+            >
+        </div>
+
+
+        <div class="form-group">
+            <label for="assignmentDate">
+                Due Date
+            </label>
+
+            <input
+                type="date"
+                id="assignmentDate"
+            >
+        </div>
+
+
+        <div class="form-group">
+            <label for="assignmentType">
+                Type
+            </label>
+
+            <select id="assignmentType">
+
+                <option value="Homework">
+                    Homework
+                </option>
+
+                <option value="Quiz">
+                    Quiz
+                </option>
+
+                <option value="Exam">
+                    Exam
+                </option>
+
+                <option value="Project">
+                    Project
+                </option>
+
+                <option value="Paper">
+                    Paper
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label for="assignmentPriority">
+                Priority
+            </label>
+
+            <select id="assignmentPriority">
+
+                <option value="Low">
+                    Low
+                </option>
+
+                <option value="Medium" selected>
+                    Medium
+                </option>
+
+                <option value="High">
+                    High
+                </option>
+
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label for="assignmentDescription">
+                Description
+            </label>
+
+            <textarea
+                id="assignmentDescription"
+                placeholder="Add any notes about this assignment..."
+            ></textarea>
+        </div>
+
+
+        <div class="assignment-actions">
+
+            <button
+                class="save-assignment"
+                id="saveAssignment"
+            >
+                Add Assignment
             </button>
 
-        </section>
+            <button
+                class="cancel-assignment"
+                id="cancelAssignment"
+            >
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
 
 
         <section class="section">
@@ -568,7 +806,275 @@
             "We couldn't find this course.";
 
     }
+    
+/* =========================
+   ASSIGNMENTS
+========================= */
 
+const assignmentKey =
+    "classyAssignments_" + (code || "unknown");
+
+let assignments =
+    JSON.parse(localStorage.getItem(assignmentKey)) || [];
+
+
+const addAssignmentButton =
+    document.getElementById("addAssignmentButton");
+
+const assignmentForm =
+    document.getElementById("assignmentForm");
+
+const saveAssignment =
+    document.getElementById("saveAssignment");
+
+const cancelAssignment =
+    document.getElementById("cancelAssignment");
+
+const assignmentList =
+    document.getElementById("assignmentList");
+
+const noAssignments =
+    document.getElementById("noAssignments");
+
+
+/* Open form */
+
+addAssignmentButton.addEventListener("click", function() {
+
+    assignmentForm.classList.add("show");
+
+    addAssignmentButton.style.display = "none";
+
+});
+
+
+/* Cancel */
+
+cancelAssignment.addEventListener("click", function() {
+
+    assignmentForm.classList.remove("show");
+
+    addAssignmentButton.style.display = "inline-block";
+
+});
+
+
+/* Save assignment */
+
+saveAssignment.addEventListener("click", function() {
+
+    const name =
+        document.getElementById("assignmentName")
+        .value
+        .trim();
+
+    const date =
+        document.getElementById("assignmentDate")
+        .value;
+
+    const type =
+        document.getElementById("assignmentType")
+        .value;
+
+    const priority =
+        document.getElementById("assignmentPriority")
+        .value;
+
+    const description =
+        document.getElementById("assignmentDescription")
+        .value
+        .trim();
+
+
+    if (!name || !date) {
+
+        alert(
+            "Please enter an assignment name and due date."
+        );
+
+        return;
+    }
+
+
+    const assignment = {
+
+        id: Date.now(),
+
+        name: name,
+
+        date: date,
+
+        type: type,
+
+        priority: priority,
+
+        description: description
+
+    };
+
+
+    assignments.push(assignment);
+
+
+    localStorage.setItem(
+        assignmentKey,
+        JSON.stringify(assignments)
+    );
+
+
+    displayAssignments();
+
+
+    /* Clear form */
+
+    document.getElementById("assignmentName").value = "";
+
+    document.getElementById("assignmentDate").value = "";
+
+    document.getElementById("assignmentDescription").value = "";
+
+
+    assignmentForm.classList.remove("show");
+
+    addAssignmentButton.style.display = "inline-block";
+
+});
+
+
+/* Display assignments */
+
+function displayAssignments() {
+
+    assignmentList.innerHTML = "";
+
+
+    if (assignments.length === 0) {
+
+        const empty = document.createElement("div");
+
+        empty.className = "empty";
+
+        empty.textContent =
+            "No assignments added yet.";
+
+        assignmentList.appendChild(empty);
+
+        return;
+    }
+
+
+    /* Sort by due date */
+
+    assignments.sort(function(a, b) {
+
+        return new Date(a.date) - new Date(b.date);
+
+    });
+
+
+    assignments.forEach(function(assignment) {
+
+        const item =
+            document.createElement("div");
+
+        item.className = "assignment-item";
+
+
+        const title =
+            document.createElement("h3");
+
+        title.textContent =
+            assignment.name;
+
+
+        const info =
+            document.createElement("div");
+
+        info.className = "assignment-info";
+
+
+        const date =
+            document.createElement("span");
+
+        date.className = "assignment-tag";
+
+
+        const dateObject =
+            new Date(
+                assignment.date + "T00:00:00"
+            );
+
+
+        date.textContent =
+            "Due " +
+            dateObject.toLocaleDateString(
+                "en-US",
+                {
+                    month: "short",
+                    day: "numeric"
+                }
+            );
+
+
+        const type =
+            document.createElement("span");
+
+        type.className = "assignment-tag";
+
+        type.textContent =
+            assignment.type;
+
+
+        const priority =
+            document.createElement("span");
+
+        priority.className =
+            "assignment-priority " +
+            assignment.priority.toLowerCase();
+
+        priority.textContent =
+            assignment.priority +
+            " priority";
+
+
+        info.appendChild(date);
+
+        info.appendChild(type);
+
+        info.appendChild(priority);
+
+
+        item.appendChild(title);
+
+        item.appendChild(info);
+
+
+        if (assignment.description) {
+
+            const description =
+                document.createElement("div");
+
+            description.className =
+                "assignment-description";
+
+            description.textContent =
+                assignment.description;
+
+            item.appendChild(description);
+
+        }
+
+
+        assignmentList.appendChild(item);
+
+    });
+
+}
+
+
+/* Load assignments when page opens */
+
+displayAssignments();
 </script>
 
 </body>
