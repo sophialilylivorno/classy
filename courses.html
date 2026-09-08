@@ -391,7 +391,7 @@
 
         <div class="course-bottom">
           <span class="assignments">2 upcoming assignments</span>
-          <a href="#" class="view-btn">View Course</a>
+          <a href="course.html?code=MATH1131" class="view-btn">View Course</a>
         </div>
       </div>
 
@@ -417,7 +417,7 @@
 
         <div class="course-bottom">
           <span class="assignments">1 upcoming assignment</span>
-          <a href="#" class="view-btn">View Course</a>
+          <a href="course.html?code=HISTORY1112" class="view-btn">View Course</a>
         </div>
       </div>
 
@@ -443,7 +443,7 @@
 
         <div class="course-bottom">
           <span class="assignments">1 upcoming assignment</span>
-          <a href="#" class="view-btn">View Course</a>
+          <a href="course.html?code=HISTORY1112" class="view-btn">View Course</a>
         </div>
       </div>
 
@@ -469,7 +469,7 @@
 
         <div class="course-bottom">
           <span class="assignments">1 upcoming activity</span>
-          <a href="#" class="view-btn">View Course</a>
+          <a href="course.html?code=GELAUNCH" class="view-btn">View Course</a>
         </div>
       </div>
 
@@ -629,9 +629,9 @@ function addCourseCard(course) {
                 0 upcoming assignments
             </span>
 
-            <a href="#" class="view-btn">
-                View Course
-            </a>
+            <a href="course.html?code=${course.code.replace(/\s+/g, '').toUpperCase()}" class="view-btn">
+    View Course
+</a>
         </div>
     `;
 
