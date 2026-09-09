@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings • Classy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f5f0;
+            color: #4d4642;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 230px;
+            background: #ffffff;
+            border-right: 1px solid #e7e1da;
+            padding: 30px 18px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #c98787;
+            margin-bottom: 4px;
+        }
+
+        .tagline {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 35px;
+        }
+
+        .nav-item {
+            display: block;
+            text-decoration: none;
+            color: #6f6762;
+            font-size: 15px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            transition: 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background: #f8ece9;
+            color: #b56f70;
+        }
+
+        .nav-item.active {
+            background: #f3e4e1;
+            color: #b56f70;
+            font-weight: 600;
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: 230px;
+            padding: 42px;
+            max-width: 1250px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+            color: #4d4642;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #8f8580;
+            font-size: 15px;
+        }
+
+        /* SETTINGS CARDS */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .settings-card {
+            background: #fffdfb;
+            border: 1px solid #ebe4dd;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(90, 70, 60, 0.05);
+        }
+
+        .settings-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 6px;
+        }
+
+        .card-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: #f3e4e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .card-title h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #514944;
+        }
+
+        .card-description {
+            color: #958b86;
+            font-size: 13px;
+            margin: 0 0 22px 49px;
+            line-height: 1.5;
+        }
+
+        /* FORMS */
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 7px;
+            color: #655d58;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid #e2d9d2;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 11px 12px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #4d4642;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #c98787;
+            box-shadow: 0 0 0 3px rgba(201, 135, 135, 0.10);
+        }
+
+        /* BUTTONS */
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .primary-button {
+            border: none;
+            background: #c98787;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .primary-button:hover {
+            background: #b97878;
+        }
+
+        .secondary-button {
+            border: 1px solid #dfd4cd;
+            background: #fff;
+            color: #665d58;
+            padding: 10px 17px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .secondary-button:hover {
+            background: #f8f3ef;
+        }
+
+        .danger-button {
+            border: 1px solid #e4caca;
+            background: #fff8f8;
+            color: #b56f70;
+            padding: 10px 17px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .danger-button:hover {
+            background: #f9e9e9;
+        }
+
+        /* TOGGLE */
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee7e1;
+        }
+
+        .setting-row:first-of-type {
+            padding-top: 0;
+        }
+
+        .setting-row:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .setting-info strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #5b534e;
+        }
+
+        .setting-info span {
+            display: block;
+            font-size: 12px;
+            color: #978d88;
+            line-height: 1.4;
+        }
+
+        .toggle {
+            width: 45px;
+            height: 25px;
+            border: none;
+            border-radius: 20px;
+            background: #d8d0ca;
+            padding: 3px;
+            flex-shrink: 0;
+            transition: 0.2s ease;
+        }
+
+        .toggle::after {
+            content: "";
+            display: block;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: white;
+            transition: 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        .toggle.active {
+            background: #c98787;
+        }
+
+        .toggle.active::after {
+            transform: translateX(20px);
+        }
+
+        /* COLOR OPTIONS */
+        .color-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 3px solid white;
+            outline: 1px solid #ddd4ce;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.08);
+        }
+
+        .color-option.selected {
+            outline: 2px solid #6f625d;
+            transform: scale(1.08);
+        }
+
+        .color-pink {
+            background: #c98787;
+        }
+
+        .color-sage {
+            background: #aebda8;
+        }
+
+        .color-lavender {
+            background: #b8aecb;
+        }
+
+        .color-beige {
+            background: #cdbda9;
+        }
+
+        /* COURSE LIST */
+        .course-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .course-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #ebe3dc;
+            background: #fff;
+            padding: 13px 15px;
+            border-radius: 12px;
+        }
+
+        .course-info {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .course-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .course-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #564e49;
+        }
+
+        .course-code {
+            font-size: 11px;
+            color: #9b918c;
+            margin-top: 3px;
+        }
+
+        .remove-course {
+            border: none;
+            background: transparent;
+            color: #b58e8e;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 7px;
+        }
+
+        .remove-course:hover {
+            background: #f8e9e9;
+        }
+
+        .default-label {
+            font-size: 10px;
+            color: #9a918c;
+            background: #f3eeea;
+            padding: 5px 8px;
+            border-radius: 7px;
+        }
+
+        /* DATA BOX */
+        .data-box {
+            background: #faf6f2;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 5px;
+        }
+
+        .data-stat {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 7px 0;
+            color: #746b65;
+        }
+
+        .data-stat strong {
+            color: #514944;
+        }
+
+        /* ABOUT */
+        .about-content {
+            text-align: center;
+            padding: 8px 0 3px;
+        }
+
+        .about-logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #c98787;
+            margin-bottom: 5px;
+        }
+
+        .about-tagline {
+            font-size: 13px;
+            color: #978d88;
+            margin-bottom: 16px;
+        }
+
+        .version {
+            display: inline-block;
+            background: #f3e4e1;
+            color: #a96e6f;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 20px;
+        }
+
+        .save-message {
+            display: none;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #78906f;
+            font-weight: 600;
+        }
+
+        /* MOBILE */
+        @media (max-width: 850px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+                padding: 30px 22px;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-card.full {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e7e1da;
+                padding: 20px;
+            }
+
+            .tagline {
+                margin-bottom: 18px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 25px 18px;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">Classy</div>
+        <div class="tagline">Your college life, organized.</div>
+
+        <a href="index.html" class="nav-item">Dashboard</a>
+        <a href="courses.html" class="nav-item">Courses</a>
+        <a href="planner.html" class="nav-item">Planner</a>
+        <a href="study-sets.html" class="nav-item">Study Sets</a>
+        <a href="notes.html" class="nav-item">Notes</a>
+        <a href="ai.html" class="nav-item">AI Assistant</a>
+        <a href="settings.html" class="nav-item active">Settings</a>
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <div class="page-header">
+            <h1>Settings</h1>
+            <p>Make Classy feel like your own.</p>
+        </div>
+
+
+        <div class="settings-grid">
+
+            <!-- PROFILE -->
+            <section class="settings-card">
+                <div class="card-title">
+                    <div class="card-icon">👤</div>
+                    <h2>Profile</h2>
+                </div>
+
+                <p class="card-description">
+                    Keep your personal information up to date.
+                </p>
+
+                <div class="form-group">
+                    <label for="studentName">Name</label>
+                    <input
+                        type="text"
+                        id="studentName"
+                        placeholder="Your name"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="schoolName">School</label>
+                    <input
+                        type="text"
+                        id="schoolName"
+                        placeholder="Your college or university"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="major">Major</label>
+                    <input
+                        type="text"
+                        id="major"
+                        placeholder="Your major"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <select id="year">
+                        <option value="">Select your year</option>
+                        <option value="Freshman">Freshman</option>
+                        <option value="Sophomore">Sophomore</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Senior">Senior</option>
+                        <option value="Graduate">Graduate</option>
+                    </select>
+                </div>
+
+                <div class="button-row">
+                    <button class="primary-button" onclick="saveProfile()">
+                        Save Profile
+                    </button>
+                </div>
+
+                <div class="save-message" id="profileMessage">
+                    ✓ Profile saved
+                </div>
+            </section>
+
+
+            <!-- APPEARANCE -->
+            <section class="settings-card">
+                <div class="card-title">
+                    <div class="card-icon">🎨</div>
+                    <h2>Appearance</h2>
+                </div>
+
+                <p class="card-description">
+                    Choose how Classy looks and feels.
+                </p>
+
+                <div class="form-group">
+                    <label for="themeSelect">Theme</label>
+                    <select id="themeSelect" onchange="saveAppearance()">
+                        <option value="light">Light</option>
+                        <option value="soft">Soft</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Accent Color</label>
+
+                    <div class="color-options">
+                        <button
+                            class="color-option color-pink"
+                            data-color="#c98787"
+                            onclick="chooseColor('#c98787', this)"
+                            title="Dusty Pink">
+                        </button>
+
+                        <button
+                            class="color-option color-sage"
+                            data-color="#aebda8"
+                            onclick="chooseColor('#aebda8', this)"
+                            title="Sage">
+                        </button>
+
+                        <button
+                            class="color-option color-lavender"
+                            data-color="#b8aecb"
+                            onclick="chooseColor('#b8aecb', this)"
+                            title="Lavender">
+                        </button>
+
+                        <button
+                            class="color-option color-beige"
+                            data-color="#cdbda9"
+                            onclick="chooseColor('#cdbda9', this)"
+                            title="Warm Beige">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="save-message" id="appearanceMessage">
+                    ✓ Appearance saved
+                </div>
+            </section>
+
+
+            <!-- NOTIFICATIONS -->
+            <section class="settings-card">
+                <div class="card-title">
+                    <div class="card-icon">🔔</div>
+                    <h2>Notifications</h2>
+                </div>
+
+                <p class="card-description">
+                    Choose which reminders you'd like Classy to keep track of.
+                </p>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <strong>Assignment reminders</strong>
+                        <span>Get reminders about upcoming assignments.</span>
+                    </div>
+
+                    <button
+                        class="toggle active"
+                        id="assignmentNotifications"
+                        onclick="toggleSetting('assignmentNotifications')">
+                    </button>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <strong>Upcoming deadlines</strong>
+                        <span>Highlight assignments that are due soon.</span>
+                    </div>
+
+                    <button
+                        class="toggle active"
+                        id="deadlineNotifications"
+                        onclick="toggleSetting('deadlineNotifications')">
+                    </button>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <strong>Study reminders</strong>
+                        <span>Keep study sets and notes on your radar.</span>
+                    </div>
+
+                    <button
+                        class="toggle"
+                        id="studyNotifications"
+                        onclick="toggleSetting('studyNotifications')">
+                    </button>
+                </div>
+            </section>
+
+
+            <!-- COURSES -->
+            <section class="settings-card">
+                <div class="card-title">
+                    <div class="card-icon">📚</div>
+                    <h2>Courses</h2>
+                </div>
+
+                <p class="card-description">
+                    Manage the courses you've added to Classy.
+                </p>
+
+                <div class="course-list" id="courseList"></div>
+            </section>
+
+
+            <!-- DATA -->
+            <section class="settings-card full">
+                <div class="card-title">
+                    <div class="card-icon">🗂️</div>
+                    <h2>Data & Storage</h2>
+                </div>
+
+                <p class="card-description">
+                    Your Classy information is stored locally in your browser.
+                </p>
+
+                <div class="data-box">
+                    <div class="data-stat">
+                        <span>Assignments</span>
+                        <strong id="assignmentCount">0</strong>
+                    </div>
+
+                    <div class="data-stat">
+                        <span>Notes</span>
+                        <strong id="noteCount">0</strong>
+                    </div>
+
+                    <div class="data-stat">
+                        <span>Study Sets</span>
+                        <strong id="studySetCount">0</strong>
+                    </div>
+
+                    <div class="data-stat">
+                        <span>Custom Courses</span>
+                        <strong id="customCourseCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button
+                        class="secondary-button"
+                        onclick="clearAssignments()">
+                        Clear Assignments
+                    </button>
+
+                    <button
+                        class="secondary-button"
+                        onclick="clearNotes()">
+                        Clear Notes
+                    </button>
+
+                    <button
+                        class="secondary-button"
+                        onclick="clearStudySets()">
+                        Clear Study Sets
+                    </button>
+
+                    <button
+                        class="danger-button"
+                        onclick="resetClassy()">
+                        Reset Classy
+                    </button>
+                </div>
+            </section>
+
+
+            <!-- ABOUT -->
+            <section class="settings-card full">
+                <div class="about-content">
+                    <div class="about-logo">Classy</div>
+
+                    <div class="about-tagline">
+                        Your college life, organized.
+                    </div>
+
+                    <div class="version">
+                        Classy • Version 1.0
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+
+    <script>
+        /* =========================================
+           PROFILE
+        ========================================= */
+
+        function loadProfile() {
+            const profile = JSON.parse(
+                localStorage.getItem("classyProfile") || "{}"
+            );
+
+            document.getElementById("studentName").value =
+                profile.name || "";
+
+            document.getElementById("schoolName").value =
+                profile.school || "";
+
+            document.getElementById("major").value =
+                profile.major || "";
+
+            document.getElementById("year").value =
+                profile.year || "";
+        }
+
+
+        function saveProfile() {
+            const profile = {
+                name: document.getElementById("studentName").value.trim(),
+                school: document.getElementById("schoolName").value.trim(),
+                major: document.getElementById("major").value.trim(),
+                year: document.getElementById("year").value
+            };
+
+            localStorage.setItem(
+                "classyProfile",
+                JSON.stringify(profile)
+            );
+
+            showMessage("profileMessage");
+        }
+
+
+        /* =========================================
+           APPEARANCE
+        ========================================= */
+
+        function loadAppearance() {
+            const appearance = JSON.parse(
+                localStorage.getItem("classyAppearance") || "{}"
+            );
+
+            const theme =
+                appearance.theme || "light";
+
+            const color =
+                appearance.color || "#c98787";
+
+            document.getElementById("themeSelect").value = theme;
+
+            document
+                .querySelectorAll(".color-option")
+                .forEach(button => {
+                    button.classList.toggle(
+                        "selected",
+                        button.dataset.color === color
+                    );
+                });
+
+            applyTheme(theme);
+            applyAccentColor(color);
+        }
+
+
+        function saveAppearance() {
+            const current =
+                JSON.parse(
+                    localStorage.getItem("classyAppearance") || "{}"
+                );
+
+            const theme =
+                document.getElementById("themeSelect").value;
+
+            current.theme = theme;
+
+            localStorage.setItem(
+                "classyAppearance",
+                JSON.stringify(current)
+            );
+
+            applyTheme(theme);
+            showMessage("appearanceMessage");
+        }
+
+
+        function chooseColor(color, button) {
+            const current =
+                JSON.parse(
+                    localStorage.getItem("classyAppearance") || "{}"
+                );
+
+            current.color = color;
+
+            localStorage.setItem(
+                "classyAppearance",
+                JSON.stringify(current)
+            );
+
+            document
+                .querySelectorAll(".color-option")
+                .forEach(option => {
+                    option.classList.remove("selected");
+                });
+
+            button.classList.add("selected");
+
+            applyAccentColor(color);
+            showMessage("appearanceMessage");
+        }
+
+
+        function applyAccentColor(color) {
+            document.documentElement.style.setProperty(
+                "--classy-accent",
+                color
+            );
+        }
+
+
+        function applyTheme(theme) {
+            /*
+                The actual Classy pages currently use their
+                own established styling. This keeps the setting
+                saved without changing the existing page designs.
+            */
+
+            document.body.dataset.theme = theme;
+        }
+
+
+        /* =========================================
+           NOTIFICATIONS
+        ========================================= */
+
+        const notificationDefaults = {
+            assignmentNotifications: true,
+            deadlineNotifications: true,
+            studyNotifications: false
+        };
+
+
+        function loadNotifications() {
+            const saved =
+                JSON.parse(
+                    localStorage.getItem("classyNotifications") || "{}"
+                );
+
+            Object.keys(notificationDefaults).forEach(key => {
+                const value =
+                    saved[key] !== undefined
+                        ? saved[key]
+                        : notificationDefaults[key];
+
+                const button =
+                    document.getElementById(key);
+
+                button.classList.toggle("active", value);
+            });
+        }
+
+
+        function toggleSetting(id) {
+            const button =
+                document.getElementById(id);
+
+            const isActive =
+                button.classList.toggle("active");
+
+            const saved =
+                JSON.parse(
+                    localStorage.getItem("classyNotifications") || "{}"
+                );
+
+            saved[id] = isActive;
+
+            localStorage.setItem(
+                "classyNotifications",
+                JSON.stringify(saved)
+            );
+        }
+
+
+        /* =========================================
+           COURSES
+        ========================================= */
+
+        const defaultCourses = {
+            MATH1131: {
+                name: "Calculus for Business",
+                code: "Math 1131",
+                color: "#d8b7b0"
+            },
+
+            ENGLISH2367: {
+                name: "Composition II",
+                code: "English 2367",
+                color: "#b8c5b0"
+            },
+
+            HISTORY1112: {
+                name: "European History",
+                code: "History 1112",
+                color: "#c8c0d8"
+            },
+
+            GELAUNCH: {
+                name: "GE Launch Seminar",
+                code: "GE Launch",
+                color: "#d8d0c4"
+            }
+        };
+
+
+        function getCustomCourses() {
+            return JSON.parse(
+                localStorage.getItem("classyCourses") || "[]"
+            );
+        }
+
+
+        function renderCourses() {
+            const courseList =
+                document.getElementById("courseList");
+
+            courseList.innerHTML = "";
+
+            Object.entries(defaultCourses).forEach(
+                ([code, course]) => {
+
+                    const row =
+                        document.createElement("div");
+
+                    row.className = "course-row";
+
+                    row.innerHTML = `
+                        <div class="course-info">
+                            <div
+                                class="course-dot"
+                                style="background:${course.color}">
+                            </div>
+
+                            <div>
+                                <div class="course-name">
+                                    ${course.name}
+                                </div>
+
+                                <div class="course-code">
+                                    ${course.code}
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="default-label">
+                            Default
+                        </span>
+                    `;
+
+                    courseList.appendChild(row);
+                }
+            );
+
+
+            const customCourses =
+                getCustomCourses();
+
+            customCourses.forEach((course, index) => {
+
+                const row =
+                    document.createElement("div");
+
+                row.className = "course-row";
+
+                row.innerHTML = `
+                    <div class="course-info">
+                        <div
+                            class="course-dot"
+                            style="background:${course.color || "#d8b7b0"}">
+                        </div>
+
+                        <div>
+                            <div class="course-name">
+                                ${escapeHtml(course.name)}
+                            </div>
+
+                            <div class="course-code">
+                                ${escapeHtml(course.code || "")}
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        class="remove-course"
+                        onclick="removeCustomCourse(${index})">
+                        Remove
+                    </button>
+                `;
+
+                courseList.appendChild(row);
+            });
+        }
+
+
+        function removeCustomCourse(index) {
+            const courses =
+                getCustomCourses();
+
+            if (!courses[index]) {
+                return;
+            }
+
+            const confirmed =
+                confirm(
+                    `Remove "${courses[index].name}" from Classy?`
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            courses.splice(index, 1);
+
+            localStorage.setItem(
+                "classyCourses",
+                JSON.stringify(courses)
+            );
+
+            renderCourses();
+            updateDataCounts();
+        }
+
+
+        /* =========================================
+           DATA COUNTS
+        ========================================= */
+
+        function getAssignmentCount() {
+            let count = 0;
+
+            Object.keys(defaultCourses).forEach(code => {
+                const assignments =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "classyAssignments_" + code
+                        ) || "[]"
+                    );
+
+                count += assignments.length;
+            });
+
+            getCustomCourses().forEach(course => {
+                const code =
+                    (course.code || "")
+                        .replace(/\s+/g, "")
+                        .toUpperCase();
+
+                if (!code) {
+                    return;
+                }
+
+                const assignments =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "classyAssignments_" + code
+                        ) || "[]"
+                    );
+
+                count += assignments.length;
+            });
+
+            return count;
+        }
+
+
+        function updateDataCounts() {
+            document.getElementById("assignmentCount").textContent =
+                getAssignmentCount();
+
+            const notes =
+                JSON.parse(
+                    localStorage.getItem("classyNotes") || "[]"
+                );
+
+            document.getElementById("noteCount").textContent =
+                notes.length;
+
+
+            const studySets =
+                JSON.parse(
+                    localStorage.getItem("classyStudySets") || "[]"
+                );
+
+            document.getElementById("studySetCount").textContent =
+                studySets.length;
+
+
+            document.getElementById("customCourseCount").textContent =
+                getCustomCourses().length;
+        }
+
+
+        /* =========================================
+           DATA CONTROLS
+        ========================================= */
+
+        function clearAssignments() {
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete all assignments?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            Object.keys(defaultCourses).forEach(code => {
+                localStorage.removeItem(
+                    "classyAssignments_" + code
+                );
+            });
+
+            getCustomCourses().forEach(course => {
+                const code =
+                    (course.code || "")
+                        .replace(/\s+/g, "")
+                        .toUpperCase();
+
+                if (code) {
+                    localStorage.removeItem(
+                        "classyAssignments_" + code
+                    );
+                }
+            });
+
+            updateDataCounts();
+
+            alert("All assignments have been cleared.");
+        }
+
+
+        function clearNotes() {
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete all notes?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            localStorage.removeItem("classyNotes");
+
+            updateDataCounts();
+
+            alert("All notes have been cleared.");
+        }
+
+
+        function clearStudySets() {
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete all study sets?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            localStorage.removeItem("classyStudySets");
+
+            updateDataCounts();
+
+            alert("All study sets have been cleared.");
+        }
+
+
+        function resetClassy() {
+            const confirmed =
+                confirm(
+                    "This will erase your Classy profile, courses, assignments, notes, study sets, and settings. Are you sure?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            const secondConfirm =
+                confirm(
+                    "This cannot be undone. Reset Classy?"
+                );
+
+            if (!secondConfirm) {
+                return;
+            }
+
+            localStorage.clear();
+
+            alert(
+                "Classy has been reset. The page will now reload."
+            );
+
+            window.location.reload();
+        }
+
+
+        /* =========================================
+           HELPERS
+        ========================================= */
+
+        function showMessage(id) {
+            const message =
+                document.getElementById(id);
+
+            message.style.display = "block";
+
+            clearTimeout(message._timeout);
+
+            message._timeout =
+                setTimeout(() => {
+                    message.style.display = "none";
+                }, 2200);
+        }
+
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        /* =========================================
+           STARTUP
+        ========================================= */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                loadProfile();
+                loadAppearance();
+                loadNotifications();
+                renderCourses();
+                updateDataCounts();
+
+            }
+        );
+    </script>
+
+</body>
+</html>
