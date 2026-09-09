@@ -1056,33 +1056,24 @@ body.theme-dark .about-tagline {
 
 
         function applyAccentColor(color) {
+    const accentColors = {
+        rose: "#c98787",
+        sage: "#8fa58b",
+        lavender: "#9d91b5",
+        beige: "#b8a58e"
+    };
+
+    const accent = accentColors[color] || color;
+
     document.documentElement.style.setProperty(
         "--classy-accent",
-        color
+        accent
     );
-
-    document.querySelectorAll(".primary-button").forEach(button => {
-        button.style.background = color;
-    });
-
-    document.querySelectorAll(".logo").forEach(logo => {
-        logo.style.color = color;
-    });
-
-    document.querySelectorAll(".nav-item.active").forEach(item => {
-        item.style.color = color;
-    });
 }
 
 
         function applyTheme(theme) {
-    document.body.classList.remove(
-        "theme-light",
-        "theme-soft",
-        "theme-dark"
-    );
-
-    document.body.classList.add("theme-" + theme);
+    document.documentElement.dataset.classyTheme = theme;
 }
 
         /* =========================================
