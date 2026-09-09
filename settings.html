@@ -1073,7 +1073,17 @@ body.theme-dark .about-tagline {
 
 
         function applyTheme(theme) {
-    document.documentElement.dataset.classyTheme = theme;
+
+    document.body.classList.remove(
+        "classy-light",
+        "classy-soft",
+        "classy-dark"
+    );
+
+    document.body.classList.add(
+        "classy-" + theme
+    );
+
 }
 
         /* =========================================
