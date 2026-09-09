@@ -449,29 +449,70 @@
         }
 
 
-        /* =====================================================
-           DARK THEME — AI ASSISTANT
-        ===================================================== */
+       /* =====================================================
+   DARK THEME — AI ASSISTANT
+===================================================== */
 
-        body.classy-dark .chat-container,
-        body.classy-dark .chat-panel,
-        body.classy-dark .chat-box,
-        body.classy-dark .assistant-panel,
-        body.classy-dark .ai-panel {
-            background: #302b29 !important;
-            border-color: #48413e !important;
-            color: #eee7e2 !important;
-        }
+body.classy-dark .chat-container,
+body.classy-dark .chat-panel,
+body.classy-dark .chat-box,
+body.classy-dark .assistant-panel,
+body.classy-dark .ai-panel {
+    background: #302b29 !important;
+    border-color: #48413e !important;
+    color: #eee7e2 !important;
+}
 
-        body.classy-dark .message,
-        body.classy-dark .chat-message,
-        body.classy-dark .quick-prompt,
-        body.classy-dark .prompt-card,
-        body.classy-dark .data-card {
-            background: #292522 !important;
-            border-color: #453e3a !important;
-            color: #eee7e2 !important;
-        }
+body.classy-dark .message,
+body.classy-dark .chat-message,
+body.classy-dark .quick-prompt,
+body.classy-dark .prompt-card,
+body.classy-dark .data-card,
+body.classy-dark .ai-message {
+    background: #292522 !important;
+    border-color: #453e3a !important;
+    color: #eee7e2 !important;
+}
+
+/* AI header */
+body.classy-dark .chat-header,
+body.classy-dark .assistant-header {
+    background: #302b29 !important;
+    border-color: #48413e !important;
+    color: #eee7e2 !important;
+}
+
+/* AI message text */
+body.classy-dark .message p,
+body.classy-dark .chat-message p,
+body.classy-dark .ai-message p {
+    color: #eee7e2 !important;
+}
+
+/* AI information cards */
+body.classy-dark .ai-data,
+body.classy-dark .ai-info,
+body.classy-dark .data-panel,
+body.classy-dark .info-card {
+    background: #302b29 !important;
+    border-color: #48413e !important;
+    color: #eee7e2 !important;
+}
+
+/* AI input area */
+body.classy-dark .chat-input,
+body.classy-dark .input-area {
+    background: #302b29 !important;
+    border-color: #48413e !important;
+}
+
+body.classy-dark .chat-input input,
+body.classy-dark .input-area input,
+body.classy-dark .chat-input textarea {
+    background: #272321 !important;
+    color: #eee7e2 !important;
+    border-color: #504944 !important;
+}
 
 
         /* =====================================================
