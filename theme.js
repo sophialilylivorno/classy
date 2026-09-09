@@ -453,28 +453,18 @@
    DARK THEME — AI ASSISTANT
 ===================================================== */
 
+/* Main AI panel */
+body.classy-dark .ai-container,
+body.classy-dark .ai-content,
 body.classy-dark .chat-container,
-body.classy-dark .chat-panel,
-body.classy-dark .chat-box,
-body.classy-dark .assistant-panel,
-body.classy-dark .ai-panel {
+body.classy-dark .chat-panel {
     background: #302b29 !important;
     border-color: #48413e !important;
     color: #eee7e2 !important;
 }
 
-body.classy-dark .message,
-body.classy-dark .chat-message,
-body.classy-dark .quick-prompt,
-body.classy-dark .prompt-card,
-body.classy-dark .data-card,
-body.classy-dark .ai-message {
-    background: #292522 !important;
-    border-color: #453e3a !important;
-    color: #eee7e2 !important;
-}
-
-/* AI header */
+/* Assistant header */
+body.classy-dark .ai-header,
 body.classy-dark .chat-header,
 body.classy-dark .assistant-header {
     background: #302b29 !important;
@@ -482,36 +472,91 @@ body.classy-dark .assistant-header {
     color: #eee7e2 !important;
 }
 
-/* AI message text */
-body.classy-dark .message p,
-body.classy-dark .chat-message p,
-body.classy-dark .ai-message p {
+/* Assistant message */
+body.classy-dark .ai-message,
+body.classy-dark .message,
+body.classy-dark .chat-message,
+body.classy-dark .assistant-message {
+    background: #292522 !important;
+    border-color: #453e3a !important;
     color: #eee7e2 !important;
 }
 
-/* AI information cards */
-body.classy-dark .ai-data,
-body.classy-dark .ai-info,
-body.classy-dark .data-panel,
-body.classy-dark .info-card {
+/* Text inside the message */
+body.classy-dark .ai-message *,
+body.classy-dark .message *,
+body.classy-dark .chat-message *,
+body.classy-dark .assistant-message * {
+    color: #eee7e2 !important;
+}
+
+/* Quick prompt area */
+body.classy-dark .quick-prompts,
+body.classy-dark .prompt-area,
+body.classy-dark .quick-actions {
     background: #302b29 !important;
-    border-color: #48413e !important;
     color: #eee7e2 !important;
 }
 
-/* AI input area */
+/* Quick prompt buttons */
+body.classy-dark .quick-prompt,
+body.classy-dark .prompt-button,
+body.classy-dark .quick-button {
+    background: #403936 !important;
+    border-color: #514a46 !important;
+    color: #eee7e2 !important;
+}
+
+/* Chat input area */
 body.classy-dark .chat-input,
-body.classy-dark .input-area {
+body.classy-dark .input-area,
+body.classy-dark .chat-form {
     background: #302b29 !important;
     border-color: #48413e !important;
 }
 
+/* Actual text input */
 body.classy-dark .chat-input input,
+body.classy-dark .chat-form input,
 body.classy-dark .input-area input,
 body.classy-dark .chat-input textarea {
     background: #272321 !important;
-    color: #eee7e2 !important;
     border-color: #504944 !important;
+    color: #eee7e2 !important;
+}
+
+/* Placeholder */
+body.classy-dark .chat-input input::placeholder,
+body.classy-dark .chat-form input::placeholder,
+body.classy-dark .input-area input::placeholder {
+    color: #9b918b !important;
+}
+
+/* Send button */
+body.classy-dark .send-button,
+body.classy-dark .chat-send,
+body.classy-dark .send-btn {
+    background: var(--classy-accent) !important;
+    color: white !important;
+}
+
+/* Right-side AI information cards */
+body.classy-dark .ai-data,
+body.classy-dark .ai-info,
+body.classy-dark .data-card,
+body.classy-dark .info-card,
+body.classy-dark .assistant-card {
+    background: #302b29 !important;
+    border-color: #48413e !important;
+    color: #eee7e2 !important;
+}
+
+body.classy-dark .ai-data *,
+body.classy-dark .ai-info *,
+body.classy-dark .data-card *,
+body.classy-dark .info-card *,
+body.classy-dark .assistant-card * {
+    color: #eee7e2 !important;
 }
 
 
