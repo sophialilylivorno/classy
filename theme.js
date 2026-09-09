@@ -582,6 +582,25 @@ body.classy-dark .assistant-card * {
             color: #eee7e2 !important;
         }
 
+/* AI ASSISTANT — QUESTION INPUT */
+body.classy-dark .input-area {
+    background: #302b29 !important;
+    border-top-color: #48413e !important;
+}
+
+body.classy-dark .input-box {
+    background: #272321 !important;
+    border-color: #504944 !important;
+}
+
+body.classy-dark .message-input {
+    background: transparent !important;
+    color: #eee7e2 !important;
+}
+
+body.classy-dark .message-input::placeholder {
+    color: #9b918b !important;
+}
 
         /* =====================================================
            DARK THEME — BUTTONS
