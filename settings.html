@@ -501,6 +501,141 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* =========================================
+   THEMES
+========================================= */
+
+body.theme-soft {
+    background: #f3eee8;
+}
+
+body.theme-soft .sidebar {
+    background: #fbf7f2;
+    border-color: #ded3ca;
+}
+
+body.theme-soft .settings-card {
+    background: #faf6f1;
+    border-color: #dfd4cc;
+}
+
+body.theme-soft input,
+body.theme-soft select,
+body.theme-soft textarea {
+    background: #fdfaf7;
+}
+
+body.theme-dark {
+    background: #272423;
+    color: #eee8e3;
+}
+
+body.theme-dark .sidebar {
+    background: #302c2a;
+    border-color: #48413d;
+}
+
+body.theme-dark .logo {
+    color: #d99a9a;
+}
+
+body.theme-dark .tagline {
+    color: #aaa19c;
+}
+
+body.theme-dark .nav-item {
+    color: #d1c9c4;
+}
+
+body.theme-dark .nav-item:hover,
+body.theme-dark .nav-item.active {
+    background: #473b3a;
+    color: #e1a5a5;
+}
+
+body.theme-dark .page-header h1 {
+    color: #f1ebe7;
+}
+
+body.theme-dark .page-header p {
+    color: #aaa19c;
+}
+
+body.theme-dark .settings-card {
+    background: #302c2a;
+    border-color: #48413d;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+body.theme-dark .card-title h2,
+body.theme-dark .setting-info strong,
+body.theme-dark .course-name {
+    color: #eee7e2;
+}
+
+body.theme-dark .card-description,
+body.theme-dark .setting-info span,
+body.theme-dark .course-code {
+    color: #aaa19c;
+}
+
+body.theme-dark input,
+body.theme-dark select,
+body.theme-dark textarea {
+    background: #272423;
+    border-color: #514943;
+    color: #eee8e3;
+}
+
+body.theme-dark input::placeholder,
+body.theme-dark textarea::placeholder {
+    color: #8f8782;
+}
+
+body.theme-dark .secondary-button {
+    background: #383330;
+    border-color: #514943;
+    color: #eee8e3;
+}
+
+body.theme-dark .secondary-button:hover {
+    background: #433d39;
+}
+
+body.theme-dark .course-row {
+    background: #383330;
+    border-color: #4d4540;
+}
+
+body.theme-dark .default-label {
+    background: #48413d;
+    color: #c1b8b2;
+}
+
+body.theme-dark .data-box {
+    background: #272423;
+}
+
+body.theme-dark .data-stat {
+    color: #bbb2ac;
+    border-color: #48413d;
+}
+
+body.theme-dark .data-stat strong {
+    color: #eee8e3;
+}
+
+body.theme-dark .setting-row {
+    border-color: #48413d;
+}
+
+body.theme-dark .card-icon {
+    background: #473b3a;
+}
+
+body.theme-dark .about-tagline {
+    color: #aaa19c;
+}
     </style>
 </head>
 
@@ -921,23 +1056,34 @@
 
 
         function applyAccentColor(color) {
-            document.documentElement.style.setProperty(
-                "--classy-accent",
-                color
-            );
-        }
+    document.documentElement.style.setProperty(
+        "--classy-accent",
+        color
+    );
+
+    document.querySelectorAll(".primary-button").forEach(button => {
+        button.style.background = color;
+    });
+
+    document.querySelectorAll(".logo").forEach(logo => {
+        logo.style.color = color;
+    });
+
+    document.querySelectorAll(".nav-item.active").forEach(item => {
+        item.style.color = color;
+    });
+}
 
 
         function applyTheme(theme) {
-            /*
-                The actual Classy pages currently use their
-                own established styling. This keeps the setting
-                saved without changing the existing page designs.
-            */
+    document.body.classList.remove(
+        "theme-light",
+        "theme-soft",
+        "theme-dark"
+    );
 
-            document.body.dataset.theme = theme;
-        }
-
+    document.body.classList.add("theme-" + theme);
+}
 
         /* =========================================
            NOTIFICATIONS
