@@ -1,195 +1,315 @@
 (function () {
-    const saved = JSON.parse(
-        localStorage.getItem("classyAppearance") || "{}"
-    );
 
-    const theme = saved.theme || "light";
-    const color = saved.color || "rose";
+    const appearanceKey = "classyAppearance";
 
-    const accentColors = {
-        rose: "#c98787",
-        sage: "#8fa58b",
-        lavender: "#9d91b5",
-        beige: "#b8a58e"
+    const defaultAppearance = {
+        theme: "light",
+        color: "#c98787"
     };
 
-    const accent = accentColors[color] || color || "#c98787";
 
-    // Apply theme
-    document.documentElement.dataset.classyTheme = theme;
+    function getAppearance() {
 
-    // Apply accent color
-    document.documentElement.style.setProperty(
-        "--classy-accent",
-        accent
+        try {
+
+            const saved = JSON.parse(
+                localStorage.getItem(appearanceKey) || "{}"
+            );
+
+            return {
+                theme: saved.theme || defaultAppearance.theme,
+                color: saved.color || defaultAppearance.color
+            };
+
+        } catch (error) {
+
+            return {
+                ...defaultAppearance
+            };
+
+        }
+
+    }
+
+
+    function applyTheme(theme) {
+
+        document.body.classList.remove(
+            "classy-light",
+            "classy-soft",
+            "classy-dark"
+        );
+
+        document.body.classList.add(
+            "classy-" + theme
+        );
+
+    }
+
+
+    function applyAccent(color) {
+
+        document.documentElement.style.setProperty(
+            "--classy-accent",
+            color
+        );
+
+    }
+
+
+    function addThemeStyles() {
+
+        if (document.getElementById("classyThemeStyles")) {
+            return;
+        }
+
+
+        const style = document.createElement("style");
+
+        style.id = "classyThemeStyles";
+
+
+        style.textContent = `
+
+            /* =========================
+               LIGHT THEME
+            ========================= */
+
+            body.classy-light {
+                background: #f8f5f0 !important;
+                color: #4d4642 !important;
+            }
+
+            body.classy-light .sidebar {
+                background: #fffaf6 !important;
+            }
+
+            body.classy-light .course-card,
+            body.classy-light .set-card,
+            body.classy-light .note-card,
+            body.classy-light .modal,
+            body.classy-light .empty-state,
+            body.classy-light .flashcard {
+                background: #fffdfb !important;
+                color: #4d4642 !important;
+            }
+
+
+            /* =========================
+               SOFT THEME
+            ========================= */
+
+            body.classy-soft {
+                background: #f3eee9 !important;
+                color: #514944 !important;
+            }
+
+            body.classy-soft .sidebar {
+                background: #fdf8f4 !important;
+            }
+
+            body.classy-soft .course-card,
+            body.classy-soft .set-card,
+            body.classy-soft .note-card,
+            body.classy-soft .modal,
+            body.classy-soft .empty-state,
+            body.classy-soft .flashcard {
+                background: #fffaf7 !important;
+                color: #514944 !important;
+            }
+
+            body.classy-soft input,
+            body.classy-soft select,
+            body.classy-soft textarea {
+                background: #fff8f4 !important;
+                color: #514944 !important;
+            }
+
+
+            /* =========================
+               DARK THEME
+            ========================= */
+
+            body.classy-dark {
+                background: #242120 !important;
+                color: #eee7e2 !important;
+            }
+
+            body.classy-dark .sidebar {
+                background: #2d2927 !important;
+                border-color: #46403d !important;
+            }
+
+            body.classy-dark .logo {
+                color: var(--classy-accent) !important;
+            }
+
+            body.classy-dark .tagline {
+                color: #aaa09b !important;
+            }
+
+            body.classy-dark .nav a {
+                color: #d1c8c3 !important;
+            }
+
+            body.classy-dark .nav a:hover,
+            body.classy-dark .nav a.active {
+                background: #403937 !important;
+                color: var(--classy-accent) !important;
+            }
+
+            body.classy-dark .main,
+            body.classy-dark .study-overlay {
+                background: #242120 !important;
+            }
+
+            body.classy-dark h1,
+            body.classy-dark h2,
+            body.classy-dark h3,
+            body.classy-dark p,
+            body.classy-dark label,
+            body.classy-dark strong {
+                color: #eee7e2 !important;
+            }
+
+            body.classy-dark .course-card,
+            body.classy-dark .set-card,
+            body.classy-dark .note-card,
+            body.classy-dark .modal,
+            body.classy-dark .empty-state,
+            body.classy-dark .flashcard {
+                background: #302b29 !important;
+                border-color: #48413e !important;
+                color: #eee7e2 !important;
+            }
+
+            body.classy-dark .course-label,
+            body.classy-dark .card-count,
+            body.classy-dark .subtitle,
+            body.classy-dark .note-preview,
+            body.classy-dark .note-date,
+            body.classy-dark .progress-text,
+            body.classy-dark .empty-state p,
+            body.classy-dark .course-card .description,
+            body.classy-dark .course-card .course-description,
+            body.classy-dark .assignments {
+                color: #b7ada7 !important;
+            }
+
+            body.classy-dark input,
+            body.classy-dark select,
+            body.classy-dark textarea {
+                background: #272321 !important;
+                border-color: #504944 !important;
+                color: #eee7e2 !important;
+            }
+
+            body.classy-dark input::placeholder,
+            body.classy-dark textarea::placeholder {
+                color: #8f8580 !important;
+            }
+
+            body.classy-dark .secondary-button,
+            body.classy-dark .close-study,
+            body.classy-dark .cancel-course {
+                background: #403936 !important;
+                color: #e5ddd8 !important;
+                border-color: #514a46 !important;
+            }
+
+            body.classy-dark .manage-button {
+                background: #403b46 !important;
+                color: #c8bdd3 !important;
+            }
+
+            body.classy-dark .delete-button {
+                background: #443637 !important;
+                color: #d09b9b !important;
+            }
+
+            body.classy-dark .study-button {
+                background: #463638 !important;
+                color: #dba4a4 !important;
+            }
+
+            body.classy-dark .card-editor {
+                background: #292522 !important;
+                border-color: #49423e !important;
+            }
+
+            body.classy-dark .add-card-button {
+                background: #302b29 !important;
+                border-color: #625752 !important;
+                color: #d2aaa2 !important;
+            }
+
+
+            /* =========================
+               ACCENT COLOR
+            ========================= */
+
+            .primary-button,
+            .new-note-button,
+            .save-button,
+            .save-course {
+                background: var(--classy-accent) !important;
+            }
+
+            .logo {
+                color: var(--classy-accent) !important;
+            }
+
+            .nav a:hover,
+            .nav a.active {
+                color: var(--classy-accent) !important;
+            }
+
+        `;
+
+
+        document.head.appendChild(style);
+
+    }
+
+
+    function initializeTheme() {
+
+        const appearance = getAppearance();
+
+        addThemeStyles();
+
+        applyTheme(appearance.theme);
+
+        applyAccent(appearance.color);
+
+    }
+
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+
+            if (event.key !== appearanceKey) {
+                return;
+            }
+
+            initializeTheme();
+
+        }
     );
 
-    // Add global Classy theme styles
-    const style = document.createElement("style");
 
-    style.textContent = `
-        :root {
-            --classy-accent: ${accent};
-        }
+    if (document.readyState === "loading") {
 
-        /* =========================
-           LIGHT THEME
-           ========================= */
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeTheme
+        );
 
-        html[data-classy-theme="light"] body {
-            background: #f8f5f0 !important;
-            color: #4d4642 !important;
-        }
+    } else {
 
-        html[data-classy-theme="light"] .sidebar {
-            background: #fffaf6 !important;
-            border-color: #e7e1da !important;
-        }
+        initializeTheme();
 
-        html[data-classy-theme="light"] .card,
-        html[data-classy-theme="light"] .course-card,
-        html[data-classy-theme="light"] .set-card,
-        html[data-classy-theme="light"] .note-card,
-        html[data-classy-theme="light"] .assignment-card,
-        html[data-classy-theme="light"] .calendar-container,
-        html[data-classy-theme="light"] .modal-content,
-        html[data-classy-theme="light"] .ai-container,
-        html[data-classy-theme="light"] .settings-card {
-            background: #fffdfb !important;
-            color: #4d4642 !important;
-            border-color: #ebe4dd !important;
-        }
+    }
 
-        /* =========================
-           SOFT THEME
-           ========================= */
-
-        html[data-classy-theme="soft"] body {
-            background: #eee5e0 !important;
-            color: #514946 !important;
-        }
-
-        html[data-classy-theme="soft"] .sidebar {
-            background: #f8efeb !important;
-            border-color: #ded2cc !important;
-        }
-
-        html[data-classy-theme="soft"] .card,
-        html[data-classy-theme="soft"] .course-card,
-        html[data-classy-theme="soft"] .set-card,
-        html[data-classy-theme="soft"] .note-card,
-        html[data-classy-theme="soft"] .assignment-card,
-        html[data-classy-theme="soft"] .calendar-container,
-        html[data-classy-theme="soft"] .modal-content,
-        html[data-classy-theme="soft"] .ai-container,
-        html[data-classy-theme="soft"] .settings-card {
-            background: #faf5f2 !important;
-            color: #514946 !important;
-            border-color: #ded2cc !important;
-        }
-
-        html[data-classy-theme="soft"] input,
-        html[data-classy-theme="soft"] textarea,
-        html[data-classy-theme="soft"] select {
-            background: #fffaf8 !important;
-            color: #514946 !important;
-            border-color: #d9ccc5 !important;
-        }
-
-        /* =========================
-           DARK THEME
-           ========================= */
-
-        html[data-classy-theme="dark"] body {
-            background: #211f1e !important;
-            color: #eee7e2 !important;
-        }
-
-        html[data-classy-theme="dark"] .sidebar {
-            background: #292625 !important;
-            border-color: #3d3835 !important;
-        }
-
-        html[data-classy-theme="dark"] .card,
-        html[data-classy-theme="dark"] .course-card,
-        html[data-classy-theme="dark"] .set-card,
-        html[data-classy-theme="dark"] .note-card,
-        html[data-classy-theme="dark"] .assignment-card,
-        html[data-classy-theme="dark"] .calendar-container,
-        html[data-classy-theme="dark"] .modal-content,
-        html[data-classy-theme="dark"] .ai-container,
-        html[data-classy-theme="dark"] .settings-card {
-            background: #2b2827 !important;
-            color: #eee7e2 !important;
-            border-color: #403b38 !important;
-        }
-
-        html[data-classy-theme="dark"] input,
-        html[data-classy-theme="dark"] textarea,
-        html[data-classy-theme="dark"] select {
-            background: #211f1e !important;
-            color: #eee7e2 !important;
-            border-color: #49423f !important;
-        }
-
-        html[data-classy-theme="dark"] input::placeholder,
-        html[data-classy-theme="dark"] textarea::placeholder {
-            color: #a9a09b !important;
-        }
-
-        html[data-classy-theme="dark"] .nav-item {
-            color: #d0c7c2 !important;
-        }
-
-        html[data-classy-theme="dark"] .nav-item:hover {
-            background: #383331 !important;
-        }
-
-        /* =========================
-           ACCENT COLORS
-           ========================= */
-
-        .logo {
-            color: var(--classy-accent) !important;
-        }
-
-        .nav-item.active {
-            background: color-mix(
-                in srgb,
-                var(--classy-accent) 18%,
-                transparent
-            ) !important;
-
-            color: var(--classy-accent) !important;
-        }
-
-        .primary-button,
-        .ai-button,
-        .add-button {
-            background: var(--classy-accent) !important;
-        }
-
-        .primary-button:hover,
-        .ai-button:hover,
-        .add-button:hover {
-            filter: brightness(0.94);
-        }
-
-        .accent-text {
-            color: var(--classy-accent) !important;
-        }
-
-        /* Dark mode text adjustments */
-        html[data-classy-theme="dark"] h1,
-        html[data-classy-theme="dark"] h2,
-        html[data-classy-theme="dark"] h3,
-        html[data-classy-theme="dark"] h4,
-        html[data-classy-theme="dark"] p,
-        html[data-classy-theme="dark"] label,
-        html[data-classy-theme="dark"] span {
-            color: inherit;
-        }
-    `;
-
-    document.head.appendChild(style);
 })();
