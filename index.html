@@ -1,541 +1,1844 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classy | Your College Life, Organized</title>
 
-    <title>Classy | Your College Life, Organized</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+:root {
+    --cream: #f8f5f0;
+    --paper: #fffdfb;
+    --ink: #4a403d;
+    --muted: #8e8580;
+    --line: #e9e1db;
+    --rose: #c98787;
+    --rose-soft: #f3e4e1;
+    --shadow: 0 5px 20px rgba(80, 60, 40, .045);
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f8f5f0;
-            color: #333333;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+}
 
-        .app {
-            display: flex;
-            min-height: 100vh;
-        }
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
-        /* SIDEBAR */
-        .sidebar {
-            width: 230px;
-            background: #ffffff;
-            border-right: 1px solid #e7e1da;
-            padding: 28px 18px;
-        }
+.app {
+    display: flex;
+    min-height: 100vh;
+}
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #c98787;
-            margin-bottom: 8px;
-            padding-left: 12px;
-        }
 
-        .tagline {
-            font-size: 12px;
-            color: #999999;
-            padding-left: 12px;
-            margin-bottom: 35px;
-        }
+/* =========================
+   SIDEBAR
+========================= */
 
-        .nav-item {
-            display: block;
-            padding: 13px 14px;
-            margin-bottom: 7px;
-            border-radius: 12px;
-            color: #555555;
-            text-decoration: none;
-            font-size: 15px;
-        }
+.sidebar {
+    width: 230px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-right: 1px solid var(--line);
+    padding: 28px 18px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
 
-        .nav-item:hover,
-        .nav-item.active {
-            background: #f3e4e1;
-            color: #b56f70;
-        }
+.logo {
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--rose);
+    padding-left: 12px;
+    margin-bottom: 7px;
+}
 
-        .settings {
-            margin-top: 35px;
-        }
+.tagline {
+    font-size: 12px;
+    color: #999999;
+    padding-left: 12px;
+    margin-bottom: 35px;
+}
 
-        /* MAIN */
-        .main {
-            flex: 1;
-            padding: 40px;
-            max-width: 1400px;
-        }
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 13px 14px;
+    margin-bottom: 7px;
+    border-radius: 12px;
+    color: #555555;
+    font-size: 15px;
+    transition: .18s;
+}
 
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 35px;
-        }
+.nav-item:hover,
+.nav-item.active {
+    background: var(--rose-soft);
+    color: #b56f70;
+}
 
-        .welcome h1 {
-            font-size: 32px;
-            margin-bottom: 7px;
-        }
+.nav-icon {
+    width: 19px;
+    text-align: center;
+    font-size: 17px;
+    opacity: .9;
+}
 
-        .welcome p {
-            color: #888888;
-            font-size: 15px;
-        }
+.settings {
+    margin-top: 35px;
+}
 
-        .profile {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: #dfb5ad;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
 
-        /* CARDS */
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+/* =========================
+   MAIN
+========================= */
 
-        .card {
-            background: white;
-            border: 1px solid #ebe4dd;
-            border-radius: 18px;
-            padding: 24px;
-            box-shadow: 0 4px 15px rgba(80, 60, 40, 0.04);
-        }
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 38px 42px 46px;
+    max-width: 1450px;
+    margin: 0 auto;
+}
 
-        .card-title {
-            color: #888888;
-            font-size: 13px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+}
 
-        .card-number {
-            font-size: 30px;
-            font-weight: bold;
-            color: #333333;
-        }
+.welcome h1 {
+    font-family: Georgia, serif;
+    font-size: 35px;
+    font-weight: 500;
+    letter-spacing: -.5px;
+    color: #4c403d;
+}
 
-        .card-description {
-            color: #999999;
-            font-size: 13px;
-            margin-top: 5px;
-        }
+.welcome p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 7px;
+}
 
-        /* CONTENT GRID */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr;
-            gap: 25px;
-        }
+.profile {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    background: #dfb5ad;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
 
-        .section {
-            background: white;
-            border: 1px solid #ebe4dd;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(80, 60, 40, 0.04);
-        }
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+/* =========================
+   DASHBOARD GRID
+========================= */
 
-        .section-header h2 {
-            font-size: 20px;
-        }
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(300px, .75fr);
+    gap: 20px;
+    align-items: start;
+}
 
-        .view-all {
-            color: #c98787;
-            font-size: 13px;
-            text-decoration: none;
-        }
+.panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
 
-        /* ASSIGNMENTS */
-        .assignment {
-            display: flex;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #f0ebe6;
-        }
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
 
-        .assignment:last-child {
-            border-bottom: none;
-        }
+.panel-header h2 {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    font-weight: 500;
+    color: #4d423f;
+}
 
-        .assignment-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: #f3e4e1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 14px;
-        }
+.view-all {
+    font-size: 12px;
+    color: #b56f70;
+}
 
-        .assignment-info {
-            flex: 1;
-        }
 
-        .assignment-info h3 {
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
+/* =========================
+   COURSES
+========================= */
 
-        .assignment-info p {
-            font-size: 12px;
-            color: #999999;
-        }
+.courses-panel {
+    padding: 24px;
+}
 
-        .due {
-            font-size: 12px;
-            color: #b56f70;
-            font-weight: bold;
-        }
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
 
-        /* COURSES */
-        .course {
-            padding: 15px;
-            border-radius: 14px;
-            background: #faf8f5;
-            margin-bottom: 12px;
-        }
+.course-card {
+    overflow: hidden;
+    border: 1px solid #e8e0da;
+    border-radius: 15px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: transform .18s, box-shadow .18s;
+}
 
-        .course h3 {
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
+.course-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(80, 60, 40, .08);
+}
 
-        .course p {
-            color: #999999;
-            font-size: 12px;
-        }
+.course-cover {
+    height: 92px;
+    position: relative;
+    overflow: hidden;
+    padding: 14px;
+    display: flex;
+    align-items: flex-end;
+}
 
-        .progress {
-            height: 6px;
-            background: #ebe7e2;
-            border-radius: 10px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
+.course-cover::before,
+.course-cover::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    opacity: .25;
+}
 
-        .progress-bar {
-            height: 100%;
-            background: #c98787;
-            border-radius: 10px;
-        }
+.course-cover::before {
+    width: 120px;
+    height: 120px;
+    right: -35px;
+    top: -55px;
+    background: #ffffff;
+}
 
-        /* AI BOX */
-        .ai-box {
-            margin-top: 25px;
-            background: #f3e8e5;
-            border-radius: 18px;
-            padding: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+.course-cover::after {
+    width: 85px;
+    height: 85px;
+    left: -25px;
+    bottom: -48px;
+    background: #ffffff;
+}
 
-        .ai-box h2 {
-            font-size: 19px;
-            margin-bottom: 5px;
-        }
+.course-label {
+    position: relative;
+    z-index: 1;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.78);
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: .5px;
+    color: #574d49;
+}
 
-        .ai-box p {
-            color: #777777;
-            font-size: 13px;
-        }
+.course-art {
+    position: absolute;
+    right: 16px;
+    top: 13px;
+    font-size: 28px;
+    opacity: .68;
+    z-index: 1;
+}
 
-        .ai-button {
-            background: #c98787;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.cover-math {
+    background: linear-gradient(135deg, #d8b7b0, #ead6cf);
+}
 
-        .ai-button:hover {
-            background: #b56f70;
-        }
+.cover-english {
+    background: linear-gradient(135deg, #b8c5b0, #d9e0d2);
+}
 
-        /* MOBILE */
-        @media (max-width: 900px) {
-            .sidebar {
-                width: 180px;
-            }
+.cover-history {
+    background: linear-gradient(135deg, #c8c0d8, #e1ddec);
+}
 
-            .cards {
-                grid-template-columns: 1fr;
-            }
+.cover-ge {
+    background: linear-gradient(135deg, #d8d0c4, #ebe2d5);
+}
 
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+.cover-default {
+    background: linear-gradient(135deg, #d8c3bb, #e8dcd6);
+}
 
-        @media (max-width: 650px) {
-            .sidebar {
-                display: none;
-            }
+.course-body {
+    padding: 13px 14px 14px;
+}
 
-            .main {
-                padding: 20px;
-            }
-        }
-    </style>
+.course-body h3 {
+    font-family: Georgia, serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #443b38;
+}
+
+.course-code {
+    font-size: 11px;
+    color: #918884;
+    margin-bottom: 12px;
+}
+
+.progress-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.progress {
+    height: 6px;
+    flex: 1;
+    background: #eeeae6;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 99px;
+}
+
+.progress-percent {
+    font-size: 11px;
+    font-weight: bold;
+    color: #655a56;
+    min-width: 27px;
+    text-align: right;
+}
+
+
+/* =========================
+   ASSIGNMENTS
+========================= */
+
+.assignments-panel {
+    padding: 24px;
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.filter-select {
+    appearance: none;
+    background: #ffffff;
+    border: 1px solid #e5ddd7;
+    border-radius: 999px;
+    padding: 8px 30px 8px 12px;
+    font-size: 11px;
+    color: #665c58;
+    cursor: pointer;
+
+    background-image:
+        linear-gradient(45deg, transparent 50%, #8e8580 50%),
+        linear-gradient(135deg, #8e8580 50%, transparent 50%);
+
+    background-position:
+        calc(100% - 13px) 12px,
+        calc(100% - 9px) 12px;
+
+    background-size: 4px 4px, 4px 4px;
+    background-repeat: no-repeat;
+}
+
+.assignment-list {
+    margin-top: 5px;
+}
+
+.assignment {
+    display: grid;
+    grid-template-columns: 12px minmax(0, 1fr) auto 18px;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee8e3;
+}
+
+.assignment:last-child {
+    border-bottom: none;
+}
+
+.course-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.assignment-main h3 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #403835;
+}
+
+.assignment-main p {
+    font-size: 11px;
+    color: #938985;
+}
+
+.assignment-date {
+    font-size: 11px;
+    color: #807570;
+    white-space: nowrap;
+}
+
+.priority {
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.priority.high {
+    background: #f9dddd;
+    color: #bd6262;
+}
+
+.priority.medium {
+    background: #faebc8;
+    color: #b77d24;
+}
+
+.priority.low {
+    background: #dfeedd;
+    color: #668260;
+}
+
+.assignment-check {
+    width: 17px;
+    height: 17px;
+    border: 1.5px solid #bdb3ad;
+    border-radius: 4px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.assignment.completed .assignment-main h3 {
+    text-decoration: line-through;
+    color: #9d9692;
+}
+
+.assignment.completed {
+    opacity: .6;
+}
+
+.empty {
+    padding: 30px 10px;
+    text-align: center;
+    color: #9a918c;
+    font-size: 12px;
+}
+
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tracker-panel {
+    padding: 22px;
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.tracker {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        conic-gradient(
+            var(--rose) var(--progress, 50%),
+            #eadfda 0
+        );
+
+    margin: 4px 0 13px;
+}
+
+.tracker::before {
+    content: "";
+    position: absolute;
+    inset: 15px;
+    border-radius: 50%;
+    background: var(--paper);
+    box-shadow: inset 0 0 0 1px #eee4de;
+}
+
+.tracker-content {
+    position: relative;
+    text-align: center;
+}
+
+.tracker-percent {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    color: #4b403d;
+}
+
+.tracker-count {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #655b57;
+}
+
+.tracker-label {
+    font-size: 11px;
+    color: #938984;
+    margin-top: 2px;
+}
+
+.tracker-note {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #b56f70;
+    text-align: center;
+}
+
+
+/* =========================
+   AI / NEED HELP
+========================= */
+
+.help-panel {
+    padding: 25px;
+    background: #f4e9e7;
+    border-color: #ead8d4;
+    min-height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.help-panel::after {
+    content: "♡";
+    position: absolute;
+    right: 20px;
+    bottom: 8px;
+    font-family: Georgia, serif;
+    font-size: 42px;
+    color: #d6a6a0;
+    opacity: .55;
+}
+
+.help-title {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    font-style: italic;
+    font-weight: 500;
+    margin-bottom: 13px;
+    color: #514642;
+}
+
+.help-copy {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #766b67;
+    max-width: 245px;
+    margin-bottom: 18px;
+}
+
+.ai-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    background: #c98787;
+    color: #ffffff;
+    border: 0;
+    border-radius: 999px;
+
+    padding: 12px 18px;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+    width: max-content;
+
+    transition: .18s;
+}
+
+.ai-button:hover {
+    background: #b56f70;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   SMALL DECOR
+========================= */
+
+.dashboard-note {
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: #c08a85;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 16px;
+    padding-left: 4px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1050px) {
+
+    .main {
+        padding: 30px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .right-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tracker-panel,
+    .help-panel {
+        min-height: 280px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 190px;
+    }
+
+    .main {
+        padding: 25px 20px;
+    }
+
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .right-column {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome h1 {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 620px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        padding: 22px 15px;
+    }
+
+    .topbar {
+        margin-bottom: 22px;
+    }
+
+    .welcome h1 {
+        font-size: 27px;
+    }
+
+    .courses-panel,
+    .assignments-panel {
+        padding: 18px;
+    }
+
+    .assignment {
+        grid-template-columns: 10px minmax(0, 1fr) auto;
+    }
+
+    .assignment-check {
+        display: none;
+    }
+
+    .assignment-date {
+        display: none;
+    }
+
+    .tracker {
+        width: 190px;
+        height: 190px;
+    }
+
+    .tracker-percent {
+        font-size: 31px;
+    }
+}
+</style>
 </head>
+
 
 <body>
 
 <div class="app">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
 
-        <div class="logo">classy.</div>
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-        <div class="tagline">
-            Your college life, organized.
+<aside class="sidebar">
+
+    <div class="logo">classy.</div>
+
+    <div class="tagline">
+        Your college life, organized.
+    </div>
+
+    <a href="index.html" class="nav-item active">
+        <span class="nav-icon">⌂</span>
+        Dashboard
+    </a>
+
+    <a href="courses.html" class="nav-item">
+        <span class="nav-icon">▱</span>
+        Courses
+    </a>
+
+    <a href="planner.html" class="nav-item">
+        <span class="nav-icon">▣</span>
+        Planner
+    </a>
+
+    <a href="study-sets.html" class="nav-item">
+        <span class="nav-icon">▤</span>
+        Study Sets
+    </a>
+
+    <a href="notes.html" class="nav-item">
+        <span class="nav-icon">▧</span>
+        Notes
+    </a>
+
+    <a href="ai.html" class="nav-item">
+        <span class="nav-icon">✦</span>
+        AI Assistant
+    </a>
+
+    <div class="settings">
+
+        <a href="settings.html" class="nav-item">
+            <span class="nav-icon">⚙</span>
+            Settings
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main class="main">
+
+
+    <!-- TOP BAR -->
+
+    <div class="topbar">
+
+        <div class="welcome">
+
+            <h1 id="greeting">
+                Good afternoon! ☀️
+            </h1>
+
+            <p>
+                Here's what's happening with your classes today.
+            </p>
+
         </div>
 
-       <a href="index.html" class="nav-item active">Dashboard</a>
-<a href="courses.html" class="nav-item">Courses</a>
-<a href="planner.html" class="nav-item">Planner</a>
-<a href="study-sets.html" class="nav-item">Study Sets</a>
-<a href="notes.html" class="nav-item">Notes</a>
-<a href="javascript:window.location.href='ai.html';" class="nav-item">AI Assistant</a>
-
-<div class="settings">
-    <a href="settings.html" class="nav-item">Settings</a>
-</div>
-
-    </aside>
-
-
-    <!-- MAIN CONTENT -->
-    <main class="main">
-
-        <!-- TOP BAR -->
-        <div class="topbar">
-
-            <div class="welcome">
-                <h1>Good afternoon! ☀️</h1>
-                <p>Let's get your college life organized.</p>
-            </div>
-
-            <div class="profile">
-                S
-            </div>
-
+        <div class="profile">
+            S
         </div>
 
-
-        <!-- SUMMARY CARDS -->
-        <div class="cards">
-
-            <div class="card">
-                <div class="card-title">Upcoming</div>
-                <div class="card-number">4</div>
-                <div class="card-description">assignments this week</div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">Courses</div>
-                <div class="card-number">4</div>
-                <div class="card-description">classes this semester</div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">Study Time</div>
-                <div class="card-number">6.5h</div>
-                <div class="card-description">this week</div>
-            </div>
-
-        </div>
+    </div>
 
 
-        <!-- MAIN SECTIONS -->
-        <div class="content-grid">
 
-            <!-- UPCOMING -->
-            <section class="section">
+    <!-- =========================
+         DASHBOARD
+    ========================= -->
 
-                <div class="section-header">
-                    <h2>Upcoming</h2>
-                    <a href="#" class="view-all">View all →</a>
-                </div>
+    <div class="dashboard-grid">
 
-                <div class="assignment">
 
-                    <div class="assignment-icon">📐</div>
+        <!-- LEFT COLUMN -->
 
-                    <div class="assignment-info">
-                        <h3>Calculus Problem Set</h3>
-                        <p>Math 1131</p>
-                    </div>
+        <div>
 
-                    <div class="due">
-                        Tomorrow
-                    </div>
+
+            <!-- =========================
+                 COURSES
+            ========================= -->
+
+            <section class="panel courses-panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        My Courses
+                    </h2>
+
+                    <a href="courses.html" class="view-all">
+                        View all →
+                    </a>
 
                 </div>
 
-
-                <div class="assignment">
-
-                    <div class="assignment-icon">✍️</div>
-
-                    <div class="assignment-info">
-                        <h3>Composition Essay</h3>
-                        <p>English 2367</p>
-                    </div>
-
-                    <div class="due">
-                        Wednesday
-                    </div>
-
-                </div>
-
-
-                <div class="assignment">
-
-                    <div class="assignment-icon">📚</div>
-
-                    <div class="assignment-info">
-                        <h3>European History Reading</h3>
-                        <p>History 1112</p>
-                    </div>
-
-                    <div class="due">
-                        Thursday
-                    </div>
-
-                </div>
-
-
-                <div class="assignment">
-
-                    <div class="assignment-icon">🎓</div>
-
-                    <div class="assignment-info">
-                        <h3>Launch Seminar Activity</h3>
-                        <p>GE Launch Seminar</p>
-                    </div>
-
-                    <div class="due">
-                        Friday
-                    </div>
-
+                <div
+                    class="course-grid"
+                    id="courseGrid">
                 </div>
 
             </section>
 
 
-            <!-- COURSES -->
-            <section class="section">
 
-                <div class="section-header">
-                    <h2>My Courses</h2>
-                    <a href="courses.html" class="view-all">Manage</a>
-                </div>
+            <!-- =========================
+                 ASSIGNMENTS
+            ========================= -->
 
+            <section
+                class="panel assignments-panel"
+                style="margin-top:20px"
+            >
 
-                <div class="course">
+                <div class="panel-header">
 
-                    <h3>Math 1131</h3>
-                    <p>Calculus for Business</p>
+                    <h2>
+                        Assignments
+                    </h2>
 
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 65%;"></div>
-                    </div>
-
-                </div>
-
-
-                <div class="course">
-
-                    <h3>English 2367</h3>
-                    <p>Composition II</p>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 45%;"></div>
-                    </div>
+                    <a href="planner.html" class="view-all">
+                        View all →
+                    </a>
 
                 </div>
 
 
-                <div class="course">
+                <!-- FILTERS -->
 
-                    <h3>History 1112</h3>
-                    <p>European History Since 1648</p>
+                <div class="filters">
 
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 30%;"></div>
-                    </div>
+                    <select
+                        id="courseFilter"
+                        class="filter-select"
+                    >
+
+                        <option value="all">
+                            All Courses
+                        </option>
+
+                    </select>
+
+
+                    <select
+                        id="typeFilter"
+                        class="filter-select"
+                    >
+
+                        <option value="all">
+                            All Types
+                        </option>
+
+                    </select>
+
+
+                    <select
+                        id="priorityFilter"
+                        class="filter-select"
+                    >
+
+                        <option value="all">
+                            All Priorities
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                    </select>
 
                 </div>
 
 
-                <div class="course">
-
-                    <h3>GE Launch Seminar</h3>
-                    <p>College Success</p>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 75%;"></div>
-                    </div>
-
-                </div>
+                <div
+                    class="assignment-list"
+                    id="assignmentList"
+                ></div>
 
             </section>
 
         </div>
 
 
-        <!-- AI ASSISTANT -->
-        <div class="ai-box">
 
-            <div>
-                <h2>✨ Meet your AI Study Assistant</h2>
-                <p>
-                    Ask questions, create study guides, make flashcards,
-                    or get help organizing your week.
-                </p>
-            </div>
+        <!-- =========================
+             RIGHT COLUMN
+        ========================= -->
 
-            <button class="ai-button" onclick="window.location.href='ai.html';">
-    Open Assistant
-</button>
+        <div class="right-column">
+
+
+            <!-- =========================
+                 PROGRESS TRACKER
+            ========================= -->
+
+            <section class="panel tracker-panel">
+
+                <div
+                    class="panel-header"
+                    style="width:100%;margin-bottom:0"
+                >
+
+                    <h2 style="font-size:20px">
+                        Progress
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="tracker"
+                    id="tracker"
+                >
+
+                    <div class="tracker-content">
+
+                        <div
+                            class="tracker-percent"
+                            id="trackerPercent"
+                        >
+                            0%
+                        </div>
+
+                        <div
+                            class="tracker-count"
+                            id="trackerCount"
+                        >
+                            0 / 0
+                        </div>
+
+                        <div class="tracker-label">
+                            assignments completed
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="tracker-note">
+                    Keep going! ♡
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 AI HELP
+            ========================= -->
+
+            <section class="panel help-panel">
+
+                <div class="help-title">
+                    Need help?
+                </div>
+
+                <div class="help-copy">
+
+                    Ask me anything about your
+                    courses, assignments, notes,
+                    study sets, or planning!
+
+                </div>
+
+                <a
+                    href="ai.html"
+                    class="ai-button"
+                >
+                    ✦ &nbsp;AI Assistant&nbsp; →
+                </a>
+
+            </section>
+
 
         </div>
 
-    </main>
+    </div>
+
+
+    <div class="dashboard-note">
+        Small steps make big progress. ♡
+    </div>
+
+
+</main>
 
 </div>
 
+
+
+<script>
+
+/* =========================
+   DEFAULT COURSES
+========================= */
+
+const defaultCourses = {
+
+    MATH1131: {
+        name: "Calculus for Business",
+        shortName: "Math 1131",
+        color: "#d8b7b0",
+        cover: "cover-math",
+        art: "⌁"
+    },
+
+    ENGLISH2367: {
+        name: "Composition II",
+        shortName: "English 2367",
+        color: "#b8c5b0",
+        cover: "cover-english",
+        art: "✎"
+    },
+
+    HISTORY1112: {
+        name: "European History",
+        shortName: "History 1112",
+        color: "#c8c0d8",
+        cover: "cover-history",
+        art: "◈"
+    },
+
+    GELAUNCH: {
+        name: "GE Launch Seminar",
+        shortName: "GE Launch",
+        color: "#d8d0c4",
+        cover: "cover-ge",
+        art: "✦"
+    }
+
+};
+
+
+
+/* =========================
+   GET COURSES
+========================= */
+
+function getCourses() {
+
+    const courses = {
+        ...defaultCourses
+    };
+
+    const saved =
+        JSON.parse(
+            localStorage.getItem("classyCourses")
+        ) || [];
+
+
+    saved.forEach(course => {
+
+        const code =
+            (course.code || "")
+                .replace(/\s+/g, "")
+                .toUpperCase();
+
+
+        if (!code) return;
+
+
+        courses[code] = {
+
+            name: course.name,
+
+            shortName: course.code,
+
+            color:
+                course.color ||
+                "#d8b7b0",
+
+            cover:
+                course.cover ||
+                "cover-default",
+
+            art: "✦"
+
+        };
+
+    });
+
+
+    return courses;
+}
+
+
+
+/* =========================
+   GET ALL ASSIGNMENTS
+========================= */
+
+function getAllAssignments() {
+
+    const courses = getCourses();
+
+    const all = [];
+
+
+    Object.keys(courses).forEach(code => {
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "classyAssignments_" + code
+                )
+            ) || [];
+
+
+        saved.forEach(a => {
+
+            all.push({
+
+                ...a,
+
+                courseCode: code,
+
+                courseName:
+                    courses[code].name,
+
+                courseShortName:
+                    courses[code].shortName,
+
+                courseColor:
+                    courses[code].color
+
+            });
+
+        });
+
+    });
+
+
+    return all;
+}
+
+
+
+/* =========================
+   FORMAT DATE
+========================= */
+
+function formatDate(date) {
+
+    if (!date)
+        return "No date";
+
+
+    const parts =
+        date.split("-");
+
+
+    if (parts.length !== 3)
+        return date;
+
+
+    const d =
+        new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        );
+
+
+    return d.toLocaleDateString(
+        undefined,
+        {
+            month: "short",
+            day: "numeric"
+        }
+    );
+}
+
+
+
+/* =========================
+   RENDER COURSES
+========================= */
+
+function renderCourses() {
+
+    const grid =
+        document.getElementById(
+            "courseGrid"
+        );
+
+
+    const courses =
+        getCourses();
+
+
+    grid.innerHTML = "";
+
+
+    Object.entries(courses)
+        .forEach(([code, course]) => {
+
+
+            const assignments =
+                JSON.parse(
+                    localStorage.getItem(
+                        "classyAssignments_" + code
+                    )
+                ) || [];
+
+
+            const total =
+                assignments.length;
+
+
+            const completed =
+                assignments.filter(
+                    a => a.completed
+                ).length;
+
+
+            const percent =
+                total
+                    ? Math.round(
+                        completed / total * 100
+                    )
+                    : 0;
+
+
+            const card =
+                document.createElement("a");
+
+
+            card.className =
+                "course-card";
+
+
+            card.href =
+                "course.html?code=" +
+                encodeURIComponent(code);
+
+
+            card.innerHTML = `
+
+                <div
+                    class="course-cover ${course.cover || "cover-default"}"
+                >
+
+                    <span class="course-label">
+                        ${escapeHtml(course.shortName)}
+                    </span>
+
+                    <span class="course-art">
+                        ${course.art || "✦"}
+                    </span>
+
+                </div>
+
+
+                <div class="course-body">
+
+                    <h3>
+                        ${escapeHtml(course.name)}
+                    </h3>
+
+                    <div class="course-code">
+                        ${escapeHtml(course.shortName)}
+                    </div>
+
+
+                    <div class="progress-row">
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="
+                                    width:${percent}%;
+                                    background:${course.color}
+                                "
+                            ></div>
+
+                        </div>
+
+
+                        <div class="progress-percent">
+                            ${percent}%
+                        </div>
+
+                    </div>
+
+                </div>
+            `;
+
+
+            grid.appendChild(card);
+
+        });
+
+}
+
+
+
+/* =========================
+   FILTER DROPDOWNS
+========================= */
+
+function populateFilters() {
+
+    const courses =
+        getCourses();
+
+
+    const courseFilter =
+        document.getElementById(
+            "courseFilter"
+        );
+
+
+    const typeFilter =
+        document.getElementById(
+            "typeFilter"
+        );
+
+
+    courseFilter.innerHTML =
+        '<option value="all">All Courses</option>';
+
+
+    Object.entries(courses)
+        .forEach(([code, c]) => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value = code;
+
+            option.textContent =
+                c.shortName;
+
+            courseFilter.appendChild(
+                option
+            );
+
+        });
+
+
+    const types =
+        [
+            ...new Set(
+                getAllAssignments()
+                    .map(a => a.type)
+                    .filter(Boolean)
+            )
+        ];
+
+
+    typeFilter.innerHTML =
+        '<option value="all">All Types</option>';
+
+
+    types.forEach(type => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = type;
+
+        option.textContent = type;
+
+        typeFilter.appendChild(
+            option
+        );
+
+    });
+
+}
+
+
+
+/* =========================
+   RENDER ASSIGNMENTS
+========================= */
+
+function renderAssignments() {
+
+    const list =
+        document.getElementById(
+            "assignmentList"
+        );
+
+
+    const courseValue =
+        document.getElementById(
+            "courseFilter"
+        ).value;
+
+
+    const typeValue =
+        document.getElementById(
+            "typeFilter"
+        ).value;
+
+
+    const priorityValue =
+        document.getElementById(
+            "priorityFilter"
+        ).value;
+
+
+    let assignments =
+        getAllAssignments()
+            .filter(a =>
+
+                (
+                    courseValue === "all" ||
+                    a.courseCode === courseValue
+                )
+
+                &&
+
+                (
+                    typeValue === "all" ||
+                    a.type === typeValue
+                )
+
+                &&
+
+                (
+                    priorityValue === "all" ||
+                    String(
+                        a.priority || ""
+                    ).toLowerCase()
+                    === priorityValue
+                )
+
+            );
+
+
+    assignments.sort(
+        (a, b) =>
+            String(
+                a.date || "9999-99-99"
+            ).localeCompare(
+                String(
+                    b.date || "9999-99-99"
+                )
+            )
+    );
+
+
+    list.innerHTML = "";
+
+
+    if (!assignments.length) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                No assignments match
+                these filters.
+
+                <br>
+
+                You're all caught up! ♡
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    assignments
+        .slice(0, 8)
+        .forEach(a => {
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "assignment" +
+                (
+                    a.completed
+                        ? " completed"
+                        : ""
+                );
+
+
+            const priority =
+                String(
+                    a.priority || "medium"
+                ).toLowerCase();
+
+
+            item.innerHTML = `
+
+                <span
+                    class="course-dot"
+                    style="
+                        background:${a.courseColor}
+                    "
+                ></span>
+
+
+                <div class="assignment-main">
+
+                    <h3>
+                        ${escapeHtml(a.name)}
+                    </h3>
+
+                    <p>
+                        ${escapeHtml(
+                            a.courseShortName
+                        )}
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <div class="assignment-date">
+                        ${formatDate(a.date)}
+                    </div>
+
+                    <span
+                        class="priority ${priority}"
+                    >
+                        ${escapeHtml(
+                            a.priority || "Medium"
+                        )}
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="assignment-check"
+                    aria-label="Mark ${escapeHtml(
+                        a.name
+                    )} complete"
+                ></button>
+
+            `;
+
+
+            item
+                .querySelector(
+                    ".assignment-check"
+                )
+                .addEventListener(
+                    "click",
+                    () => toggleAssignment(a)
+                );
+
+
+            list.appendChild(item);
+
+        });
+
+}
+
+
+
+/* =========================
+   TOGGLE ASSIGNMENT
+========================= */
+
+function toggleAssignment(a) {
+
+    const key =
+        "classyAssignments_" +
+        a.courseCode;
+
+
+    const saved =
+        JSON.parse(
+            localStorage.getItem(key)
+        ) || [];
+
+
+    const index =
+        saved.findIndex(
+            x => x.id === a.id
+        );
+
+
+    if (index !== -1) {
+
+        saved[index].completed =
+            !saved[index].completed;
+
+
+        localStorage.setItem(
+            key,
+            JSON.stringify(saved)
+        );
+
+    }
+
+
+    refreshDashboard();
+
+}
+
+
+
+/* =========================
+   PROGRESS TRACKER
+========================= */
+
+function renderTracker() {
+
+    const all =
+        getAllAssignments();
+
+
+    const completed =
+        all.filter(
+            a => a.completed
+        ).length;
+
+
+    const total =
+        all.length;
+
+
+    const percent =
+        total
+            ? Math.round(
+                completed / total * 100
+            )
+            : 0;
+
+
+    document.getElementById(
+        "trackerPercent"
+    ).textContent =
+        percent + "%";
+
+
+    document.getElementById(
+        "trackerCount"
+    ).textContent =
+        completed + " / " + total;
+
+
+    document.getElementById(
+        "tracker"
+    ).style.setProperty(
+        "--progress",
+        percent + "%"
+    );
+
+}
+
+
+
+/* =========================
+   REFRESH DASHBOARD
+========================= */
+
+function refreshDashboard() {
+
+    renderCourses();
+
+    populateFilters();
+
+    renderAssignments();
+
+    renderTracker();
+
+}
+
+
+
+/* =========================
+   SECURITY / TEXT ESCAPING
+========================= */
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    ).replace(
+        /[&<>'"]/g,
+        c => ({
+
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "'": "&#39;",
+            '"': "&quot;"
+
+        }[c])
+    );
+
+}
+
+
+
+/* =========================
+   GREETING
+========================= */
+
+function setGreeting() {
+
+    const hour =
+        new Date().getHours();
+
+
+    const text =
+        hour < 12
+            ? "Good morning! ☀️"
+            : hour < 18
+                ? "Good afternoon! ☀️"
+                : "Good evening! 🌙";
+
+
+    document.getElementById(
+        "greeting"
+    ).textContent =
+        text;
+
+}
+
+
+
+/* =========================
+   EVENTS
+========================= */
+
+document
+    .getElementById("courseFilter")
+    .addEventListener(
+        "change",
+        renderAssignments
+    );
+
+
+document
+    .getElementById("typeFilter")
+    .addEventListener(
+        "change",
+        renderAssignments
+    );
+
+
+document
+    .getElementById("priorityFilter")
+    .addEventListener(
+        "change",
+        renderAssignments
+    );
+
+
+window.addEventListener(
+    "storage",
+    refreshDashboard
+);
+
+
+
+/* =========================
+   START DASHBOARD
+========================= */
+
+setGreeting();
+
+refreshDashboard();
+
+</script>
+
+
+<!-- GLOBAL CLASSY THEME -->
 <script src="theme.js"></script>
+
 </body>
 </html>
