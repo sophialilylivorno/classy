@@ -6,6 +6,7 @@
   <title>Courses | Classy</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -20,12 +21,16 @@
       min-height: 100vh;
     }
 
-    /* SIDEBAR */
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
     .sidebar {
       width: 220px;
       background: #fffaf6;
       border-right: 1px solid #eadfd7;
-      padding: 28px 18px;
+      padding: 45px 15px;
       min-height: 100vh;
       position: fixed;
       left: 0;
@@ -36,7 +41,6 @@
       font-size: 27px;
       font-weight: bold;
       color: #b77d7d;
-      margin-bottom: 35px;
       padding-left: 10px;
     }
 
@@ -44,33 +48,53 @@
       font-size: 11px;
       color: #a69a94;
       padding-left: 10px;
-      margin-top: -28px;
+      margin-top: 6px;
       margin-bottom: 30px;
     }
 
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .nav a {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
       text-decoration: none;
-      color: #756b66;
-      padding: 13px 12px;
-      border-radius: 12px;
-      margin-bottom: 7px;
-      font-size: 14px;
+      color: #4d4642;
+      font-size: 15px;
       transition: 0.2s;
     }
 
     .nav a:hover {
-      background: #f3e5df;
-      color: #a66f70;
+      background: #f7efeb;
     }
 
     .nav a.active {
-      background: #f0ddd7;
-      color: #a66f70;
-      font-weight: bold;
+      background: #f3e4e1;
+      color: #b56f70;
+      font-weight: normal;
     }
 
-    /* MAIN */
+    .nav-icon {
+      width: 19px;
+      min-width: 19px;
+      text-align: center;
+      font-size: 17px;
+      line-height: 1;
+      font-family: Arial, sans-serif;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
     .main {
       margin-left: 220px;
       width: calc(100% - 220px);
@@ -107,7 +131,11 @@
       font-weight: bold;
     }
 
-    /* COURSE GRID */
+
+    /* =========================
+       COURSE GRID
+    ========================= */
+
     .course-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -161,11 +189,11 @@
     }
 
     .course-card .description,
-.course-card .course-description {
-  font-size: 13px;
-  color: #9b908a;
-  margin-bottom: 22px;
-}
+    .course-card .course-description {
+      font-size: 13px;
+      color: #9b908a;
+      margin-bottom: 22px;
+    }
 
     .progress-label {
       display: flex;
@@ -214,7 +242,11 @@
       background: #e7ccc4;
     }
 
-    /* ADD COURSE */
+
+    /* =========================
+       ADD COURSE
+    ========================= */
+
     .add-course {
       margin-top: 25px;
       border: 2px dashed #ddcbc3;
@@ -236,89 +268,102 @@
       margin-bottom: 7px;
       color: #c18b8b;
     }
-.add-course-form {
-    display: none;
-    background: white;
-    border: 1px solid #ead7d7;
-    border-radius: 18px;
-    padding: 25px;
-    margin-top: 20px;
-    box-shadow: 0 3px 12px rgba(100, 80, 70, 0.06);
-}
 
-.add-course-form.show {
-    display: block;
-}
 
-.add-course-form h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #4d4642;
-}
+    /* =========================
+       ADD COURSE FORM
+    ========================= */
 
-.form-group {
-    margin-bottom: 16px;
-}
+    .add-course-form {
+      display: none;
+      background: white;
+      border: 1px solid #ead7d7;
+      border-radius: 18px;
+      padding: 25px;
+      margin-top: 20px;
+      box-shadow: 0 3px 12px rgba(100, 80, 70, 0.06);
+    }
 
-.form-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: bold;
-    color: #6f6762;
-    margin-bottom: 7px;
-}
+    .add-course-form.show {
+      display: block;
+    }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 11px 12px;
-    border: 1px solid #e5d7d2;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    background: #fffdfc;
-}
+    .add-course-form h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #4d4642;
+    }
 
-.form-group textarea {
-    min-height: 80px;
-    resize: vertical;
-}
+    .form-group {
+      margin-bottom: 16px;
+    }
 
-.form-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      color: #6f6762;
+      margin-bottom: 7px;
+    }
 
-.save-course,
-.cancel-course {
-    border: none;
-    border-radius: 10px;
-    padding: 11px 18px;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-}
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #e5d7d2;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      background: #fffdfc;
+    }
 
-.save-course {
-    background: #d8b7b0;
-    color: white;
-}
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
 
-.save-course:hover {
-    background: #cda49d;
-}
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
 
-.cancel-course {
-    background: #f1e8e5;
-    color: #6f6762;
-}
+    .save-course,
+    .cancel-course {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 18px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.cancel-course:hover {
-    background: #e8dcd8;
-}
+    .save-course {
+      background: #d8b7b0;
+      color: white;
+    }
+
+    .save-course:hover {
+      background: #cda49d;
+    }
+
+    .cancel-course {
+      background: #f1e8e5;
+      color: #6f6762;
+    }
+
+    .cancel-course:hover {
+      background: #e8dcd8;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
     @media (max-width: 800px) {
+
       .sidebar {
         width: 180px;
       }
@@ -332,388 +377,753 @@
       .course-grid {
         grid-template-columns: 1fr;
       }
+
     }
-    /* ===== CLASSY SIDEBAR NAVIGATION ===== */
 
-.sidebar .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    width: 100%;
-    box-sizing: border-box;
-    text-decoration: none;
-    border: none;
-}
-
-.sidebar .nav-icon {
-    width: 19px;
-    min-width: 19px;
-    text-align: center;
-    font-size: 17px;
-    line-height: 1;
-    opacity: 0.9;
-    font-family: Arial, sans-serif;
-}
-
-.sidebar .nav-item:hover {
-    text-decoration: none;
-}
-
-.sidebar .nav-item.active {
-    text-decoration: none;
-}
   </style>
 </head>
 
+
 <body>
 
-  <!-- SIDEBAR -->
+
+  <!-- =========================
+       SIDEBAR
+  ========================= -->
+
   <aside class="sidebar">
 
     <div class="logo">classy.</div>
 
     <div class="tagline">
-        Your college life, organized.
+      Your college life, organized.
     </div>
 
-    <a href="index.html" class="nav-item">
+    <nav class="nav">
+
+      <a href="index.html">
         <span class="nav-icon">⌂</span>
         Dashboard
-    </a>
+      </a>
 
-    <a href="courses.html" class="nav-item active">
+      <a href="courses.html" class="active">
         <span class="nav-icon">▱</span>
         Courses
-    </a>
+      </a>
 
-    <a href="planner.html" class="nav-item">
+      <a href="planner.html">
         <span class="nav-icon">▣</span>
         Planner
-    </a>
+      </a>
 
-    <a href="study-sets.html" class="nav-item">
+      <a href="study-sets.html">
         <span class="nav-icon">▤</span>
         Study Sets
-    </a>
+      </a>
 
-    <a href="notes.html" class="nav-item">
+      <a href="notes.html">
         <span class="nav-icon">▧</span>
         Notes
-    </a>
+      </a>
 
-    <a href="ai.html" class="nav-item">
+      <a href="ai.html">
         <span class="nav-icon">✦</span>
         AI Assistant
-    </a>
+      </a>
 
-    <div class="settings">
+      <a href="settings.html">
+        <span class="nav-icon">⚙</span>
+        Settings
+      </a>
 
-        <a href="settings.html" class="nav-item">
-            <span class="nav-icon">⚙</span>
-            Settings
-        </a>
+    </nav>
 
-    </div>
-
-</aside>
+  </aside>
 
 
-  <!-- MAIN CONTENT -->
+  <!-- =========================
+       MAIN CONTENT
+  ========================= -->
+
   <main class="main">
 
     <div class="top">
+
       <div class="title">
+
         <h1>My Courses 📚</h1>
-        <p>Keep track of your classes, assignments, and progress.</p>
+
+        <p>
+          Keep track of your classes, assignments, and progress.
+        </p>
+
       </div>
 
       <div class="profile">S</div>
+
     </div>
 
 
-    <!-- COURSES -->
+    <!-- =========================
+         COURSES
+    ========================= -->
+
     <section class="course-grid">
 
+
       <!-- MATH -->
+
       <div class="course-card">
+
         <div class="course-top">
-          <div class="course-icon">📐</div>
-          <div class="course-code">Math 1131</div>
+
+          <div class="course-icon">
+            📐
+          </div>
+
+          <div class="course-code">
+            Math 1131
+          </div>
+
         </div>
 
-        <h2>Calculus for Business</h2>
-        <p class="description">Business calculus and applications.</p>
+        <h2>
+          Calculus for Business
+        </h2>
+
+        <p class="description">
+          Business calculus and applications.
+        </p>
 
         <div class="progress-label">
-          <span>Course progress</span>
-          <span>35%</span>
+
+          <span>
+            Course progress
+          </span>
+
+          <span>
+            35%
+          </span>
+
         </div>
 
         <div class="progress">
-          <div class="progress-bar" style="width: 35%;"></div>
+
+          <div
+            class="progress-bar"
+            style="width: 35%;">
+          </div>
+
         </div>
 
         <div class="course-bottom">
-          <span class="assignments">2 upcoming assignments</span>
-          <a href="course.html?code=MATH1131" class="view-btn">View Course</a>
+
+          <span class="assignments">
+            2 upcoming assignments
+          </span>
+
+          <a
+            href="course.html?code=MATH1131"
+            class="view-btn">
+            View Course
+          </a>
+
         </div>
+
       </div>
 
 
       <!-- ENGLISH -->
+
       <div class="course-card">
+
         <div class="course-top">
-          <div class="course-icon">✏️</div>
-          <div class="course-code">English 2367</div>
+
+          <div class="course-icon">
+            ✏️
+          </div>
+
+          <div class="course-code">
+            English 2367
+          </div>
+
         </div>
 
-        <h2>Composition II</h2>
-        <p class="description">Writing, research, and communication.</p>
+        <h2>
+          Composition II
+        </h2>
+
+        <p class="description">
+          Writing, research, and communication.
+        </p>
 
         <div class="progress-label">
-          <span>Course progress</span>
-          <span>42%</span>
+
+          <span>
+            Course progress
+          </span>
+
+          <span>
+            42%
+          </span>
+
         </div>
 
         <div class="progress">
-          <div class="progress-bar" style="width: 42%;"></div>
+
+          <div
+            class="progress-bar"
+            style="width: 42%;">
+          </div>
+
         </div>
 
         <div class="course-bottom">
-          <span class="assignments">1 upcoming assignment</span>
-          <a href="course.html?code=ENGLISH2367" class="view-btn">
-    View Course
-</a>
+
+          <span class="assignments">
+            1 upcoming assignment
+          </span>
+
+          <a
+            href="course.html?code=ENGLISH2367"
+            class="view-btn">
+            View Course
+          </a>
+
         </div>
+
       </div>
 
 
       <!-- HISTORY -->
+
       <div class="course-card">
+
         <div class="course-top">
-          <div class="course-icon">🏛️</div>
-          <div class="course-code">History 1112</div>
+
+          <div class="course-icon">
+            🏛️
+          </div>
+
+          <div class="course-code">
+            History 1112
+          </div>
+
         </div>
 
-        <h2>European History</h2>
-        <p class="description">European History Since 1648.</p>
+        <h2>
+          European History
+        </h2>
+
+        <p class="description">
+          European History Since 1648.
+        </p>
 
         <div class="progress-label">
-          <span>Course progress</span>
-          <span>28%</span>
+
+          <span>
+            Course progress
+          </span>
+
+          <span>
+            28%
+          </span>
+
         </div>
 
         <div class="progress">
-          <div class="progress-bar" style="width: 28%;"></div>
+
+          <div
+            class="progress-bar"
+            style="width: 28%;">
+          </div>
+
         </div>
 
         <div class="course-bottom">
-          <span class="assignments">1 upcoming assignment</span>
-          <a href="course.html?code=HISTORY1112" class="view-btn">View Course</a>
+
+          <span class="assignments">
+            1 upcoming assignment
+          </span>
+
+          <a
+            href="course.html?code=HISTORY1112"
+            class="view-btn">
+            View Course
+          </a>
+
         </div>
+
       </div>
 
 
-      <!-- LAUNCH -->
+      <!-- GE LAUNCH -->
+
       <div class="course-card">
+
         <div class="course-top">
-          <div class="course-icon">🎓</div>
-          <div class="course-code">GE Launch</div>
+
+          <div class="course-icon">
+            🎓
+          </div>
+
+          <div class="course-code">
+            GE Launch
+          </div>
+
         </div>
 
-        <h2>GE Launch Seminar</h2>
-        <p class="description">College success and student development.</p>
+        <h2>
+          GE Launch Seminar
+        </h2>
+
+        <p class="description">
+          College success and student development.
+        </p>
 
         <div class="progress-label">
-          <span>Course progress</span>
-          <span>55%</span>
+
+          <span>
+            Course progress
+          </span>
+
+          <span>
+            55%
+          </span>
+
         </div>
 
         <div class="progress">
-          <div class="progress-bar" style="width: 55%;"></div>
+
+          <div
+            class="progress-bar"
+            style="width: 55%;">
+          </div>
+
         </div>
 
         <div class="course-bottom">
-          <span class="assignments">1 upcoming activity</span>
-          <a href="course.html?code=GELAUNCH" class="view-btn">View Course</a>
+
+          <span class="assignments">
+            1 upcoming activity
+          </span>
+
+          <a
+            href="course.html?code=GELAUNCH"
+            class="view-btn">
+            View Course
+          </a>
+
         </div>
+
       </div>
 
     </section>
 
 
-    <!-- ADD COURSE -->
+    <!-- =========================
+         ADD COURSE
+    ========================= -->
 
-<div class="add-course" id="addCourseButton">
-    <span>+</span>
-    <strong>Add a new course</strong>
-    <p>Keep all of your classes organized in one place.</p>
-</div>
+    <div
+      class="add-course"
+      id="addCourseButton">
 
-<div class="add-course-form" id="addCourseForm">
+      <span>+</span>
 
-    <h2>Add a New Course</h2>
+      <strong>
+        Add a new course
+      </strong>
 
-    <div class="form-group">
-        <label for="courseName">Course Name</label>
-        <input type="text" id="courseName" placeholder="e.g. Marketing Principles">
+      <p>
+        Keep all of your classes organized in one place.
+      </p>
+
     </div>
 
-    <div class="form-group">
-        <label for="courseCode">Course Code</label>
-        <input type="text" id="courseCode" placeholder="e.g. MKT 301">
-    </div>
 
-    <div class="form-group">
-        <label for="professor">Professor</label>
-        <input type="text" id="professor" placeholder="e.g. Dr. Smith">
-    </div>
+    <div
+      class="add-course-form"
+      id="addCourseForm">
 
-    <div class="form-group">
-        <label for="courseDescription">Description</label>
-        <textarea id="courseDescription" placeholder="Brief description of the course"></textarea>
-    </div>
+      <h2>
+        Add a New Course
+      </h2>
 
-    <div class="form-group">
-        <label for="courseColor">Course Color</label>
+
+      <div class="form-group">
+
+        <label for="courseName">
+          Course Name
+        </label>
+
+        <input
+          type="text"
+          id="courseName"
+          placeholder="e.g. Marketing Principles">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="courseCode">
+          Course Code
+        </label>
+
+        <input
+          type="text"
+          id="courseCode"
+          placeholder="e.g. MKT 301">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="professor">
+          Professor
+        </label>
+
+        <input
+          type="text"
+          id="professor"
+          placeholder="e.g. Dr. Smith">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="courseDescription">
+          Description
+        </label>
+
+        <textarea
+          id="courseDescription"
+          placeholder="Brief description of the course">
+        </textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="courseColor">
+          Course Color
+        </label>
+
         <select id="courseColor">
-            <option value="#d8b7b0">Dusty Rose</option>
-            <option value="#b8c5b0">Sage Green</option>
-            <option value="#d8d0c4">Warm Beige</option>
-            <option value="#c8c0d8">Soft Lavender</option>
+
+          <option value="#d8b7b0">
+            Dusty Rose
+          </option>
+
+          <option value="#b8c5b0">
+            Sage Green
+          </option>
+
+          <option value="#d8d0c4">
+            Warm Beige
+          </option>
+
+          <option value="#c8c0d8">
+            Soft Lavender
+          </option>
+
         </select>
-    </div>
 
-    <div class="form-actions">
-        <button class="save-course" id="saveCourse">Add Course</button>
-        <button class="cancel-course" id="cancelCourse">Cancel</button>
-    </div>
+      </div>
 
-</div>
+
+      <div class="form-actions">
+
+        <button
+          class="save-course"
+          id="saveCourse">
+          Add Course
+        </button>
+
+        <button
+          class="cancel-course"
+          id="cancelCourse">
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
 
   </main>
 
-<script>
 
-const addCourseButton = document.getElementById("addCourseButton");
-const addCourseForm = document.getElementById("addCourseForm");
-const saveCourse = document.getElementById("saveCourse");
-const cancelCourse = document.getElementById("cancelCourse");
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
 
+  <script>
 
-// Open the form
-addCourseButton.addEventListener("click", function() {
-    addCourseForm.classList.add("show");
-    addCourseButton.style.display = "none";
-});
+    const addCourseButton =
+      document.getElementById("addCourseButton");
 
+    const addCourseForm =
+      document.getElementById("addCourseForm");
 
-// Cancel
-cancelCourse.addEventListener("click", function() {
-    addCourseForm.classList.remove("show");
-    addCourseButton.style.display = "flex";
-});
+    const saveCourse =
+      document.getElementById("saveCourse");
+
+    const cancelCourse =
+      document.getElementById("cancelCourse");
 
 
-// Save course
-saveCourse.addEventListener("click", function() {
+    // Open the form
 
-    const courseName = document.getElementById("courseName").value.trim();
-    const courseCode = document.getElementById("courseCode").value.trim();
-    const professor = document.getElementById("professor").value.trim();
-    const description = document.getElementById("courseDescription").value.trim();
-    const color = document.getElementById("courseColor").value;
+    addCourseButton.addEventListener(
+      "click",
+      function() {
 
-    if (!courseName || !courseCode) {
-        alert("Please enter a course name and course code.");
-        return;
-    }
+        addCourseForm.classList.add("show");
 
-    const course = {
-        name: courseName,
-        code: courseCode,
-        professor: professor,
-        description: description,
-        color: color
-    };
+        addCourseButton.style.display = "none";
 
-    let courses = JSON.parse(localStorage.getItem("classyCourses")) || [];
-
-    courses.push(course);
-
-    localStorage.setItem("classyCourses", JSON.stringify(courses));
-
-    addCourseCard(course);
-
-    document.getElementById("courseName").value = "";
-    document.getElementById("courseCode").value = "";
-    document.getElementById("professor").value = "";
-    document.getElementById("courseDescription").value = "";
-
-    addCourseForm.classList.remove("show");
-    addCourseButton.style.display = "flex";
-});
+      }
+    );
 
 
-// Create a course card
-function addCourseCard(course) {
+    // Cancel
 
-    const courseGrid = document.querySelector(".course-grid");
+    cancelCourse.addEventListener(
+      "click",
+      function() {
 
-    const card = document.createElement("div");
+        addCourseForm.classList.remove("show");
 
-    card.className = "course-card";
+        addCourseButton.style.display = "flex";
 
-    card.innerHTML = `
+      }
+    );
+
+
+    // Save course
+
+    saveCourse.addEventListener(
+      "click",
+      function() {
+
+        const courseName =
+          document
+            .getElementById("courseName")
+            .value
+            .trim();
+
+        const courseCode =
+          document
+            .getElementById("courseCode")
+            .value
+            .trim();
+
+        const professor =
+          document
+            .getElementById("professor")
+            .value
+            .trim();
+
+        const description =
+          document
+            .getElementById("courseDescription")
+            .value
+            .trim();
+
+        const color =
+          document
+            .getElementById("courseColor")
+            .value;
+
+
+        if (!courseName || !courseCode) {
+
+          alert(
+            "Please enter a course name and course code."
+          );
+
+          return;
+
+        }
+
+
+        const course = {
+
+          name: courseName,
+
+          code: courseCode,
+
+          professor: professor,
+
+          description: description,
+
+          color: color
+
+        };
+
+
+        let courses =
+          JSON.parse(
+            localStorage.getItem("classyCourses")
+          ) || [];
+
+
+        courses.push(course);
+
+
+        localStorage.setItem(
+          "classyCourses",
+          JSON.stringify(courses)
+        );
+
+
+        addCourseCard(course);
+
+
+        document.getElementById("courseName").value = "";
+
+        document.getElementById("courseCode").value = "";
+
+        document.getElementById("professor").value = "";
+
+        document.getElementById("courseDescription").value = "";
+
+
+        addCourseForm.classList.remove("show");
+
+        addCourseButton.style.display = "flex";
+
+      }
+    );
+
+
+    // Create a course card
+
+    function addCourseCard(course) {
+
+      const courseGrid =
+        document.querySelector(".course-grid");
+
+
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "course-card";
+
+
+      card.innerHTML = `
+
         <div class="course-top">
-            <div class="course-icon" style="background:${course.color};">
-                ${course.code.substring(0, 2).toUpperCase()}
-            </div>
 
-            <div class="course-code">
-                ${course.code}
-            </div>
+          <div
+            class="course-icon"
+            style="background:${course.color};">
+
+            ${course.code
+              .substring(0, 2)
+              .toUpperCase()}
+
+          </div>
+
+
+          <div class="course-code">
+
+            ${course.code}
+
+          </div>
+
         </div>
 
-        <h2>${course.name}</h2>
+
+        <h2>
+          ${course.name}
+        </h2>
+
 
         <p class="course-description">
-            ${course.description || "No description added yet."}
+
+          ${course.description ||
+            "No description added yet."}
+
         </p>
 
+
         <div class="progress-label">
-            <span>Course progress</span>
-            <span>0%</span>
+
+          <span>
+            Course progress
+          </span>
+
+          <span>
+            0%
+          </span>
+
         </div>
+
 
         <div class="progress">
-            <div class="progress-bar" style="width:0%;"></div>
+
+          <div
+            class="progress-bar"
+            style="width:0%;">
+          </div>
+
         </div>
+
 
         <div class="course-bottom">
-            <span class="assignments">
-                0 upcoming assignments
-            </span>
 
-            <a href="course.html?code=${course.code.replace(/\s+/g, '').toUpperCase()}" class="view-btn">
-    View Course
-</a>
+          <span class="assignments">
+            0 upcoming assignments
+          </span>
+
+
+          <a
+            href="course.html?code=${course.code
+              .replace(/\s+/g, "")
+              .toUpperCase()}"
+            class="view-btn">
+
+            View Course
+
+          </a>
+
         </div>
-    `;
 
-    courseGrid.appendChild(card);
-}
+      `;
 
 
-// Load saved courses when the page opens
-const savedCourses = JSON.parse(localStorage.getItem("classyCourses")) || [];
+      courseGrid.appendChild(card);
 
-savedCourses.forEach(function(course) {
-    addCourseCard(course);
-});
+    }
 
-</script>
 
-<script src="theme.js"></script>
+    // Load saved courses when the page opens
+
+    const savedCourses =
+      JSON.parse(
+        localStorage.getItem("classyCourses")
+      ) || [];
+
+
+    savedCourses.forEach(
+      function(course) {
+
+        addCourseCard(course);
+
+      }
+    );
+
+  </script>
+
+
+  <script src="theme.js"></script>
+
 </body>
 </html>
