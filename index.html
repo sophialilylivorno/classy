@@ -613,7 +613,72 @@ a {
     transform: translateY(-1px);
 }
 
+/* =========================
+   GPA OVERVIEW
+========================= */
 
+.gpa-panel {
+    padding: 24px;
+}
+
+.gpa-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.gpa-number {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    color: #4b403d;
+    line-height: 1;
+}
+
+.gpa-label {
+    font-size: 11px;
+    color: #938984;
+    margin-top: 7px;
+}
+
+.gpa-heart {
+    font-family: Georgia, serif;
+    font-size: 31px;
+    color: #c98787;
+}
+
+.gpa-divider {
+    height: 1px;
+    background: #eee6e1;
+    margin: 19px 0;
+}
+
+.semester-countdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.countdown-label {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    color: #5b504c;
+}
+
+.countdown-number {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    color: #c98787;
+    white-space: nowrap;
+}
+
+.countdown-text {
+    font-size: 10px;
+    color: #938984;
+    margin-left: -8px;
+    white-space: nowrap;
+}
 /* =========================
    SMALL DECOR
 ========================= */
@@ -1007,7 +1072,50 @@ a {
             <!-- =========================
                  AI HELP
             ========================= -->
+<!-- =========================
+     GPA OVERVIEW
+========================= -->
 
+<section class="panel gpa-panel">
+
+    <div class="panel-header">
+        <h2>GPA Overview</h2>
+    </div>
+
+    <div class="gpa-main">
+        <div>
+            <div class="gpa-number" id="gpaNumber">—</div>
+            <div class="gpa-label">current GPA</div>
+        </div>
+
+        <div class="gpa-heart">♡</div>
+    </div>
+
+    <div class="gpa-divider"></div>
+
+    <div class="semester-countdown">
+
+        <div class="countdown-label">
+            Semester countdown
+        </div>
+
+        <div
+            class="countdown-number"
+            id="countdownNumber"
+        >
+            —
+        </div>
+
+        <div
+            class="countdown-text"
+            id="countdownText"
+        >
+            days left
+        </div>
+
+    </div>
+
+</section>
             <section class="panel help-panel">
 
                 <div class="help-title">
@@ -1762,8 +1870,107 @@ function escapeHtml(value) {
 
 }
 
+/* =========================
+   GPA + SEMESTER COUNTDOWN
+========================= */
+
+/*
+   GPA:
+   Change this number whenever your GPA changes.
+*/
+const currentGPA = null;
 
 
+/*
+   SEMESTER END:
+   Change this date to the last day of your semester.
+
+   Format:
+   YYYY-MM-DD
+*/
+const semesterEndDate = "2026-12-13";
+
+
+function renderGPA() {
+
+    const gpaElement =
+        document.getElementById("gpaNumber");
+
+    if (!gpaElement) return;
+
+    if (
+        currentGPA !== null &&
+        currentGPA !== undefined
+    ) {
+
+        gpaElement.textContent =
+            Number(currentGPA).toFixed(2);
+
+    } else {
+
+        gpaElement.textContent = "—";
+
+    }
+
+}
+
+
+function renderSemesterCountdown() {
+
+    const numberElement =
+        document.getElementById(
+            "countdownNumber"
+        );
+
+    const textElement =
+        document.getElementById(
+            "countdownText"
+        );
+
+    if (!numberElement || !textElement)
+        return;
+
+
+    const today =
+        new Date();
+
+
+    const end =
+        new Date(
+            semesterEndDate + "T23:59:59"
+        );
+
+
+    const difference =
+        end.getTime() -
+        today.getTime();
+
+
+    const days =
+        Math.max(
+            0,
+            Math.ceil(
+                difference /
+                (1000 * 60 * 60 * 24)
+            )
+        );
+
+
+    numberElement.textContent =
+        days;
+
+
+    textElement.textContent =
+        days === 1
+            ? "day left"
+            : "days left";
+
+}
+
+
+renderGPA();
+
+renderSemesterCountdown();
 /* =========================
    GREETING
 ========================= */
